@@ -114,3 +114,7 @@
     flex-direction: column;
   }
 }
+
+.signin {
+  background-color: #fff !important;
+}

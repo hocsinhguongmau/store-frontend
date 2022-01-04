@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fragrance-dev-233010-authRole",
+      "UnauthRoleArn": "arn:aws:iam::653591375053:role/amplify-fragrance-dev-233010-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::653591375053:role/amplify-fragrance-dev-233010-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-fragrance-dev-233010-deployment",
+      "UnauthRoleName": "amplify-fragrance-dev-233010-unauthRole",
+      "StackName": "amplify-fragrance-dev-233010",
+      "StackId": "arn:aws:cloudformation:eu-north-1:653591375053:stack/amplify-fragrance-dev-233010/809cbdb0-6da5-11ec-a75d-0aadfb62e39e",
+      "AmplifyAppId": "d3goznjphkgleh"
+    },
+    "categories": {
+      "auth": {
+        "fragrance5461edee": {}
+      }
+    }
+  }
+}
