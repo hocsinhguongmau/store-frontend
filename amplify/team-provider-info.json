@@ -1,19 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-fragrance-dev-233010-authRole",
-      "UnauthRoleArn": "arn:aws:iam::653591375053:role/amplify-fragrance-dev-233010-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::653591375053:role/amplify-fragrance-dev-233010-authRole",
-      "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-fragrance-dev-233010-deployment",
-      "UnauthRoleName": "amplify-fragrance-dev-233010-unauthRole",
-      "StackName": "amplify-fragrance-dev-233010",
-      "StackId": "arn:aws:cloudformation:eu-north-1:653591375053:stack/amplify-fragrance-dev-233010/809cbdb0-6da5-11ec-a75d-0aadfb62e39e",
-      "AmplifyAppId": "d3goznjphkgleh"
+      "AuthRoleName": "amplify-fragrance-dev-215236-authRole",
+      "UnauthRoleArn": "arn:aws:iam::653591375053:role/amplify-fragrance-dev-215236-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::653591375053:role/amplify-fragrance-dev-215236-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-fragrance-dev-215236-deployment",
+      "UnauthRoleName": "amplify-fragrance-dev-215236-unauthRole",
+      "StackName": "amplify-fragrance-dev-215236",
+      "StackId": "arn:aws:cloudformation:us-east-1:653591375053:stack/amplify-fragrance-dev-215236/5e561a80-6ff3-11ec-9ea0-0a12735f5c69",
+      "AmplifyAppId": "d3xmwlg5x1i2"
     },
     "categories": {
       "auth": {
-        "fragrance5461edee": {}
+        "fragrance9db2ce21": {}
       }
     }
   }
