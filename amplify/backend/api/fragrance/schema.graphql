@@ -1,7 +1,17 @@
-type User @model {
-  id: ID!
-  email: String!
+type Address @model @auth(rules: [{ allow: owner }]) {
+  firstname: String
+  lastname: String
+  street: String
+  city: String
+  region: String
+  postcode: String
+  telephone: String
+}
+
+type Information @model @auth(rules: [{ allow: owner }]) {
   phone: String
-  shippingAddress: String
+  shippingAddress: Address
+  billingAddress: Address
   favItems: [String]
+  myOrder: [String]
 }

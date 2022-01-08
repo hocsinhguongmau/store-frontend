@@ -2,51 +2,189 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
+export const createAddress = /* GraphQL */ `
+  mutation CreateAddress(
+    $input: CreateAddressInput!
+    $condition: ModelAddressConditionInput
   ) {
-    createUser(input: $input, condition: $condition) {
+    createAddress(input: $input, condition: $condition) {
+      firstname
+      lastname
+      street
+      city
+      region
+      postcode
+      telephone
       id
-      email
-      phone
-      shippingAddress
-      favItems
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const updateUser = /* GraphQL */ `
-  mutation UpdateUser(
-    $input: UpdateUserInput!
-    $condition: ModelUserConditionInput
+export const updateAddress = /* GraphQL */ `
+  mutation UpdateAddress(
+    $input: UpdateAddressInput!
+    $condition: ModelAddressConditionInput
   ) {
-    updateUser(input: $input, condition: $condition) {
+    updateAddress(input: $input, condition: $condition) {
+      firstname
+      lastname
+      street
+      city
+      region
+      postcode
+      telephone
       id
-      email
-      phone
-      shippingAddress
-      favItems
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser(
-    $input: DeleteUserInput!
-    $condition: ModelUserConditionInput
+export const deleteAddress = /* GraphQL */ `
+  mutation DeleteAddress(
+    $input: DeleteAddressInput!
+    $condition: ModelAddressConditionInput
   ) {
-    deleteUser(input: $input, condition: $condition) {
+    deleteAddress(input: $input, condition: $condition) {
+      firstname
+      lastname
+      street
+      city
+      region
+      postcode
+      telephone
       id
-      email
-      phone
-      shippingAddress
-      favItems
       createdAt
       updatedAt
+      owner
+    }
+  }
+`;
+export const createInformation = /* GraphQL */ `
+  mutation CreateInformation(
+    $input: CreateInformationInput!
+    $condition: ModelInformationConditionInput
+  ) {
+    createInformation(input: $input, condition: $condition) {
+      phone
+      shippingAddress {
+        firstname
+        lastname
+        street
+        city
+        region
+        postcode
+        telephone
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      billingAddress {
+        firstname
+        lastname
+        street
+        city
+        region
+        postcode
+        telephone
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      favItems
+      myOrder
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateInformation = /* GraphQL */ `
+  mutation UpdateInformation(
+    $input: UpdateInformationInput!
+    $condition: ModelInformationConditionInput
+  ) {
+    updateInformation(input: $input, condition: $condition) {
+      phone
+      shippingAddress {
+        firstname
+        lastname
+        street
+        city
+        region
+        postcode
+        telephone
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      billingAddress {
+        firstname
+        lastname
+        street
+        city
+        region
+        postcode
+        telephone
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      favItems
+      myOrder
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteInformation = /* GraphQL */ `
+  mutation DeleteInformation(
+    $input: DeleteInformationInput!
+    $condition: ModelInformationConditionInput
+  ) {
+    deleteInformation(input: $input, condition: $condition) {
+      phone
+      shippingAddress {
+        firstname
+        lastname
+        street
+        city
+        region
+        postcode
+        telephone
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      billingAddress {
+        firstname
+        lastname
+        street
+        city
+        region
+        postcode
+        telephone
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      favItems
+      myOrder
+      id
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;
