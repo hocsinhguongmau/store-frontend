@@ -9,9 +9,8 @@ export const getAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -31,9 +30,8 @@ export const listAddresses = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -46,15 +44,13 @@ export const listAddresses = /* GraphQL */ `
 export const getInformation = /* GraphQL */ `
   query GetInformation($id: ID!) {
     getInformation(id: $id) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -65,9 +61,8 @@ export const getInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -90,15 +85,13 @@ export const listInformation = /* GraphQL */ `
   ) {
     listInformation(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        phone
         shippingAddress {
           firstname
           lastname
           street
           city
-          region
           postcode
-          telephone
+          phone
           id
           createdAt
           updatedAt
@@ -109,9 +102,8 @@ export const listInformation = /* GraphQL */ `
           lastname
           street
           city
-          region
           postcode
-          telephone
+          phone
           id
           createdAt
           updatedAt

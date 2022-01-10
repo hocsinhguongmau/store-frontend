@@ -12,9 +12,8 @@ export const createAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -32,9 +31,8 @@ export const updateAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -52,9 +50,8 @@ export const deleteAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -68,15 +65,13 @@ export const createInformation = /* GraphQL */ `
     $condition: ModelInformationConditionInput
   ) {
     createInformation(input: $input, condition: $condition) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -87,9 +82,8 @@ export const createInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -110,15 +104,13 @@ export const updateInformation = /* GraphQL */ `
     $condition: ModelInformationConditionInput
   ) {
     updateInformation(input: $input, condition: $condition) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -129,9 +121,8 @@ export const updateInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -152,15 +143,13 @@ export const deleteInformation = /* GraphQL */ `
     $condition: ModelInformationConditionInput
   ) {
     deleteInformation(input: $input, condition: $condition) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -171,9 +160,8 @@ export const deleteInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt

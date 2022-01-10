@@ -16,9 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@lib/*": ["src/lib/*"],
+      "@lib/*": ["/src/lib/*"],
       "@pages/*": ["pages/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@graphql/*": ["src/graphql/*"]
     },
     "incremental": true
   },

@@ -1,25 +1,41 @@
+import React, { useState, useEffect } from 'react'
 import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { useForm, SubmitHandler } from 'react-hook-form'
-
-type Inputs = {
-  firstName: string
-  lastName: string
-  street: string
-  city: string
-  region: string
-  postCode: string
-  telephone: string
+import { listInformation } from '@graphql/queries'
+import { API, Auth } from 'aws-amplify'
+import { createInformation } from '@graphql/mutations'
+interface IProfile {
+  given_name: string
+  family_name: string
+  address: string
+  zoneinfo: string
+  phone_number: string
 }
 
 function Profile() {
+  const [information, setInformation] = useState<IProfile>()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>()
+  } = useForm<IProfile>()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  async function updateUser(data: IProfile) {
+    const user = await Auth.currentAuthenticatedUser()
+    await Auth.updateUserAttributes(user, {
+      given_name: data.given_name,
+      family_name: data.family_name,
+      address: data.address,
+      zoneinfo: data.zoneinfo,
+      phone_number: data.phone_number,
+    })
+  }
+
+  const onSubmit: SubmitHandler<IProfile> = async (data: IProfile) => {
+    updateUser(data)
+  }
 
   return (
     <Authenticator>
@@ -28,32 +44,44 @@ function Profile() {
           <h1>Hello {user.attributes.email}</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <p>
-              <label htmlFor='firstName'>First name</label>
-              <input {...register('firstName', { required: true })} />
+              <label htmlFor='given_name'>First name</label>
+              <input
+                id='given_name'
+                defaultValue={user.attributes.given_name}
+                {...register('given_name', { required: true })}
+              />
             </p>
             <p>
-              <label htmlFor='lastName'>Last name</label>
-              <input {...register('lastName', { required: true })} />
+              <label htmlFor='family_name'>Last name</label>
+              <input
+                id='family_name'
+                defaultValue={user.attributes.family_name}
+                {...register('family_name', { required: true })}
+              />
             </p>
             <p>
-              <label htmlFor='street'>Street</label>
-              <input {...register('street', { required: true })} />
+              <label htmlFor='address'>Street</label>
+              <input
+                id='address'
+                defaultValue={user.attributes.address}
+                {...register('address', { required: true })}
+              />
             </p>
             <p>
-              <label htmlFor='city'>City</label>
-              <input {...register('city', { required: true })} />
+              <label htmlFor='zoneinfo'>Postal code</label>
+              <input
+                id='zoneinfo'
+                defaultValue={user.attributes.zoneinfo}
+                {...register('zoneinfo', { required: true })}
+              />
             </p>
             <p>
-              <label htmlFor='region'>Region</label>
-              <input {...register('region', { required: true })} />
-            </p>
-            <p>
-              <label htmlFor='postCode'>Postal code</label>
-              <input {...register('postCode', { required: true })} />
-            </p>
-            <p>
-              <label htmlFor='telephone'>Phone</label>
-              <input {...register('telephone', { required: true })} />
+              <label htmlFor='phone_number'>Phone</label>
+              <input
+                id='phone_number'
+                defaultValue={user.attributes.phone_number}
+                {...register('phone_number', { required: true })}
+              />
             </p>
             <button type='submit'>Submit</button>
           </form>

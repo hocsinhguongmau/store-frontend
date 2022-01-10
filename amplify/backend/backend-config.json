@@ -27,28 +27,5 @@
       }
     }
   },
-  "api": {
-    "fragrance": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authfragrance9db2ce21"
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
+  "api": {}
 }

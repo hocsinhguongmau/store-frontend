@@ -9,9 +9,8 @@ export const onCreateAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -26,9 +25,8 @@ export const onUpdateAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -43,9 +41,8 @@ export const onDeleteAddress = /* GraphQL */ `
       lastname
       street
       city
-      region
       postcode
-      telephone
+      phone
       id
       createdAt
       updatedAt
@@ -56,15 +53,13 @@ export const onDeleteAddress = /* GraphQL */ `
 export const onCreateInformation = /* GraphQL */ `
   subscription OnCreateInformation($owner: String) {
     onCreateInformation(owner: $owner) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -75,9 +70,8 @@ export const onCreateInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -95,15 +89,13 @@ export const onCreateInformation = /* GraphQL */ `
 export const onUpdateInformation = /* GraphQL */ `
   subscription OnUpdateInformation($owner: String) {
     onUpdateInformation(owner: $owner) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -114,9 +106,8 @@ export const onUpdateInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -134,15 +125,13 @@ export const onUpdateInformation = /* GraphQL */ `
 export const onDeleteInformation = /* GraphQL */ `
   subscription OnDeleteInformation($owner: String) {
     onDeleteInformation(owner: $owner) {
-      phone
       shippingAddress {
         firstname
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
@@ -153,9 +142,8 @@ export const onDeleteInformation = /* GraphQL */ `
         lastname
         street
         city
-        region
         postcode
-        telephone
+        phone
         id
         createdAt
         updatedAt
