@@ -1,15 +1,22 @@
 import React, { ReactElement } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BsSearch, BsPersonCircle } from 'react-icons/bs'
+import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 export default function Header(): ReactElement {
   return (
-    <header>
-      <div className='container flex flex-row mx-auto'>
+    <header className='py-6'>
+      <div className='container flex flex-row justify-between'>
         <div className=''>
-          <Image src='/images/logo.png' width={162} height={50} />
+          <Link href='/'>
+            <a>
+              <Image src='/images/logo.png' width={162} height={50} />
+            </a>
+          </Link>
         </div>
-        <ul>
+        <ul className='flex flex-row gap-10 items-center'>
           <li>
             <Link href='/'>
               <a>Home</a>
@@ -46,6 +53,15 @@ export default function Header(): ReactElement {
             </Link>
           </li>
         </ul>
+        <div className='flex flex-row items-center gap-2'>
+          <BsSearch />
+          {/* not logged in */}
+          <BiLogIn />
+          {/* logged in */}
+          {/* <BsPersonCircle />
+          <AiOutlineShoppingCart />
+          <BiLogOut /> */}
+        </div>
       </div>
     </header>
   )
