@@ -10,7 +10,18 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    ({ addComponents, theme }) => {
+      addComponents({
+        '.container': {
+          center: true,
+          '@screen xl': {
+            maxWidth: '1200px',
+          },
+        },
+      })
+    },
+  ],
   theme: {
     container: {
       center: true,

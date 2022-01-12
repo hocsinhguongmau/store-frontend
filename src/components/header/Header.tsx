@@ -56,7 +56,11 @@ export default function Header(): ReactElement {
         <div className='flex flex-row items-center gap-2'>
           <BsSearch />
           {/* not logged in */}
-          <BiLogIn />
+          <Link href='/profile'>
+            <a>
+              <BiLogIn />
+            </a>
+          </Link>
           {/* logged in */}
           {/* <BsPersonCircle />
           <AiOutlineShoppingCart />
