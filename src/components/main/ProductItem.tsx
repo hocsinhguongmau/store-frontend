@@ -10,7 +10,7 @@ interface Props {}
 
 const ProductItem = (props: Props) => {
   return (
-    <div className='product-item'>
+    <div className='product-item mt-4'>
       <div className='text-center relative'>
         <button className='absolute top-0 right-0 z-10 product-item__button'>
           <AiOutlineHeart className='hover:text-red-500' />

@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Footer(): ReactElement {
   return (
-    <footer className='py-6 mt-12 lg:mt-24 bg-black text-gray-300'>
+    <footer className='py-6 mt-12 lg:mt-24 bg-black text-gray-300 text-center md:text-left'>
       <div className='container'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
           <div>

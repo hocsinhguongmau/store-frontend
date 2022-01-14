@@ -6,72 +6,153 @@ type StarProps = {
 }
 
 const Star = ({ rating }: StarProps) => (
-  <span className='star inline-block bg-repeat-x bg-left-top'>
+  <span className='star inline-block bg-repeat-x bg-left align-top mt-0.5'>
     <span
-      className='rating inline-block bg-repeat-x bg-left-top'
+      className='rating inline-block bg-repeat-x bg-left'
       style={{ width: rating * 12 + 'px' }}></span>
   </span>
 )
 
 const LeftNav = () => {
   return (
-    <div>
-      <h3 className='font-bold'>Scents</h3>
+    <div className='left-nav pr-8'>
+      <h3 className='font-bold text-lg pb-2'>Scents</h3>
       <ul>
-        <li>
+        <li className='mt-1'>
           <Link href=''>
             <a>Women's fragrances</a>
           </Link>
         </li>
-        <li>
+        <li className='mt-1'>
           <Link href=''>
             <a>Men's fragrances</a>
           </Link>
         </li>
-        <li>
+        <li className='mt-1'>
           <Link href=''>
             <a>Unisex's fragrances</a>
           </Link>
         </li>
       </ul>
-      <h3 className='font-bold'>Price range</h3>
-      <div>
-        <input type='number' placeholder='0&euro;' /> until
-        <input type='number' placeholder='100&euro;' />
+      <h3 className='font-bold text-lg pb-2 mt-2'>Price</h3>
+      <div className='flex leading-8 text-sm text-gray-400'>
+        <label
+          htmlFor='min-price'
+          className='flex border-2 border-solid border-gray-300 rounded-sm  px-2'>
+          <input
+            type='number'
+            id='min-price'
+            className='w-14 text-right border-none outline-none text-sm'
+            placeholder='0'
+          />
+          <span>&euro;</span>
+        </label>
+        <span className='px-4 text-gray-800'>to</span>
+        <label
+          htmlFor='max-price'
+          className='flex border-2 border-solid border-gray-300 rounded-sm px-2'>
+          <input
+            type='number'
+            id='max-price'
+            className='w-14 text-right border-none outline-none text-sm'
+            placeholder='100'
+          />
+          <span>&euro;</span>
+        </label>
       </div>
-      <h3 className='font-bold'>Brand</h3>
-      <input type='text' placeholder='Start writing to filter brands' />
-      <div className='max-h-72 overflow-auto'>
+      <h3 className='font-bold text-lg pb-2 mt-2'>Brand</h3>
+      <input
+        type='text'
+        className='text-sm border-2 border-solid border-gray-300 w-full p-2'
+        placeholder='Filter brands'
+      />
+      <div className='max-h-72 overflow-auto mt-4'>
         <ul>
-          <li className='text-xs mt-4'>
+          <li className='text-xs mb-4'>
             <Link href=''>
               <a>
                 Chanel <span className='text-gray-500'>124</span>
               </a>
             </Link>
           </li>
-          <li className='text-xs mt-4'>
+          <li className='text-xs mb-4'>
             <Link href=''>
               <a>
                 Chanel <span className='text-gray-500'>124</span>
               </a>
             </Link>
           </li>
-          <li className='text-xs mt-4'>
+          <li className='text-xs mb-4'>
             <Link href=''>
               <a>
                 Chanel <span className='text-gray-500'>124</span>
               </a>
             </Link>
           </li>
-          <li className='text-xs mt-4'>
+          <li className='text-xs mb-4'>
             <Link href=''>
               <a>
                 Chanel <span className='text-gray-500'>124</span>
               </a>
             </Link>
           </li>
-          <li className='text-xs mt-4'>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
+            <Link href=''>
+              <a>
+                Chanel <span className='text-gray-500'>124</span>
+              </a>
+            </Link>
+          </li>
+          <li className='text-xs mb-4'>
             <Link href=''>
               <a>
                 Chanel <span className='text-gray-500'>124</span>
@@ -80,41 +161,51 @@ const LeftNav = () => {
           </li>
         </ul>
       </div>
-      <h3 className='font-bold'>Reviews</h3>
+      <h3 className='font-bold text-lg pb-2 mt-2'>Reviews</h3>
       <ul>
         <li className='mt-2 text-xs'>
-          <input type='checkbox' id='rating-5' />
-          <label htmlFor='rating-5'>
+          <input type='checkbox' id='rating-5' className='w-4 h-4 mr-2' />
+          <label htmlFor='rating-5' className=''>
             <Star rating={5} />
-            <span className='text-gray-500'>124</span>
+            <span className='text-gray-500 align-top leading-5 inline-block ml-2'>
+              124
+            </span>
           </label>
         </li>
         <li className='mt-2 text-xs'>
-          <input type='checkbox' id='rating-4' />
-          <label htmlFor='rating-4'>
+          <input type='checkbox' id='rating-5' className='w-4 h-4 mr-2' />
+          <label htmlFor='rating-5' className=''>
             <Star rating={4} />
-            <span className='text-gray-500'>124</span>
+            <span className='text-gray-500 align-top leading-5 inline-block ml-2'>
+              124
+            </span>
           </label>
         </li>
         <li className='mt-2 text-xs'>
-          <input type='checkbox' id='rating-3' />
-          <label htmlFor='rating-3'>
+          <input type='checkbox' id='rating-5' className='w-4 h-4 mr-2' />
+          <label htmlFor='rating-5' className=''>
             <Star rating={3} />
-            <span className='text-gray-500'>124</span>
+            <span className='text-gray-500 align-top leading-5 inline-block ml-2'>
+              124
+            </span>
           </label>
         </li>
         <li className='mt-2 text-xs'>
-          <input type='checkbox' id='rating-2' />
-          <label htmlFor='rating-2'>
+          <input type='checkbox' id='rating-5' className='w-4 h-4 mr-2' />
+          <label htmlFor='rating-5' className=''>
             <Star rating={2} />
-            <span className='text-gray-500'>124</span>
+            <span className='text-gray-500 align-top leading-5 inline-block ml-2'>
+              124
+            </span>
           </label>
         </li>
         <li className='mt-2 text-xs'>
-          <input type='checkbox' id='rating-1' />
-          <label htmlFor='rating-1'>
+          <input type='checkbox' id='rating-5' className='w-4 h-4 mr-2' />
+          <label htmlFor='rating-5' className=''>
             <Star rating={1} />
-            <span className='text-gray-500'>124</span>
+            <span className='text-gray-500 align-top leading-5 inline-block ml-2'>
+              124
+            </span>
           </label>
         </li>
       </ul>
