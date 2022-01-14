@@ -10,9 +10,9 @@ interface Props {}
 
 const ProductItem = (props: Props) => {
   return (
-    <div>
+    <div className='product-item'>
       <div className='text-center relative'>
-        <button className='absolute top-0 right-0 z-10'>
+        <button className='absolute top-0 right-0 z-10 product-item__button'>
           <AiOutlineHeart className='hover:text-red-500' />
           <AiFillHeart className='text-red-500 hidden' />
         </button>
@@ -27,7 +27,7 @@ const ProductItem = (props: Props) => {
           Sale
         </span>
       </div>
-      <div className='text-center'>
+      <div className='text-center leading-6'>
         <h3 className='mt-2'>
           <Link href=''>
             <a>Montblanc</a>

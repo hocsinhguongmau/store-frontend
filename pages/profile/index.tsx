@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react'
+import React, { useState } from 'react'
+import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { listInformation } from '@graphql/queries'
-import { API, Auth } from 'aws-amplify'
-import { createInformation } from '@graphql/mutations'
+import { Auth } from 'aws-amplify'
+import Link from 'next/link'
+import Image from 'next/image'
 interface IProfile {
   given_name: string
   family_name: string
@@ -14,8 +14,6 @@ interface IProfile {
 }
 
 function Profile() {
-  const [information, setInformation] = useState<IProfile>()
-
   const {
     register,
     handleSubmit,
@@ -38,7 +36,7 @@ function Profile() {
   }
 
   return (
-    <Authenticator>
+    <Authenticator variation='default' className='py-24'>
       {({ signOut, user }: any) => (
         <main>
           <h1>Hello {user.attributes.email}</h1>
@@ -91,4 +89,4 @@ function Profile() {
     </Authenticator>
   )
 }
-export default withAuthenticator(Profile)
+export default Profile

@@ -4,19 +4,11 @@ import Link from 'next/link'
 
 export default function Footer(): ReactElement {
   return (
-    <footer className='py-6'>
+    <footer className='py-6 mt-12 lg:mt-24 bg-black text-gray-300'>
       <div className='container'>
-        <div className='grid grid-cols-4 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
           <div>
-            <Link href='/'>
-              <a>
-                <Image src='/images/logo.png' width={162} height={50} />
-              </a>
-            </Link>
-            <div className='mt-2'>&copy; copyright</div>
-          </div>
-          <div>
-            <h3 className='font-bold text-2xl'>Fragrances</h3>
+            <h3 className='font-bold text-2xl text-white'>Fragrances</h3>
             <ul>
               <li className='mt-2'>
                 <Link href='/'>
@@ -41,7 +33,7 @@ export default function Footer(): ReactElement {
             </ul>
           </div>
           <div>
-            <h3 className='font-bold text-2xl'>Brands</h3>
+            <h3 className='font-bold text-2xl text-white'>Brands</h3>
             <ul>
               <li className='mt-2'>
                 <Link href='/'>
@@ -56,7 +48,7 @@ export default function Footer(): ReactElement {
             </ul>
           </div>
           <div>
-            <h3 className='font-bold text-2xl'>About</h3>
+            <h3 className='font-bold text-2xl text-white'>About</h3>
             <ul>
               <li className='mt-2'>
                 <Link href='/'>
@@ -71,6 +63,21 @@ export default function Footer(): ReactElement {
               <li className='mt-2'>
                 <Link href='/'>
                   <a>Contact us</a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className='font-bold text-2xl text-white'>Services</h3>
+            <ul>
+              <li className='mt-2'>
+                <Link href='/'>
+                  <a>Free ship</a>
+                </Link>
+              </li>
+              <li className='mt-2'>
+                <Link href='/'>
+                  <a>90 days return</a>
                 </Link>
               </li>
             </ul>

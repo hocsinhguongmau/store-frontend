@@ -21,15 +21,100 @@ body {
 h1 {
   @apply text-3xl font-bold underline;
 }
-.slick-slider {
-  line-height: 0;
-  .slick-arrow {
-    z-index: 10;
-    &.slick-prev {
-      left: 0;
+
+@layer utilities {
+  .product-item {
+    &__button {
+      @apply hidden;
     }
-    &.slick-next {
-      right: 0;
+    &:hover {
+      .product-item__button {
+        @apply block;
+      }
+    }
+  }
+}
+
+@layer components {
+  .button {
+    @apply border-red-500 border-2 border-solid text-sm py-1 leading-7 px-4 rounded-md hover:bg-red-500 hover:text-white transition-colors duration-200;
+  }
+  .star {
+    width: 60px;
+    height: 12px;
+    background-image: url('/images/star.svg');
+    .rating {
+      background-image: url('/images/star-active.svg');
+      height: 12px;
+    }
+  }
+  .breadcrumbs {
+    &__list {
+      li {
+        @apply inline-block mr-3 font-bold capitalize;
+        &::after {
+          content: '>';
+          @apply inline-block h-3 w-3 text-center align-top mt-0.5 ml-2;
+        }
+        &.breadcrumbs__item--active {
+          @apply font-normal text-gray-500;
+          &::after {
+            @apply hidden;
+          }
+        }
+      }
+    }
+  }
+  .pagination {
+    ul {
+      @apply flex mt-10 md:mt-20 justify-center;
+      li {
+        a {
+          @apply inline-block  px-2 md:px-3 py-2  text-sm transition-all duration-300;
+
+          &:hover {
+            @apply bg-gray-200;
+          }
+        }
+        &.active {
+          a {
+            @apply bg-red-500;
+          }
+        }
+      }
+    }
+  }
+  .slick-slider {
+    line-height: 0;
+    .slick-arrow {
+      &::before {
+        color: #000;
+      }
+      z-index: 10;
+      width: 36px;
+      height: 36px;
+      &:before {
+        font-size: 36px;
+      }
+      &.slick-prev {
+        @apply left-0;
+      }
+      &.slick-next {
+        @apply right-0;
+      }
+    }
+    &.banner {
+      .slick-arrow {
+        &::before {
+          color: #fff;
+        }
+        &.slick-prev {
+          @apply left-2 lg:left-8;
+        }
+        &.slick-next {
+          @apply right-2 lg:right-8;
+        }
+      }
     }
   }
 }

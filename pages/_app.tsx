@@ -2,11 +2,13 @@ import { useState } from 'react'
 import type { AppProps } from 'next/app'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import Amplify, { Auth } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
-
 Amplify.configure({ ...config, ssr: true })
 import NextNProgress from 'nextjs-progressbar'
+
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 import '@styles/globals.scss'
 import Layout from '@components/Layout'

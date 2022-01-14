@@ -1,4 +1,5 @@
 import React from 'react'
+import Slider from 'react-slick'
 import ProductItem from './ProductItem'
 
 type Props = {
@@ -6,19 +7,44 @@ type Props = {
 }
 
 const ListProducts = ({ title }: Props) => {
+  const settings = {
+    arrows: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  }
   return (
     <div className='container'>
-      <h2 className='text-3xl text-center mt-10 pb-10'>{title}</h2>
-      <div className='grid grid-cols-4 gap-10'>
+      <h2 className='text-3xl text-center mt-14 pb-10 tracking-tight'>
+        {title}
+      </h2>
+      <Slider {...settings}>
         <ProductItem />
         <ProductItem />
         <ProductItem />
         <ProductItem />
-      </div>
+        <ProductItem />
+        <ProductItem />
+        <ProductItem />
+        <ProductItem />
+      </Slider>
       <div className='text-center'>
-        <button className='bg-red-500 text-white uppercase px-4 py-2 mt-10'>
-          View more
-        </button>
+        <button className='button uppercase mt-14'>View more</button>
       </div>
     </div>
   )

@@ -11,8 +11,8 @@ const Home = () => {
       </Head>
       <Banner />
       <ListProducts title='Weekly offer' />
-      <ListProducts title='Weekly offer' />
-      <ListProducts title='Weekly offer' />
+      <ListProducts title='New products' />
+      <ListProducts title='Best selling' />
     </div>
   )
 }

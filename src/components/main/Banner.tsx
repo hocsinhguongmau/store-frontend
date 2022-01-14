@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import Slider from 'react-slick'
-
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
 import Image from 'next/image'
 
 const Banner = () => {
-  var settings = {
+  const settings = {
     arrows: true,
     infinite: true,
     speed: 500,
@@ -16,7 +12,7 @@ const Banner = () => {
   }
 
   return (
-    <Slider {...settings}>
+    <Slider {...settings} className='banner'>
       <div className='bg-black text-center'>
         <Image
           width={1035}
