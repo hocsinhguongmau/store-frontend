@@ -3,11 +3,11 @@ import Footer from '@components/footer/Footer'
 
 const Layout: React.FC = ({ children }) => {
   return (
-    <>
+    <div className='main'>
       <Header />
       {children}
       <Footer />
-    </>
+    </div>
   )
 }
 

@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { Auth } from 'aws-amplify'
 import Link from 'next/link'
 import Image from 'next/image'
+
 interface IProfile {
   given_name: string
   family_name: string
@@ -36,7 +37,7 @@ function Profile() {
   }
 
   return (
-    <Authenticator variation='default' className='py-24'>
+    <Authenticator variation='default' className=''>
       {({ signOut, user }: any) => (
         <main>
           <h1>Hello {user.attributes.email}</h1>

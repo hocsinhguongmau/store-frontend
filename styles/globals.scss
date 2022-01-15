@@ -129,3 +129,7 @@ h1 {
     }
   }
 }
+
+.main {
+  @apply flex flex-col justify-between min-h-screen;
+}

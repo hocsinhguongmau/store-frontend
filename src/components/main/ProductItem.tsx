@@ -5,6 +5,7 @@ import Link from 'next/link'
 import StarRatings from 'react-star-ratings'
 
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import Star from './Star'
 
 interface Props {}
 
@@ -39,13 +40,7 @@ const ProductItem = (props: Props) => {
           </Link>
         </h3>
         <p className='text-xs mt-1 mb-2'>Eau de Parfum for Men</p>
-        <StarRatings
-          rating={3}
-          starDimension='15px'
-          starSpacing='0'
-          starRatedColor='black'
-          name='rating'
-        />
+        <Star rating={3} />
         <p className='font-bold mt-2'>44.10&euro;</p>
       </div>
     </div>
