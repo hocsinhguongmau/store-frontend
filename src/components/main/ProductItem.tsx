@@ -17,7 +17,7 @@ const ProductItem = (props: Props) => {
           <AiOutlineHeart className='hover:text-red-500' />
           <AiFillHeart className='text-red-500 hidden' />
         </button>
-        <Link href=''>
+        <Link href='/'>
           <a>
             <Image src='/images/item.jpeg' height={160} width={89} />
           </a>
@@ -30,12 +30,12 @@ const ProductItem = (props: Props) => {
       </div>
       <div className='text-center leading-6'>
         <h3 className='mt-2'>
-          <Link href=''>
+          <Link href='/'>
             <a>Montblanc</a>
           </Link>
         </h3>
         <h3 className='font-bold mt-1'>
-          <Link href=''>
+          <Link href='/'>
             <a>Explorer</a>
           </Link>
         </h3>

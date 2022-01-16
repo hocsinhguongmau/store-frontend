@@ -1,19 +1,14 @@
 import LeftNav from '@components/main/LeftNav'
 import Link from 'next/link'
 import React from 'react'
-import Breadcrumbs from 'nextjs-breadcrumbs'
 import ProductItem from '@components/main/ProductItem'
 import Pagination from '@components/main/Pagination'
+import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 
 const Shop = () => {
   return (
     <div className='container mt-10'>
-      <Breadcrumbs
-        containerClassName='breadcrumbs'
-        listClassName='breadcrumbs__list'
-        activeItemClassName='breadcrumbs__item--active'
-        replaceCharacterList={[{ from: '.', to: ' ' }]}
-      />
+      <BreadcrumbsComponent />
       <h1 className='text-3xl font-bold no-underline mt-4'>Perfume</h1>
       <div className='lg:flex mt-4'>
         <div className='lg:h-screen lg:sticky lg:top-0'>
