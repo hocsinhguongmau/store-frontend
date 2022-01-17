@@ -133,3 +133,19 @@ h1 {
 .main {
   @apply flex flex-col justify-between min-h-screen;
 }
+
+.content {
+  @apply text-sm;
+  p {
+    @apply mt-2;
+  }
+  ul {
+    @apply mt-2;
+    li {
+      @apply list-inside list-disc;
+    }
+  }
+  h4 {
+    @apply font-bold text-lg mt-2 leading-6;
+  }
+}
