@@ -29,35 +29,47 @@ const ProductDetail = () => {
 
   return (
     <div className='container'>
-      <div className='flex flex-row'>
-        <div className='w-2/5 text-center'>
-          <Image
-            src='/images/product-item-1.jpeg'
-            height={400}
-            width={200}
-            // layout='responsive'
-          />
+      <div className='md:hidden'>
+        <BreadcrumbsComponent />
+      </div>
+      <div className='md:hidden'>
+        <h2 className='mt-4 text-xl'>
+          <Link href='/'>
+            <a>Montblanc</a>
+          </Link>
+        </h2>
+        <h1 className='no-underline text-3xl mt-4 font-bold'>
+          <Link href='/'>
+            <a>Legend</a>
+          </Link>
+        </h1>
+      </div>
+      <div className='md:flex flex-row'>
+        <div className='md:w-2/5 mt-6 md:mt-0 text-center'>
+          <Image src='/images/product-item-1.jpeg' height={400} width={200} />
         </div>
-        <div className='w-3/5'>
-          <BreadcrumbsComponent />
-          <h2 className='mt-4 text-lg'>
-            <Link href='/'>
-              <a>Montblanc</a>
-            </Link>
-          </h2>
-          <h1 className='no-underline text-2xl font-bold'>
-            <Link href='/'>
-              <a>Legend</a>
-            </Link>
-          </h1>
-          <h2 className=' text-lg mb-2 mt-2'>
-            <Link href='/'>
-              <a>Eau de Parfum Miehille</a>
-            </Link>
-          </h2>
-          <Star rating={3} />
+        <div className='md:w-3/5'>
+          <div className='hidden md:block'>
+            <BreadcrumbsComponent />
+            <h2 className='mt-4 text-lg'>
+              <Link href='/'>
+                <a>Montblanc</a>
+              </Link>
+            </h2>
+            <h1 className='no-underline text-2xl font-bold'>
+              <Link href='/'>
+                <a>Legend</a>
+              </Link>
+            </h1>
+            <h2 className=' text-lg mb-2 mt-2'>
+              <Link href='/'>
+                <a>Eau de Parfum Miehille</a>
+              </Link>
+            </h2>
+            <Star rating={3} />
+          </div>
           <p>
-            <span className='py-1 px-2 bg-red-500 text-white uppercase text-xs mt-2 inline-block'>
+            <span className='py-1 px-2 bg-red-500 text-white uppercase md:text-xs mt-2 inline-block'>
               Sale
             </span>
           </p>
@@ -68,7 +80,7 @@ const ProductDetail = () => {
           <hr />
           <p className='mt-6 flex flex-row gap-1'>
             <Link href='#100'>
-              <a className='relative inline-block pl-3 py-1.5 pr-8 border border-solid border-gray-400'>
+              <a className='relative inline-block pl-3 py-1.5 md:pr-8 border border-solid border-gray-400 w-1/3 md:w-auto'>
                 <span className='text-sm'>100ml</span>
                 <br />
                 <span className='font-bold text-sm'>95,00&euro;</span>
@@ -81,7 +93,14 @@ const ProductDetail = () => {
               </a>
             </Link>
             <Link href='#50'>
-              <a className='relative inline-block pl-3 py-1.5 pr-8 border border-solid border-gray-100 bg-gray-100 hover:bg-gray-200'>
+              <a className='relative inline-block pl-3 py-1.5 md:pr-8 border border-solid border-gray-100 bg-gray-100 hover:bg-gray-200 w-1/3 md:w-auto'>
+                <span className='text-sm'>50ml</span>
+                <br />
+                <span className='font-bold text-sm'>95,00&euro;</span>
+              </a>
+            </Link>
+            <Link href='#50'>
+              <a className='relative inline-block pl-3 py-1.5 md:pr-8 border border-solid border-gray-100 bg-gray-100 hover:bg-gray-200 w-1/3 md:w-auto'>
                 <span className='text-sm'>50ml</span>
                 <br />
                 <span className='font-bold text-sm'>95,00&euro;</span>
@@ -126,9 +145,12 @@ const ProductDetail = () => {
             Review
           </button>
         </p>
-        <div className={`${swap ? 'flex' : 'hidden'}  flex-row mt-8 gap-8`}>
-          <div className='content w-3/4'>
-            <h3 className='text-3xl tracking-tight mb-6'>
+        <div
+          className={`${
+            swap ? 'block md:flex' : 'hidden'
+          }  flex-row mt-4 md:mt-8 gap-8`}>
+          <div className='content md:w-3/4'>
+            <h3 className='text-lg md:text-3xl tracking-tight mb-2 md:mb-6'>
               <span className='font-bold'>Description</span> Montblanc Legend
             </h3>
             <p>
@@ -153,8 +175,8 @@ const ProductDetail = () => {
               packaging.
             </p>
           </div>
-          <div className='w-1/4 text-sm'>
-            <h3 className='text-3xl tracking-tight mb-6'>
+          <div className='md:w-1/4 text-sm mt-6 md:mt-0'>
+            <h3 className='text-xl md:text-3xl tracking-tight mb-6'>
               <span className='font-bold'>Ingredients</span>
             </h3>
             <h4 className='font-bold mt-2'>Top notes</h4>
@@ -165,9 +187,9 @@ const ProductDetail = () => {
             <p className='mt-2'>Violet, Violet, Violet</p>
           </div>
         </div>
-        <div className={`${swap ? 'hidden' : 'block'} mt-8`}>
+        <div className={`${swap ? 'hidden' : 'block'} mt-4 md:mt-8`}>
           <form onSubmit={handleSubmitReview}>
-            <h3 className='text-3xl tracking-tight mb-6'>
+            <h3 className='text-xl md:text-3xl tracking-tight mb-2 md:mb-6'>
               <span className='font-bold'>Review</span> Mancera Cedrat Boise
             </h3>
             <p>
@@ -189,10 +211,45 @@ const ProductDetail = () => {
               </button>
             </p>
           </form>
+          <div className='mt-8 pt-2 border-t border-solid border-gray-400'>
+            <div className='mt-4'>
+              <p className='text-sm'>
+                Laadukas ja komea pullo, kestävä ja voimakas tuoksu, mutta liian
+                pistävä makuuni.
+              </p>
+              <p className='flex flex-row mt-2 text-xs leading-4'>
+                <Star rating={2} />
+                <span className='font-bold mr-2 ml-4'>Markus</span>
+                January 10, 2022
+              </p>
+            </div>
+            <div className='mt-4'>
+              <p className='text-sm'>
+                Laadukas ja komea pullo, kestävä ja voimakas tuoksu, mutta liian
+                pistävä makuuni.
+              </p>
+              <p className='flex flex-row mt-2 text-xs leading-4'>
+                <Star rating={2} />
+                <span className='font-bold mr-2 ml-4'>Markus</span>
+                January 10, 2022
+              </p>
+            </div>
+            <div className='mt-4'>
+              <p className='text-sm'>
+                Laadukas ja komea pullo, kestävä ja voimakas tuoksu, mutta liian
+                pistävä makuuni.
+              </p>
+              <p className='flex flex-row mt-2 text-xs leading-4'>
+                <Star rating={2} />
+                <span className='font-bold mr-2 ml-4'>Markus</span>
+                January 10, 2022
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <h2 className='text-2xl font-bold mt-8'>Related products</h2>
-      <div className='grid grid-cols-4 gap-4 mt-8'>
+      <h2 className='text-xl md:text-2xl font-bold mt-8'>Related products</h2>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8'>
         <ProductItem />
         <ProductItem />
         <ProductItem />
