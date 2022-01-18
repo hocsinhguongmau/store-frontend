@@ -15,7 +15,7 @@ const ProductItem = ({ button = false }) => {
           <AiOutlineHeart className='hover:text-red-500' />
           <AiFillHeart className='text-red-500 hidden' />
         </button>
-        <Link href='/'>
+        <Link href='/dior/sauvage'>
           <a>
             <Image src='/images/item.jpeg' height={160} width={89} />
           </a>
@@ -28,12 +28,12 @@ const ProductItem = ({ button = false }) => {
       </div>
       <div className='text-center leading-6'>
         <h3 className='mt-2'>
-          <Link href='/'>
+          <Link href='/dior'>
             <a>Montblanc</a>
           </Link>
         </h3>
         <h3 className='font-bold mt-1'>
-          <Link href='/'>
+          <Link href='/dior/sauvage'>
             <a>Explorer</a>
           </Link>
         </h3>

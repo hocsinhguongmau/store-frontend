@@ -12,22 +12,27 @@ const NavigationDesktop = (props: Props) => {
         </Link>
       </li>
       <li>
-        <Link href='/'>
+        <Link href='/shop'>
           <a>Shop</a>
         </Link>
       </li>
       <li>
-        <Link href='/'>
+        <Link href='/shop?sales=sales'>
+          <a>Sales</a>
+        </Link>
+      </li>
+      <li>
+        <Link href='/shop?gender=women'>
           <a>Women</a>
         </Link>
       </li>
       <li>
-        <Link href='/'>
+        <Link href='/shop?gender=men'>
           <a>Men</a>
         </Link>
       </li>
       <li>
-        <Link href='/'>
+        <Link href='/shop?gender=unisex'>
           <a>Unisex</a>
         </Link>
       </li>
