@@ -5,7 +5,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { Auth } from 'aws-amplify'
 import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
-import ProductDetail from '@pages/[brand_slug]/[product_slug]'
 import ProductItem from '@components/main/ProductItem'
 
 interface IProfile {
