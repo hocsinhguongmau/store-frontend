@@ -7,9 +7,7 @@ import StarRatings from 'react-star-ratings'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import Star from './Star'
 
-interface Props {}
-
-const ProductItem = (props: Props) => {
+const ProductItem = ({ button = false }) => {
   return (
     <div className='product-item mt-4'>
       <div className='text-center relative'>
@@ -42,6 +40,7 @@ const ProductItem = (props: Props) => {
         <p className='text-xs mt-1 mb-2'>Eau de Parfum for Men</p>
         <Star rating={3} />
         <p className='font-bold mt-2'>44.10&euro;</p>
+        {button ? <button className='button mt-4'>Add to cart</button> : null}
       </div>
     </div>
   )
