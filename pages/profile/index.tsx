@@ -3,7 +3,7 @@ import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Auth } from 'aws-amplify'
-// import { toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
 import ProductItem from '@components/main/ProductItem'
 
@@ -66,11 +66,11 @@ function Profile() {
         address: data.address,
         zoneinfo: data.zoneinfo,
       })
-      // toast.success('Information updated')
+      toast.success('Information updated')
       setButtonDisabled(true)
     } catch (error: any) {
       console.log(error?.message)
-      // toast.error(error?.message)
+      toast.error(error?.message)
     }
   }
 

@@ -6,7 +6,7 @@ import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 Amplify.configure({ ...config, ssr: true })
 import NextNProgress from 'nextjs-progressbar'
-// import { ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -42,12 +42,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <Component {...pageProps} />
       </Layout>
-      {/* <ToastContainer
+      <ToastContainer
         position='bottom-right'
         hideProgressBar={true}
         autoClose={3000}
         closeOnClick
-      /> */}
+      />
     </QueryClientProvider>
   )
 }
