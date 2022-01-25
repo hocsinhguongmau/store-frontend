@@ -55,6 +55,11 @@ const NavigationDesktop = (props: Props) => {
               <a>Unisex</a>
             </Link>
           </li>
+          <li>
+            <Link href='/brand'>
+              <a>Brand</a>
+            </Link>
+          </li>
           <li className='text-xl py-2'>
             <Link href='/'>
               <a>About us</a>

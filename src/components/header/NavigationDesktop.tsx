@@ -5,7 +5,7 @@ interface Props {}
 
 const NavigationDesktop = (props: Props) => {
   return (
-    <ul className='flex-row gap-10 items-center hidden lg:flex'>
+    <ul className='flex-row gap-5 items-center hidden lg:flex'>
       <li>
         <Link href='/'>
           <a>Home</a>
@@ -34,6 +34,11 @@ const NavigationDesktop = (props: Props) => {
       <li>
         <Link href='/shop?gender=unisex'>
           <a>Unisex</a>
+        </Link>
+      </li>
+      <li>
+        <Link href='/brand'>
+          <a>Brand</a>
         </Link>
       </li>
       <li>

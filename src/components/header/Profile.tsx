@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { BsSearch, BsPersonCircle } from 'react-icons/bs'
 import { BiLogIn, BiLogOut } from 'react-icons/bi'
 import { AiOutlineShoppingCart, AiOutlineCloseCircle } from 'react-icons/ai'
+import Image from 'next/image'
+import Language from './Language'
 
 const Profile = () => {
   const [searchActive, setSearchActive] = useState<boolean>(false)
@@ -13,6 +15,7 @@ const Profile = () => {
   return (
     <div className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'>
       <div className='relative z-10 mt-1'>
+        <Language />
         <button onClick={() => setSearchActive(!searchActive)}>
           {searchActive ? <AiOutlineCloseCircle /> : <BsSearch />}
         </button>
@@ -34,14 +37,17 @@ const Profile = () => {
       </div>
       {/* not logged in */}
       <Link href='/profile'>
-        <a>
+        <a className='text-2xl mt-1'>
           <BiLogIn />
         </a>
       </Link>
       {/* logged in */}
       {/* <BsPersonCircle />
+      <a className='text-2xl mt-1'>
           <AiOutlineShoppingCart />
-          <BiLogOut /> */}
+          </a>
+          <a className='text-2xl mt-1'>
+          <BiLogOut /></a> */}
     </div>
   )
 }

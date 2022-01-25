@@ -11,9 +11,9 @@ export default function Header(): ReactElement {
     <header className='py-6 w-full z-50 bg-white'>
       <div className='container flex flex-row justify-between'>
         <NavigationMobile />
-        <div className=''>
+        <div className='w-32'>
           <Link href='/'>
-            <a>
+            <a className=''>
               <Image src='/images/logo.png' width={162} height={50} />
             </a>
           </Link>

@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, UseFormRegister } from 'react-hook-form'
 import { Auth } from 'aws-amplify'
 import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
 import ProductItem from '@components/main/ProductItem'
+import { CognitoUserAmplify } from '@aws-amplify/ui'
 
-interface IProfile {
-  given_name: string
-  family_name: string
-  address: string
-  zoneinfo: string
-  phone_number: string
+type Input = {
+  value: string | undefined
+  register: UseFormRegister<IProfile>
+  handleChange: () => void
+  name: InputNameType
+  label: string
+  errors: any
+  errorMessage: string
+  type: string
 }
 
 const Input = ({
@@ -24,31 +28,33 @@ const Input = ({
   errors,
   errorMessage,
   type,
-}: any) => (
-  <div>
-    <label htmlFor={name}>
-      {label}
-      <span className='text-red-500 text-lg'>*</span>
-    </label>
-    <br />
-    <input
-      className='outline-none border border-solid border-gray-400 p-2 w-full mt-2'
-      id={name}
-      defaultValue={value}
-      type={type}
-      {...register(name, {
-        required: true,
-        onChange: () => handleChange(),
-      })}
-    />
-    <ErrorMessage
-      errors={errors}
-      name={name}
-      message={errorMessage}
-      render={({ message }) => <p className='mt-2 text-red-500'>{message}</p>}
-    />
-  </div>
-)
+}: Input) => {
+  return (
+    <div>
+      <label htmlFor={name}>
+        {label}
+        <span className='text-red-500 text-lg'>*</span>
+      </label>
+      <br />
+      <input
+        className='outline-none border border-solid border-gray-400 p-2 w-full mt-2'
+        id={name}
+        defaultValue={value}
+        type={type}
+        {...register(name, {
+          required: true,
+          onChange: () => handleChange(),
+        })}
+      />
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        message={errorMessage}
+        render={({ message }) => <p className='mt-2 text-red-500'>{message}</p>}
+      />
+    </div>
+  )
+}
 
 function Profile() {
   const {
@@ -68,9 +74,11 @@ function Profile() {
       })
       toast.success('Information updated')
       setButtonDisabled(true)
-    } catch (error: any) {
-      console.log(error?.message)
-      toast.error(error?.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(error.message)
+        toast.error(error.message)
+      }
     }
   }
 
@@ -88,14 +96,39 @@ function Profile() {
 
   const [tab, setTab] = useState<TabType>('contact')
 
+  interface MyCognitoUserAmplify extends CognitoUserAmplify {
+    attributes?: IProfile
+  }
+
+  type AmplifyType = {
+    signOut: () => void
+    user: MyCognitoUserAmplify
+  }
+
+  useEffect(() => {
+    try {
+      Auth.currentAuthenticatedUser({
+        bypassCache: false, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+      })
+        .then((user) => {
+          console.log(`Load additional settings for user: ${user.username}`)
+        })
+        .catch((err) => console.log(err))
+    } catch (e) {
+      console.log(e)
+    } finally {
+      console.log('done')
+    }
+  }, [])
+
   return (
     <Authenticator variation='default' className=''>
-      {({ signOut, user }: any) => (
+      {({ signOut, user }: AmplifyType) => (
         <div className='container'>
           <div>
             <div className='md:flex flex-row justify-between'>
               <h1 className='no-underline text-sm md:text-2xl break-words'>
-                {user.attributes.email}
+                {user?.attributes?.email}
               </h1>
               <button className='text-sm md:text-lg' onClick={signOut}>
                 Sign out
@@ -131,7 +164,7 @@ function Profile() {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm mt-4'>
                   <Input
-                    value={user.attributes.given_name}
+                    value={user?.attributes?.given_name}
                     register={register}
                     handleChange={handleChange}
                     label='First name'
@@ -141,7 +174,7 @@ function Profile() {
                     type='text'
                   />
                   <Input
-                    value={user.attributes.family_name}
+                    value={user?.attributes?.family_name}
                     register={register}
                     handleChange={handleChange}
                     label='Last name'
@@ -151,7 +184,7 @@ function Profile() {
                     type='text'
                   />
                   <Input
-                    value={user.attributes.address}
+                    value={user?.attributes?.address}
                     register={register}
                     handleChange={handleChange}
                     label='Address'
@@ -161,7 +194,7 @@ function Profile() {
                     type='text'
                   />
                   <Input
-                    value={user.attributes.zoneinfo}
+                    value={user?.attributes?.zoneinfo}
                     register={register}
                     handleChange={handleChange}
                     label='Postal code'

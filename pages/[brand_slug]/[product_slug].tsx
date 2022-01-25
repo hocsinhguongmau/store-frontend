@@ -192,7 +192,7 @@ const ProductDetail = () => {
             <h3 className='text-xl md:text-3xl tracking-tight mb-2 md:mb-6'>
               <span className='font-bold'>Review</span> Mancera Cedrat Boise
             </h3>
-            <p>
+            <div>
               <StarRatings
                 starRatedColor='#EB4849'
                 changeRating={handleChangeRating}
@@ -201,7 +201,7 @@ const ProductDetail = () => {
                 starSpacing='0'
                 starDimension='20px'
               />
-            </p>
+            </div>
             <textarea
               className='resize-none w-full h-32 outline-none border border-solid border-gray-400 mt-6 p-2 text-sm'
               placeholder='Write your review'></textarea>
