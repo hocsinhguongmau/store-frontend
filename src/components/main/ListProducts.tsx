@@ -1,12 +1,14 @@
+import Link from 'next/link'
 import React from 'react'
 import Slider from 'react-slick'
 import ProductItem from './ProductItem'
 
 type Props = {
   title: string
+  href: string
 }
 
-const ListProducts = ({ title }: Props) => {
+const ListProducts = ({ title, href }: Props) => {
   const settings = {
     arrows: true,
     infinite: false,
@@ -44,7 +46,9 @@ const ListProducts = ({ title }: Props) => {
         <ProductItem />
       </Slider>
       <div className='text-center'>
-        <button className='button uppercase mt-14'>View more</button>
+        <Link href={href}>
+          <a className='button uppercase mt-14 inline-block'>View more</a>
+        </Link>
       </div>
     </div>
   )

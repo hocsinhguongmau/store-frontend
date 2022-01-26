@@ -12,7 +12,7 @@ const Banner = () => {
   }
 
   return (
-    <Slider {...settings} className='banner'>
+    <Slider {...settings} className='banner -mt-6 lg:-mt-12'>
       <div className='bg-black text-center'>
         <Image
           width={1035}

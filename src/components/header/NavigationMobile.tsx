@@ -36,7 +36,7 @@ const NavigationDesktop = (props: Props) => {
             </Link>
           </li>
           <li className='text-xl py-2'>
-            <Link href='/shop?sales=sales'>
+            <Link href='/shop?discount=true'>
               <a>Sales</a>
             </Link>
           </li>

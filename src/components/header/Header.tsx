@@ -8,7 +8,7 @@ import NavigationMobile from '@components/header/NavigationMobile'
 
 export default function Header(): ReactElement {
   return (
-    <header className='py-6 w-full z-50 bg-white'>
+    <header className='py-6 w-full z-50 shadow mb-6 lg:mb-12'>
       <div className='container flex flex-row justify-between'>
         <NavigationMobile />
         <div className='w-32'>

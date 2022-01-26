@@ -1,54 +1,52 @@
 import Link from 'next/link'
 import React from 'react'
 
-interface Props {}
-
-const NavigationDesktop = (props: Props) => {
+const NavigationDesktop = () => {
   return (
     <ul className='flex-row gap-5 items-center hidden lg:flex'>
       <li>
         <Link href='/'>
-          <a>Home</a>
+          <a className='hover:text-red-500'>Home</a>
         </Link>
       </li>
       <li>
         <Link href='/shop'>
-          <a>Shop</a>
+          <a className='hover:text-red-500'>Shop</a>
         </Link>
       </li>
       <li>
-        <Link href='/shop?sales=sales'>
-          <a>Sales</a>
+        <Link href='/shop?discount=true'>
+          <a className='hover:text-red-500'>Sales</a>
         </Link>
       </li>
       <li>
         <Link href='/shop?gender=women'>
-          <a>Women</a>
+          <a className='hover:text-red-500'>Women</a>
         </Link>
       </li>
       <li>
         <Link href='/shop?gender=men'>
-          <a>Men</a>
+          <a className='hover:text-red-500'>Men</a>
         </Link>
       </li>
       <li>
         <Link href='/shop?gender=unisex'>
-          <a>Unisex</a>
+          <a className='hover:text-red-500'>Unisex</a>
         </Link>
       </li>
       <li>
         <Link href='/brand'>
-          <a>Brand</a>
+          <a className='hover:text-red-500'>Brand</a>
         </Link>
       </li>
       <li>
         <Link href='/'>
-          <a>About us</a>
+          <a className='hover:text-red-500'>About us</a>
         </Link>
       </li>
       <li>
         <Link href='/'>
-          <a>Contact us</a>
+          <a className='hover:text-red-500'>Contact us</a>
         </Link>
       </li>
     </ul>

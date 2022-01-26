@@ -1,7 +1,6 @@
 import Banner from '@components/main/Banner'
 import ListProducts from '@components/main/ListProducts'
 import Head from 'next/head'
-import Link from 'next/link'
 
 const Home = () => {
   return (
@@ -10,9 +9,9 @@ const Home = () => {
         <title>Odour</title>
       </Head>
       <Banner />
-      <ListProducts title='Weekly offer' />
-      <ListProducts title='New products' />
-      <ListProducts title='Best selling' />
+      <ListProducts title='Weekly offer' href='/shop?discount=true' />
+      <ListProducts title='New products' href='/shop?order=date' />
+      <ListProducts title='Best selling' href='/shop?order=sale' />
     </div>
   )
 }
