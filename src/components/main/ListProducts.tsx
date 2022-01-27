@@ -6,9 +6,10 @@ import ProductItem from './ProductItem'
 type Props = {
   title: string
   href: string
+  products: ProductType[]
 }
 
-const ListProducts = ({ title, href }: Props) => {
+const ListProducts = ({ title, href, products }: Props) => {
   const settings = {
     arrows: true,
     infinite: false,
@@ -36,14 +37,9 @@ const ListProducts = ({ title, href }: Props) => {
         {title}
       </h2>
       <Slider {...settings}>
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
+        {products.map((product) => (
+          <ProductItem product={product} key={product.id} />
+        ))}
       </Slider>
       <div className='text-center'>
         <Link href={href}>

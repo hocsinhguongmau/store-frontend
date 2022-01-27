@@ -53,6 +53,8 @@ type ProductType = {
   title: string
   slug: string
   sold: number
+  discount: boolean
+  blurb: LocaleStringType
   vendor: {
     title: string
     slug: string
@@ -96,4 +98,12 @@ type ProductDetailType = {
   defaultProductVariant: ProductVariant
   variants: ProductVariant[]
   comments: CommentType[]
+}
+
+type mainPageProductsType = {
+  mainProducts: {
+    new_products: ProductType[]
+    weekly_offer: ProductType[]
+    best_selling: ProductType[]
+  }
 }

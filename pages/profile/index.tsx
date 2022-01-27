@@ -115,9 +115,9 @@ function Profile() {
     },
   }
 
-  const handleSignOut = async (signOut: any) => {
+  const handleSignOut = async (signOut: () => void) => {
     try {
-      await signOut()
+      signOut()
       await Auth.currentCredentials()
       clearProfile()
     } catch (error) {
@@ -228,14 +228,14 @@ function Profile() {
               <div>
                 <h2 className='text-xl mt-8 font-bold'>Favorite</h2>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
+                  {/* <ProductItem button={true} />
                   <ProductItem button={true} />
                   <ProductItem button={true} />
                   <ProductItem button={true} />
                   <ProductItem button={true} />
                   <ProductItem button={true} />
                   <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} />
+                  <ProductItem button={true} /> */}
                 </div>
               </div>
             ) : null}

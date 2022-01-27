@@ -29,16 +29,26 @@ const Brand = (props: AllBrandsType) => {
       </div>
     )
   }
+
+  type GroupType = {
+    slug: string
+    title: string
+  }
+
   if (!data) {
-    return <div>co cc ne</div>
+    return (
+      <div className='container text-center text-2xl font-bold'>
+        No brand found!
+      </div>
+    )
   } else {
-    const brands = data.brands.reduce((r: any, e: any) => {
+    const brands = data.brands.reduce((r: any, e: GroupType) => {
+      console.log(e)
       let group = e.title[0]
       if (!r[group]) r[group] = { group, children: [e] }
       else r[group].children.push(e)
       return r
     }, {})
-
     const result = Object.values(brands)
     return (
       <div className='container'>
@@ -53,7 +63,7 @@ const Brand = (props: AllBrandsType) => {
               key={alphabet.group}>
               <h2 className='text-2xl mt-8 text-center'>{alphabet.group}</h2>
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8'>
-                {alphabet.children.map((brand: any) => (
+                {alphabet.children.map((brand: GroupType) => (
                   <Link href={`/${brand.slug}`} key={brand.title}>
                     <a>
                       <span className='text-sm'>{brand.title}</span>
