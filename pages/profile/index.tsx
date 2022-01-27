@@ -8,6 +8,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import ProductItem from '@components/main/ProductItem'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
 import useProfileStore from '@lib/store/profileStore'
+
 const Input = ({
   value,
   register,
@@ -63,6 +64,7 @@ function Profile() {
         address: data.address,
         zoneinfo: data.zoneinfo,
       })
+      setProfile(user)
       toast.success('Information updated')
       setButtonDisabled(true)
     } catch (error: unknown) {
@@ -96,14 +98,16 @@ function Profile() {
     user: MyCognitoUserAmplify
   }
   const services = {
-    async handleSignIn(formData: any) {
+    async handleSignIn(formData: { username: string; password: string }) {
       let { username, password } = formData
       try {
         const user = await Auth.signIn({
           username,
           password,
         })
-        setProfile(user.username)
+        const profile = await Auth.currentUserInfo()
+        console.log(profile.attributes)
+        setProfile(profile.attributes)
         return user
       } catch (error) {
         console.log(error)
@@ -129,9 +133,7 @@ function Profile() {
             <div>
               <div className='md:flex flex-row justify-between'>
                 <h1 className='no-underline text-sm md:text-2xl break-words'>
-                  {user?.attributes?.given_name
-                    ? user.attributes.given_name
-                    : user?.attributes?.email}
+                  {user?.attributes?.email}
                 </h1>
                 <button
                   className='text-sm md:text-lg'

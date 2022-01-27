@@ -16,14 +16,6 @@ const Profile = () => {
     setSearchActive(false)
   }
 
-  async function signOut() {
-    try {
-      await Auth.signOut()
-    } catch (error) {
-      console.log('error signing out: ', error)
-    }
-  }
-
   return (
     <div className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'>
       <div className='relative z-10 mt-1'>
@@ -47,11 +39,11 @@ const Profile = () => {
           </form>
         </div>
       </div>
-      {profile ? (
+      {profile.email ? (
         <>
           <Link href='/profile'>
-            <a className=' mt-1'>
-              <BsPersonCircle />
+            <a className='text-sm overflow-hidden w-36 overflow-ellipsis mt-1'>
+              {profile.email}
             </a>
           </Link>
           <Link href='/cart'>
@@ -59,14 +51,11 @@ const Profile = () => {
               <AiOutlineShoppingCart />
             </a>
           </Link>
-          <button className='text-2xl mt-1' onClick={signOut}>
-            <BiLogOut />
-          </button>
         </>
       ) : (
         <Link href='/profile'>
           <a className='text-2xl mt-1'>
-            <BiLogIn />
+            <BsPersonCircle />
           </a>
         </Link>
       )}
