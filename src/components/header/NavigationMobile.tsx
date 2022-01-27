@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoCloseSharp } from 'react-icons/io5'
+import Profile from './Profile'
 
 interface Props {}
 
@@ -40,7 +41,7 @@ const NavigationDesktop = (props: Props) => {
               <a>Sales</a>
             </Link>
           </li>
-          <li className='text-xl py-2'>
+          {/* <li className='text-xl py-2'>
             <Link href='/shop?gender=women'>
               <a>Women</a>
             </Link>
@@ -54,8 +55,8 @@ const NavigationDesktop = (props: Props) => {
             <Link href='/shop?gender=unisex'>
               <a>Unisex</a>
             </Link>
-          </li>
-          <li>
+          </li> */}
+          <li className='text-xl py-2'>
             <Link href='/brand'>
               <a>Brand</a>
             </Link>
@@ -71,6 +72,7 @@ const NavigationDesktop = (props: Props) => {
             </Link>
           </li>
         </ul>
+        <Profile />
       </div>
     </div>
   )

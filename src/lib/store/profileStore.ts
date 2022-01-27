@@ -1,26 +1,25 @@
+import { CognitoUserAmplify } from '@aws-amplify/ui'
 import create from 'zustand'
 
-const languageObj: Languages[] = [
-  {
-    value: 'en',
-    label: '🇬🇧',
-  },
-  { value: 'fi', label: '🇫🇮' },
-  { value: 'sw', label: '🇸🇪' },
-]
+type ProfileType = {}
 
-const languages: LanguageType[] = ['en', 'fi', 'sw']
-const defaultLanguage: LanguageType = languages[0]
-
-type LanguageState = {
-  languageObj: Languages[]
-  language: LanguageType
-  setLanguage: (lang: LanguageType) => void
+type ProfileState = {
+  profile: string
+  setProfile: (user: any) => void
+  clearProfile: () => void
 }
-const useProfileStore = create<LanguageState>((set) => ({
-  languageObj: languageObj,
-  language: defaultLanguage,
-  setLanguage: (lang) => set(() => ({ language: lang })),
+const useProfileStore = create<ProfileState>((set) => ({
+  profile: '',
+  setProfile: async (user) => {
+    set({ profile: await user })
+  },
+  clearProfile: () => set({ profile: '' }),
+  magicLogout: (signOut: any) => signOut(),
 }))
+
+// const useProfileStore = create<ProfileState>((set) => ({
+//   profile: {},
+//   setProfile: (user) => set(() => ({ profile: user })),
+// }))
 
 export default useProfileStore

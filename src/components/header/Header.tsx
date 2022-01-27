@@ -19,7 +19,9 @@ export default function Header(): ReactElement {
           </Link>
         </div>
         <NavigationDesktop />
-        <Profile />
+        <div className='hidden md:block'>
+          <Profile />
+        </div>
       </div>
     </header>
   )

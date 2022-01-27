@@ -3,10 +3,12 @@ import type { AppProps } from 'next/app'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import Amplify from 'aws-amplify'
-import config from '../src/aws-exports'
+import config from '@src/aws-exports'
 Amplify.configure({ ...config, ssr: true })
 import NextNProgress from 'nextjs-progressbar'
 import { ToastContainer } from 'react-toastify'
+
+import { I18n } from 'aws-amplify'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -15,8 +17,34 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import '@styles/globals.scss'
 import Layout from '@components/Layout'
+import useLanguageStore from '@src/lib/store/languageStore'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const language = useLanguageStore((state) => state.language)
+  I18n.setLanguage(language)
+  const dict = {
+    fi: {
+      'Sign In': 'Kirjaudu Sisään',
+      'Sign in': 'Kirjaudu sisään',
+      'Create Account': 'Luo tili',
+      Email: 'Sähköposti',
+      Password: 'Salasana',
+      'Confirm Password': 'Vahvista salasana',
+      'Forgot your password?': 'Unohditko salasanasi?',
+    },
+    sw: {
+      'Sign In': 'Logga In',
+      'Sign in': 'Logga in',
+      'Create Account': 'Skapa konto',
+      Email: 'E-post',
+      Password: 'Lösenord',
+      'Confirm Password': 'Bekräfta lösenord',
+      'Forgot your password?': 'Glömt ditt lösenord?',
+    },
+  }
+
+  I18n.putVocabularies(dict)
+
   const [queryClient] = useState(
     () =>
       new QueryClient({

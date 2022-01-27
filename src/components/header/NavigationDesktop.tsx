@@ -16,10 +16,10 @@ const NavigationDesktop = () => {
       </li>
       <li>
         <Link href='/shop?discount=true'>
-          <a className='hover:text-red-500'>Sales</a>
+          <a className='text-red-600 hover:text-red-500'>Sales</a>
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link href='/shop?gender=women'>
           <a className='hover:text-red-500'>Women</a>
         </Link>
@@ -33,7 +33,7 @@ const NavigationDesktop = () => {
         <Link href='/shop?gender=unisex'>
           <a className='hover:text-red-500'>Unisex</a>
         </Link>
-      </li>
+      </li> */}
       <li>
         <Link href='/brand'>
           <a className='hover:text-red-500'>Brand</a>

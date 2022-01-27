@@ -32,7 +32,6 @@ const Brand = (props: AllBrandsType) => {
   if (!data) {
     return <div>co cc ne</div>
   } else {
-    console.log(data)
     const brands = data.brands.reduce((r: any, e: any) => {
       let group = e.title[0]
       if (!r[group]) r[group] = { group, children: [e] }
@@ -55,7 +54,7 @@ const Brand = (props: AllBrandsType) => {
               <h2 className='text-2xl mt-8 text-center'>{alphabet.group}</h2>
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8'>
                 {alphabet.children.map((brand: any) => (
-                  <Link href={brand.slug} key={brand.title}>
+                  <Link href={`/${brand.slug}`} key={brand.title}>
                     <a>
                       <span className='text-sm'>{brand.title}</span>
                     </a>

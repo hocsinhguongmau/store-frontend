@@ -7,8 +7,7 @@ import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
 import ProductItem from '@components/main/ProductItem'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
-import Breadcrumbs from '@components/main/Breadcrumbs'
-
+import useProfileStore from '@lib/store/profileStore'
 const Input = ({
   value,
   register,
@@ -47,6 +46,8 @@ const Input = ({
 }
 
 function Profile() {
+  const setProfile = useProfileStore((state) => state.setProfile)
+  const clearProfile = useProfileStore((state) => state.clearProfile)
   const {
     register,
     handleSubmit,
@@ -94,26 +95,35 @@ function Profile() {
     signOut: () => void
     user: MyCognitoUserAmplify
   }
-
-  useEffect(() => {
-    try {
-      Auth.currentAuthenticatedUser({
-        bypassCache: false, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-      })
-        .then((user) => {
-          console.log(`Load additional settings for user: ${user.username}`)
+  const services = {
+    async handleSignIn(formData: any) {
+      let { username, password } = formData
+      try {
+        const user = await Auth.signIn({
+          username,
+          password,
         })
-        .catch((err) => console.log(err))
-    } catch (e) {
-      console.log(e)
-    } finally {
-      console.log('done')
+        setProfile(user.username)
+        return user
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  }
+
+  const handleSignOut = async (signOut: any) => {
+    try {
+      await signOut()
+      await Auth.currentCredentials()
+      clearProfile()
+    } catch (error) {
+      console.log(error)
     }
-  }, [])
+  }
 
   return (
     <div className='flex-grow py-10 flex flex-row justify-center'>
-      <Authenticator variation='default'>
+      <Authenticator variation='default' services={services}>
         {({ signOut, user }: AmplifyType) => (
           <div className='container'>
             <div>
@@ -123,7 +133,9 @@ function Profile() {
                     ? user.attributes.given_name
                     : user?.attributes?.email}
                 </h1>
-                <button className='text-sm md:text-lg' onClick={signOut}>
+                <button
+                  className='text-sm md:text-lg'
+                  onClick={() => handleSignOut(signOut)}>
                   Sign out
                 </button>
               </div>

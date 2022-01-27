@@ -12,12 +12,12 @@ type InputNameType =
   | 'email'
 
 interface IProfile {
-  given_name: string
-  family_name: string
-  address: string
-  zoneinfo: string
-  phone_number: string
-  email: string
+  given_name?: string
+  family_name?: string
+  address?: string
+  zoneinfo?: string
+  phone_number?: string
+  email?: string
 }
 type InputType = {
   value: string | undefined
