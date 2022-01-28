@@ -83,6 +83,8 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
         </div>
       </div>
     )
+  } else {
+    return <div>Loading...</div>
   }
 }
 

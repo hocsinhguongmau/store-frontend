@@ -108,3 +108,7 @@ type mainPageProductsType = {
     best_selling: ProductType[]
   }
 }
+
+type shopPageProductsType = {
+  allProducts: ProductType[]
+}

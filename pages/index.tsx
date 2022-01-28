@@ -32,7 +32,7 @@ const Home = (props: mainPageProductsType) => {
   if (!data) {
     return (
       <div className='container text-center text-2xl font-bold'>
-        No brand found!
+        No item found!
       </div>
     )
   } else {
