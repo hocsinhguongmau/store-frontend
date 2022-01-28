@@ -4,7 +4,6 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoCloseSharp } from 'react-icons/io5'
 import Profile from './Profile'
 import { headerContent } from '@src/lib/locale/header'
-import { useRouter } from 'next/router'
 import useLanguageStore from '@src/lib/store/languageStore'
 
 const NavigationDesktop = () => {

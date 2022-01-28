@@ -3,42 +3,41 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { AiOutlineHome } from 'react-icons/ai'
 import { RiArrowRightSFill } from 'react-icons/ri'
+import { headerContent } from '@src/lib/locale/header'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { homedir } from 'os'
 
 const convertBreadcrumb = (string: string) => {
-  return string
-    .replace(/-/g, ' ')
-    .replace(/oe/g, 'ö')
-    .replace(/ae/g, 'ä')
-    .replace(/ue/g, 'ü')
+  return string.replace(/-/g, ' ')
 }
 type PathArray = {
   breadcrumb: string
   href: string
 }
 const Breadcrumbs = () => {
+  const language = useLanguageStore((state) => state.language)
   const router = useRouter()
   const [breadcrumbs, setBreadcrumbs] = useState<PathArray[]>([])
-
   useEffect(() => {
     if (router) {
-      const linkPath = router.route.split('/')
-      linkPath.shift()
+      const removeQuery = router.asPath.split('?')
+      let linkPath = removeQuery.shift()?.split('/')
 
-      const pathArray: PathArray[] = linkPath.map((path, i) => {
+      linkPath?.shift()
+
+      const pathArray: PathArray[] | undefined = linkPath?.map((path, i) => {
         return {
           breadcrumb: path,
-          href: '/' + linkPath.slice(0, i + 1).join('/'),
+          href: '/' + linkPath?.slice(0, i + 1).join('/'),
         }
       })
-
-      setBreadcrumbs(pathArray)
+      if (pathArray) setBreadcrumbs(pathArray)
     }
   }, [router])
 
   if (!breadcrumbs) {
     return null
   }
-
   return (
     <nav aria-label='breadcrumbs'>
       <ol className='flex flex-row'>
@@ -46,12 +45,21 @@ const Breadcrumbs = () => {
           <Link href='/'>
             <a className='flex flex-row'>
               <AiOutlineHome className='mr-1 mt-0.5' />
-              Home
+              {headerContent[language].home}
             </a>
           </Link>
         </li>
         {breadcrumbs.map((breadcrumb, i) => {
-          console.log()
+          let text = convertBreadcrumb(breadcrumb.breadcrumb).toLowerCase()
+
+          if (
+            text === 'home' ||
+            text === 'shop' ||
+            text === 'brand' ||
+            text === 'about' ||
+            text === 'contact'
+          )
+            text = headerContent[language][text]
           return (
             <React.Fragment key={breadcrumb.href}>
               {router.query.brand_slug && !router.query.product_slug ? (
@@ -61,7 +69,9 @@ const Breadcrumbs = () => {
                     style={{ marginTop: '-1px' }}
                   />
                   <Link href='/brand'>
-                    <a className='capitalize'>Brand</a>
+                    <a className='capitalize'>
+                      {headerContent[language].brand}
+                    </a>
                   </Link>
                 </li>
               ) : null}
@@ -72,9 +82,7 @@ const Breadcrumbs = () => {
                   style={{ marginTop: '-1px' }}
                 />
                 <Link href={breadcrumb.href}>
-                  <a className='capitalize'>
-                    {convertBreadcrumb(breadcrumb.breadcrumb)}
-                  </a>
+                  <a className='capitalize'>{text}</a>
                 </Link>
               </li>
             </React.Fragment>
