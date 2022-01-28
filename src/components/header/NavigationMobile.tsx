@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoCloseSharp } from 'react-icons/io5'
 import Profile from './Profile'
+import { headerContent } from '@src/lib/locale/header'
+import { useRouter } from 'next/router'
+import useLanguageStore from '@src/lib/store/languageStore'
 
-interface Props {}
-
-const NavigationDesktop = (props: Props) => {
+const NavigationDesktop = () => {
+  const language = useLanguageStore((state) => state.language)
   const [active, setActive] = useState<boolean>(false)
   return (
     <div className='lg:hidden relative z-50'>
@@ -25,50 +27,35 @@ const NavigationDesktop = (props: Props) => {
           onClick={() => setActive(false)}>
           <IoCloseSharp />
         </button>
-        <ul>
-          <li className='text-xl py-2'>
+        <ul className='text-xl'>
+          <li className='py-2'>
             <Link href='/'>
-              <a>Home</a>
+              <a>{headerContent[language].home}</a>
             </Link>
           </li>
-          <li className='text-xl py-2'>
+          <li className='py-2'>
             <Link href='/shop'>
-              <a>Shop</a>
+              <a>{headerContent[language].shop}</a>
             </Link>
           </li>
-          <li className='text-xl py-2'>
+          <li className='py-2'>
             <Link href='/shop?discount=true'>
-              <a>Sales</a>
+              <a>{headerContent[language].sales}</a>
             </Link>
           </li>
-          {/* <li className='text-xl py-2'>
-            <Link href='/shop?gender=women'>
-              <a>Women</a>
-            </Link>
-          </li>
-          <li className='text-xl py-2'>
-            <Link href='/shop?gender=men'>
-              <a>Men</a>
-            </Link>
-          </li>
-          <li className='text-xl py-2'>
-            <Link href='/shop?gender=unisex'>
-              <a>Unisex</a>
-            </Link>
-          </li> */}
-          <li className='text-xl py-2'>
+          <li className='py-2'>
             <Link href='/brand'>
-              <a>Brand</a>
+              <a>{headerContent[language].brand}</a>
             </Link>
           </li>
-          <li className='text-xl py-2'>
+          <li className='py-2'>
             <Link href='/'>
-              <a>About us</a>
+              <a>{headerContent[language].about}</a>
             </Link>
           </li>
-          <li className='text-xl py-2'>
+          <li className='py-2'>
             <Link href='/'>
-              <a>Contact us</a>
+              <a>{headerContent[language].contact}</a>
             </Link>
           </li>
         </ul>

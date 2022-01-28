@@ -20,7 +20,9 @@ const Profile = () => {
     <div className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'>
       <div className='relative z-10 mt-1'>
         <Language />
-        <button onClick={() => setSearchActive(!searchActive)}>
+        <button
+          className='mt-2 align-top'
+          onClick={() => setSearchActive(!searchActive)}>
           {searchActive ? <AiOutlineCloseCircle /> : <BsSearch />}
         </button>
         <div

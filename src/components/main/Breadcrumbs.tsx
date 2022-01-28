@@ -21,7 +21,7 @@ const Breadcrumbs = () => {
 
   useEffect(() => {
     if (router) {
-      const linkPath = router.asPath.split('/')
+      const linkPath = router.route.split('/')
       linkPath.shift()
 
       const pathArray: PathArray[] = linkPath.map((path, i) => {

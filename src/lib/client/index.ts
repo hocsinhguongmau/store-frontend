@@ -7,3 +7,5 @@ export const client = sanityClient({
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
   useCdn: true,
 })
+
+export const languagesList = ['en', 'fi', 'se']

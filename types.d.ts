@@ -1,4 +1,4 @@
-type LanguageType = 'en' | 'fi' | 'sw'
+type LanguageType = 'en' | 'fi' | 'se'
 type Languages = {
   value: LanguageType
   label: string
@@ -45,6 +45,7 @@ type ProductVariant = {
   price: number
   sku: number
   title: string
+  discount?: number
 }
 
 type ProductType = {
@@ -60,7 +61,7 @@ type ProductType = {
     slug: string
   }
   defaultProductVariant: ProductVariant
-  comments: [rating: number]
+  comments: [{ rating: number }]
 }
 
 type CommentType = {
@@ -75,7 +76,7 @@ type CommentType = {
 type LocaleStringType = {
   en: string
   fi: string
-  sw: string
+  se: string
 }
 type ProductDetailType = {
   id: string

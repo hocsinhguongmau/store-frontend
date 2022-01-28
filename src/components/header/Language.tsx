@@ -1,29 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import useLanguageStore from '@lib/store/languageStore'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import useLanguageStore from '@src/lib/store/languageStore'
+
+type LanguageType = {
+  value: string
+  label: string
+}
+const languages: LanguageType[] = [
+  {
+    value: 'en',
+    label: '🇬🇧',
+  },
+  { value: 'fi', label: '🇫🇮' },
+  { value: 'se', label: '🇸🇪' },
+]
 
 const Language = () => {
-  const language = useLanguageStore((state) => state.language)
-  const languageObj = useLanguageStore((state) => state.languageObj)
+  const { locale, asPath } = useRouter()
+  const router = useRouter()
   const setLanguage = useLanguageStore((state) => state.setLanguage)
   const handleChangeLanguage = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    if (
-      event.target.value === 'en' ||
-      event.target.value === 'fi' ||
-      event.target.value === 'sw'
-    )
-      setLanguage(event.target.value)
+    const href = event.target.value
+    if (href === 'en' || href === 'fi' || href === 'se') {
+      router.push(asPath, asPath, { locale: href, shallow: true })
+      setLanguage(href)
+    }
   }
   return (
     <select
-      className='outline-none mr-2 text-3xl'
+      className='outline-none mr-4 align-top mt-0.5 text-3xl bg-none shadow-none appearance-none'
       onChange={handleChangeLanguage}
-      defaultValue={language}>
-      {languageObj.map((lang) => (
-        <option key={lang.value} value={lang.value}>
-          {lang.label}
+      defaultValue={locale}>
+      {languages?.map((language) => (
+        <option key={language.value} value={language.value}>
+          {language.label}
         </option>
       ))}
     </select>

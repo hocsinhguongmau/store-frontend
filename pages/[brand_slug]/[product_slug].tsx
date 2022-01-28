@@ -250,10 +250,10 @@ const ProductDetail = () => {
       </div>
       <h2 className='text-xl md:text-2xl font-bold mt-8'>Related products</h2>
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8'>
+        {/* <ProductItem />
         <ProductItem />
         <ProductItem />
-        <ProductItem />
-        <ProductItem />
+        <ProductItem /> */}
       </div>
     </div>
   )

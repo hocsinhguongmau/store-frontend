@@ -22,6 +22,7 @@ const Shop = () => {
             <option>Price: High to Low</option>
           </select>
           <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8'>
+            {/* <ProductItem />
             <ProductItem />
             <ProductItem />
             <ProductItem />
@@ -32,8 +33,7 @@ const Shop = () => {
             <ProductItem />
             <ProductItem />
             <ProductItem />
-            <ProductItem />
-            <ProductItem />
+            <ProductItem /> */}
           </div>
           <Pagination
             currentPage={1}

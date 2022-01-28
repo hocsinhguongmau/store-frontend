@@ -2,7 +2,7 @@ import Loading from '@components/Loading'
 import Banner from '@components/main/Banner'
 import ListProducts from '@components/main/ListProducts'
 import { getMainPageProducts } from '@src/lib/queries/product'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useQuery, UseQueryResult } from 'react-query'
 
@@ -36,7 +36,6 @@ const Home = (props: mainPageProductsType) => {
       </div>
     )
   } else {
-    console.log(data)
     return (
       <div>
         <Head>
@@ -63,7 +62,7 @@ const Home = (props: mainPageProductsType) => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const mainProducts = await getMainPageProducts()
   if (!mainProducts) {
     return {

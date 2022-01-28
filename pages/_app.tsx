@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { AppProps } from 'next/app'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -17,11 +17,19 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import '@styles/globals.scss'
 import Layout from '@components/Layout'
+import { useRouter } from 'next/router'
 import useLanguageStore from '@src/lib/store/languageStore'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const language = useLanguageStore((state) => state.language)
-  I18n.setLanguage(language)
+  const state = useLanguageStore()
+  const { locale } = useRouter()
+  useEffect(() => {
+    if (locale === 'en' || locale === 'fi' || locale === 'se') {
+      state.setLanguage(locale)
+    }
+  }, [])
+
+  I18n.setLanguage(state.language)
   const dict = {
     fi: {
       'Sign In': 'Kirjaudu Sisään',
@@ -32,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       'Confirm Password': 'Vahvista salasana',
       'Forgot your password?': 'Unohditko salasanasi?',
     },
-    sw: {
+    se: {
       'Sign In': 'Logga In',
       'Sign in': 'Logga in',
       'Create Account': 'Skapa konto',
@@ -64,7 +72,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <NextNProgress
           color='#29D'
           startPosition={0.3}
-          // stopDelayMs={200}
           height={5}
           showOnShallow={true}
         />
