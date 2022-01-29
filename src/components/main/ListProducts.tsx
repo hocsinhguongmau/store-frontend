@@ -33,7 +33,7 @@ const ListProducts = ({ title, href, products }: Props) => {
   }
   return (
     <div className='container'>
-      <h2 className='text-3xl text-center mt-14 pb-10 tracking-tight'>
+      <h2 className='text-2xl md:text-3xl text-center mt-8 lg:mt-14 pb-6 md:pb-10 tracking-tight font-bold'>
         {title}
       </h2>
       <Slider {...settings}>

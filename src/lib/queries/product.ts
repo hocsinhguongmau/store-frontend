@@ -5,7 +5,7 @@ const query =
 
 const mainPage = `{"new_products":*[_type=="product" ]|order(_createdAt desc)[0...8]${query},"weekly_offer":*[_type=="product" && discount][0...8]${query},"best_selling":*[_type=="product" ]|order(sold desc)[0...8]${query}}`
 
-const shopPage = `*[_type=="product" ]|order(_createdAt desc)[0...8]${query}`
+const shopPage = `*[_type=="product" ]|order(_createdAt desc)[0...12]${query}`
 
 export const getMainPageProducts = async (): Promise<
   mainPageProductsType | undefined

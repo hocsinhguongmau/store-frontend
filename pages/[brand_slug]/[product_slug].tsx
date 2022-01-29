@@ -14,7 +14,6 @@ const ProductDetail = () => {
     .match(/#([a-z0-9]+)/gi)
     ?.toString()
     .slice(1)
-  console.log(size)
 
   const [rating, setRating] = useState<number>(0)
 

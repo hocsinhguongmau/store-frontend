@@ -39,7 +39,7 @@ const Shop = (props: shopPageProductsType) => {
     )
   } else {
     return (
-      <div className='container mt-10'>
+      <div className='container'>
         <BreadcrumbsComponent />
         <h1 className='text-3xl font-bold no-underline mt-4'>Perfume</h1>
         <div className='lg:flex mt-4'>
@@ -53,7 +53,7 @@ const Shop = (props: shopPageProductsType) => {
               <option>Price: Low to High</option>
               <option>Price: High to Low</option>
             </select>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8'>
+            <div className='grid grid-cols-2 md:grid-cols-3  gap-4 mt-8'>
               {data.allProducts.map((product) => (
                 <ProductItem product={product} key={product.id} />
               ))}

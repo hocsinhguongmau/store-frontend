@@ -69,7 +69,6 @@ function Profile() {
       setButtonDisabled(true)
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.log(error.message)
         toast.error(error.message)
       }
     }
@@ -106,12 +105,10 @@ function Profile() {
           password,
         })
         const profile = await Auth.currentUserInfo()
-        console.log(profile.attributes)
+
         setProfile(profile.attributes)
         return user
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     },
   }
 
@@ -120,9 +117,7 @@ function Profile() {
       signOut()
       await Auth.currentCredentials()
       clearProfile()
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   return (

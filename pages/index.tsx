@@ -1,6 +1,8 @@
 import Loading from '@components/Loading'
 import Banner from '@components/main/Banner'
+import Category from '@components/main/Category'
 import ListProducts from '@components/main/ListProducts'
+import Services from '@components/main/Services'
 import { getMainPageProducts } from '@src/lib/queries/product'
 import { GetServerSideProps, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -42,11 +44,13 @@ const Home = (props: mainPageProductsType) => {
           <title>Odour</title>
         </Head>
         <Banner />
+
         <ListProducts
           title='Weekly offer'
           href='/shop?discount=true'
           products={data.mainProducts.weekly_offer}
         />
+        <Category />
         <ListProducts
           title='New products'
           href='/shop?order=date'
@@ -57,6 +61,7 @@ const Home = (props: mainPageProductsType) => {
           href='/shop?order=sale'
           products={data.mainProducts.best_selling}
         />
+        <Services />
       </div>
     )
   }

@@ -28,7 +28,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
   const { locale } = useRouter()
   if (locale == 'en' || locale == 'fi' || locale == 'se') {
     return (
-      <div className='product-item mt-4 lg:px-8'>
+      <div className='product-item mt-4 lg:px-8 '>
         <div className='text-center relative'>
           <button className='absolute top-0 right-0 z-10 product-item__button'>
             <AiOutlineHeart className='hover:text-red-500' />
@@ -36,7 +36,9 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
           </button>
           {product.discount === true ? (
             <div className='text-center absolute top-0 left-0 z-10'>
-              <span className='bg-red-500  px-2 py-0.5 text-white inline-block text-xs lg:text-sm'>
+              <span
+                className='bg-red-500  px-4 py-1 text-white inline-block text-xs lg:text-xs'
+                style={{ borderRadius: '0 999px 0 999px' }}>
                 Sale
               </span>
             </div>
@@ -66,7 +68,6 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
             </Link>
           </h3>
           <p className='text-xs mt-1 mb-2'>{product.blurb[locale]}</p>
-
           <Star rating={rating} />
           <p className='font-bold mt-2'>
             {product.defaultProductVariant.discount

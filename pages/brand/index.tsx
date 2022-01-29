@@ -43,7 +43,6 @@ const Brand = (props: AllBrandsType) => {
     )
   } else {
     const brands = data.brands.reduce((r: any, e: GroupType) => {
-      console.log(e)
       let group = e.title[0]
       if (!r[group]) r[group] = { group, children: [e] }
       else r[group].children.push(e)

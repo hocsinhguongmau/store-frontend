@@ -110,7 +110,7 @@ h1 {
     &.banner {
       .slick-arrow {
         &::before {
-          color: #fff;
+          color: #333;
         }
         &.slick-prev {
           @apply left-2 lg:left-8;
