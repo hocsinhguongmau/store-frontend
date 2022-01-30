@@ -29,32 +29,44 @@ const NavigationDesktop = () => {
         <ul className='text-xl'>
           <li className='py-2'>
             <Link href='/'>
-              <a>{headerContent[language].home}</a>
+              <a onClick={() => setActive(false)}>
+                {headerContent[language].home}
+              </a>
             </Link>
           </li>
           <li className='py-2'>
             <Link href='/shop'>
-              <a>{headerContent[language].shop}</a>
+              <a onClick={() => setActive(false)}>
+                {headerContent[language].shop}
+              </a>
             </Link>
           </li>
           <li className='py-2'>
             <Link href='/shop?discount=true'>
-              <a>{headerContent[language].sales}</a>
+              <a onClick={() => setActive(false)}>
+                {headerContent[language].sales}
+              </a>
             </Link>
           </li>
           <li className='py-2'>
             <Link href='/brand'>
-              <a>{headerContent[language].brand}</a>
+              <a onClick={() => setActive(false)}>
+                {headerContent[language].brand}
+              </a>
             </Link>
           </li>
           <li className='py-2'>
             <Link href='/'>
-              <a>{headerContent[language].about}</a>
+              <a onClick={() => setActive(false)}>
+                {headerContent[language].about}
+              </a>
             </Link>
           </li>
           <li className='py-2'>
             <Link href='/'>
-              <a>{headerContent[language].contact}</a>
+              <a onClick={() => setActive(false)}>
+                {headerContent[language].contact}
+              </a>
             </Link>
           </li>
         </ul>

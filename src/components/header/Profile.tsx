@@ -26,7 +26,7 @@ const Profile = () => {
           {searchActive ? <AiOutlineCloseCircle /> : <BsSearch />}
         </button>
         <div
-          className={`absolute right-0 mt-8 lg:mt-9 ${
+          className={`absolute left-0 md:left-auto md:right-0 mt-8 lg:mt-9 ${
             searchActive ? 'block' : 'hidden'
           }`}>
           <form onSubmit={handleSubmit} className='flex'>
@@ -43,16 +43,18 @@ const Profile = () => {
       </div>
       {profile.email ? (
         <>
-          <Link href='/profile'>
-            <a className='text-sm overflow-hidden w-36 overflow-ellipsis mt-1'>
-              {profile.email}
-            </a>
-          </Link>
-          <Link href='/cart'>
-            <a className='text-2xl mt-1'>
-              <AiOutlineShoppingCart />
-            </a>
-          </Link>
+          <div className='text-sm overflow-hidden w-24 lg:w-36 overflow-ellipsis mt-1'>
+            <Link href='/profile'>
+              <a className=''>{profile.email}</a>
+            </Link>
+          </div>
+          <div>
+            <Link href='/cart'>
+              <a className='text-2xl mt-1'>
+                <AiOutlineShoppingCart />
+              </a>
+            </Link>
+          </div>
         </>
       ) : (
         <Link href='/profile'>

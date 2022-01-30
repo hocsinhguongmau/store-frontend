@@ -110,5 +110,5 @@ type mainPageProductsType = {
 }
 
 type shopPageProductsType = {
-  allProducts: ProductType[]
+  allProducts: { products: ProductType[] }
 }

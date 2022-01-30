@@ -73,7 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           color='#29D'
           startPosition={0.3}
           height={5}
-          showOnShallow={true}
+          showOnShallow={false}
         />
         <Component {...pageProps} />
       </Layout>

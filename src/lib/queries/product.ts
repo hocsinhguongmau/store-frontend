@@ -1,11 +1,11 @@
 import { client } from '@lib/client'
 
-const query =
+const result =
   '{"id":_id,"images":images[0].asset._ref,title,"slug":slug.current,discount,blurb,"vendor":{"title":vendor->title,"slug":vendor->slug.current},defaultProductVariant,"comments": *[_type=="comment" && references(^._id)]{"rating":rating}}'
 
-const mainPage = `{"new_products":*[_type=="product" ]|order(_createdAt desc)[0...8]${query},"weekly_offer":*[_type=="product" && discount][0...8]${query},"best_selling":*[_type=="product" ]|order(sold desc)[0...8]${query}}`
+const mainPage = `{"new_products":*[_type=="product" ]|order(_createdAt desc)[0...8]${result},"weekly_offer":*[_type=="product" && discount][0...8]${result},"best_selling":*[_type=="product" ]|order(sold desc)[0...8]${result}}`
 
-const shopPage = `*[_type=="product" ]|order(_createdAt desc)[0...12]${query}`
+const shopPage = `{"products":*[_type=="product" ]|order(_createdAt desc)[0...12]${result}}`
 
 export const getMainPageProducts = async (): Promise<
   mainPageProductsType | undefined
