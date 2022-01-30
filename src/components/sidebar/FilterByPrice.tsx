@@ -13,7 +13,7 @@ const FilterByPrice = () => {
   const handlePriceRouter = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     router.push({
-      pathname: '/shop',
+      pathname: router.pathname,
       query: { ...router.query, price: [priceMin, priceMax] },
     })
   }

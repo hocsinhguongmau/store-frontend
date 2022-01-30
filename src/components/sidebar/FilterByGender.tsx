@@ -1,22 +1,19 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 
-type Props = {
-  gender: boolean
-}
-
-const FilterByGender = ({ gender }: Props) => {
+const FilterByGender = () => {
   const router = useRouter()
+  const showGender = router.query.gender
   const handleGenderRouter = (gender: string) => {
     router.push({
-      pathname: '/shop',
+      pathname: router.pathname,
       query: { ...router.query, gender: gender },
     })
   }
   return (
     <>
       <h3 className='font-bold text-lg pb-2 '>Gender</h3>
-      {!gender ? (
+      {!showGender ? (
         <ul>
           <li
             className='mt-1 cursor-pointer hover:text-gray-500'

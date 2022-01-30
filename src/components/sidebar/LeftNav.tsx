@@ -5,12 +5,7 @@ import FilterByBrand from './FilterByBrand'
 import FilterByGender from './FilterByGender'
 import FilterByPrice from './FilterByPrice'
 
-type NavProps = {
-  gender?: boolean | undefined
-  brand?: boolean | undefined
-}
-
-const LeftNav = ({ gender = true, brand = true }: NavProps) => {
+const LeftNav = () => {
   const router = useRouter()
   const [discount, setDiscount] = useState<boolean>(
     router.query.discount === 'true',
@@ -38,9 +33,9 @@ const LeftNav = ({ gender = true, brand = true }: NavProps) => {
         className={`left-nav lg:pr-8 transition-all duration-300 lg:h-auto overflow-hidden mb-6 ${
           show ? 'h-auto' : 'h-0'
         }`}>
-        <FilterByGender gender={gender} />
+        <FilterByGender />
         <FilterByPrice />
-        <FilterByBrand brand={brand} />
+        <FilterByBrand />
         <p>
           <input
             type='checkbox'

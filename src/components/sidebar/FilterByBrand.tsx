@@ -1,12 +1,9 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-type ShowBrand = {
-  brand: boolean
-}
-
-const FilterByBrand = ({ brand }: ShowBrand) => {
+const FilterByBrand = () => {
   const router = useRouter()
+  const showBrand = router.query.brand
   const brands = ['chanel', 'dior', 'byredo', 'cc ne']
   const [filteredBrands, setFilteredBrands] = useState<string[]>(brands)
   const handleBrandRouter = (brand: string) => {
@@ -14,7 +11,7 @@ const FilterByBrand = ({ brand }: ShowBrand) => {
       setFilteredBrands(brands)
     }
     router.push({
-      pathname: '/shop',
+      pathname: router.pathname,
       query: { ...router.query, brand: brand },
     })
   }
@@ -27,7 +24,7 @@ const FilterByBrand = ({ brand }: ShowBrand) => {
   return (
     <>
       <h3 className='font-bold text-lg pb-2 mt-2'>Brand</h3>
-      {!brand ? (
+      {!showBrand ? (
         <div>
           <input
             type='text'
