@@ -13,7 +13,8 @@ const SortBy = () => {
   return (
     <select
       className='outline-none mt-4 lg:mt-0 text-sm'
-      onChange={handleOrderProducts}>
+      onChange={handleOrderProducts}
+      defaultValue={router.query.order}>
       <option value=''>Newest</option>
       <option value='sell'>Best selling</option>
       <option value='price_asc'>Price: Low to High</option>

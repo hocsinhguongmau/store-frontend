@@ -30,7 +30,7 @@ const FilterByPrice = () => {
             type='number'
             id='min-price'
             className='w-14 text-right border-none outline-none text-sm'
-            placeholder='200'
+            placeholder='0'
             value={priceMin}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPriceMin(e.target.value)

@@ -106,3 +106,11 @@ type mainPageProductsType = {
 type shopPageProductsType = {
   products: ProductType[]
 }
+
+type shopPageQueryType = {
+  sort: string
+  gender: string
+  discount: string
+  price: string[]
+  brand: string
+}

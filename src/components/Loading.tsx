@@ -1,12 +1,10 @@
 import React, { ReactElement } from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
-interface Props {}
-
 function Loading(): ReactElement {
   return (
-    <div className='text-center'>
-      <AiOutlineLoading3Quarters className='animate-spin inline-block' />
+    <div className='flex h-full flex-row justify-between'>
+      <AiOutlineLoading3Quarters className='animate-spin m-auto' />
     </div>
   )
 }

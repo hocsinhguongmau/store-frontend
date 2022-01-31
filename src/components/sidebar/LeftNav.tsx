@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri'
-import { useRouter } from 'next/router'
 import FilterByBrand from './FilterByBrand'
 import FilterByGender from './FilterByGender'
 import FilterByPrice from './FilterByPrice'
@@ -8,7 +7,6 @@ import FilterByDiscount from './FilterByDiscount'
 
 const LeftNav = () => {
   const [show, setShow] = useState(false)
-
 
   return (
     <div>
@@ -27,7 +25,7 @@ const LeftNav = () => {
         <FilterByGender />
         <FilterByPrice />
         <FilterByBrand />
-        <FilterByDiscount/>
+        <FilterByDiscount />
       </div>
     </div>
   )
