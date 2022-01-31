@@ -75,15 +75,15 @@ const Shop = (props: shopPageProductsType) => {
     )
   }
 }
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//   console.log('query')
-//   const allProducts = await getAllProducts()
-//   if (!allProducts) {
-//     return {
-//       notFound: true,
-//     }
-//   }
-//   return { props: { allProducts } }
-// }
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  console.log('query')
+  const allProducts = await getAllProducts()
+  if (!allProducts) {
+    return {
+      notFound: true,
+    }
+  }
+  return { props: { allProducts } }
+}
 
 export default Shop

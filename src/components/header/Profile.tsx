@@ -4,17 +4,28 @@ import { BsSearch, BsPersonCircle } from 'react-icons/bs'
 import { BiLogIn, BiLogOut } from 'react-icons/bi'
 import { AiOutlineShoppingCart, AiOutlineCloseCircle } from 'react-icons/ai'
 import Language from './Language'
-import useProfileStore from '@src/lib/store/profileStore'
-import { Auth } from 'aws-amplify'
+import { Auth, Hub } from 'aws-amplify'
 
 const Profile = () => {
-  const profile = useProfileStore((state) => state.profile)
-
+  const [profile, setProfile] = useState<IProfile>({})
   const [searchActive, setSearchActive] = useState<boolean>(false)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSearchActive(false)
   }
+  useEffect(() => {
+    let updateUser = async () => {
+      try {
+        let user = await Auth.currentAuthenticatedUser()
+        setProfile(user.attributes)
+      } catch {
+        setProfile({})
+      }
+    }
+    Hub.listen('auth', updateUser)
+    updateUser()
+    return () => Hub.remove('auth', updateUser) // cleanup
+  }, [])
 
   return (
     <div className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'>
@@ -41,6 +52,7 @@ const Profile = () => {
           </form>
         </div>
       </div>
+
       {profile.email ? (
         <>
           <div className='text-sm overflow-hidden w-24 lg:w-36 overflow-ellipsis mt-1'>

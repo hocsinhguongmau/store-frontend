@@ -67,8 +67,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Layout>
-        <ReactQueryDevtools initialIsOpen={false} />
         <NextNProgress
           color='#29D'
           startPosition={0.3}
@@ -76,13 +76,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           showOnShallow={false}
         />
         <Component {...pageProps} />
+        <ToastContainer
+          position='bottom-right'
+          hideProgressBar={true}
+          autoClose={3000}
+          closeOnClick
+        />
       </Layout>
-      <ToastContainer
-        position='bottom-right'
-        hideProgressBar={true}
-        autoClose={3000}
-        closeOnClick
-      />
     </QueryClientProvider>
   )
 }

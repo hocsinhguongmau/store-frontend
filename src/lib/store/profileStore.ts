@@ -6,6 +6,7 @@ type ProfileState = {
   setProfile: (user: IProfile) => void
   clearProfile: () => void
 }
+
 const useProfileStore = create<ProfileState>(
   persist(
     (set) => ({

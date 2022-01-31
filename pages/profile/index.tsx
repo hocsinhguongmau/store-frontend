@@ -7,7 +7,6 @@ import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
 import ProductItem from '@components/main/ProductItem'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
-import useProfileStore from '@lib/store/profileStore'
 
 const Input = ({
   value,
@@ -47,8 +46,6 @@ const Input = ({
 }
 
 function Profile() {
-  const setProfile = useProfileStore((state) => state.setProfile)
-  const clearProfile = useProfileStore((state) => state.clearProfile)
   const {
     register,
     handleSubmit,
@@ -64,7 +61,6 @@ function Profile() {
         address: data.address,
         zoneinfo: data.zoneinfo,
       })
-      setProfile(user)
       toast.success('Information updated')
       setButtonDisabled(true)
     } catch (error: unknown) {
@@ -104,9 +100,7 @@ function Profile() {
           username,
           password,
         })
-        const profile = await Auth.currentUserInfo()
 
-        setProfile(profile.attributes)
         return user
       } catch (error) {}
     },
@@ -116,7 +110,6 @@ function Profile() {
     try {
       signOut()
       await Auth.currentCredentials()
-      clearProfile()
     } catch (error) {}
   }
 
