@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { AppProps } from 'next/app'
-import { QueryClientProvider, QueryClient } from 'react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import Amplify from 'aws-amplify'
 import config from '@src/aws-exports'
@@ -68,21 +68,23 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <Layout>
-        <NextNProgress
-          color='#29D'
-          startPosition={0.3}
-          height={5}
-          showOnShallow={false}
-        />
-        <Component {...pageProps} />
-        <ToastContainer
-          position='bottom-right'
-          hideProgressBar={true}
-          autoClose={3000}
-          closeOnClick
-        />
-      </Layout>
+      <Hydrate state={pageProps.dehydratedState}>
+        <Layout>
+          <NextNProgress
+            color='#29D'
+            startPosition={0.3}
+            height={5}
+            showOnShallow={false}
+          />
+          <Component {...pageProps} />
+          <ToastContainer
+            position='bottom-right'
+            hideProgressBar={true}
+            autoClose={3000}
+            closeOnClick
+          />
+        </Layout>
+      </Hydrate>
     </QueryClientProvider>
   )
 }

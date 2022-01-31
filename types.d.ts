@@ -30,10 +30,6 @@ type InputType = {
   type: string
 }
 
-type AllBrandsType = {
-  brands: BrandType[]
-}
-
 type BrandType = {
   title: string
   slug: string
@@ -102,13 +98,11 @@ type ProductDetailType = {
 }
 
 type mainPageProductsType = {
-  mainProducts: {
-    new_products: ProductType[]
-    weekly_offer: ProductType[]
-    best_selling: ProductType[]
-  }
+  new_products: ProductType[]
+  weekly_offer: ProductType[]
+  best_selling: ProductType[]
 }
 
 type shopPageProductsType = {
-  allProducts: { products: ProductType[] }
+  products: ProductType[]
 }

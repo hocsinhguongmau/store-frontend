@@ -3,7 +3,7 @@ import React from 'react'
 import ProductItem from '@components/main/ProductItem'
 import Pagination from '@components/main/Pagination'
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
-import { useQuery, UseQueryResult } from 'react-query'
+import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
 import Loading from '@components/Loading'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
@@ -11,7 +11,7 @@ import SortBy from '@components/main/SortBy'
 import { getAllProducts, queryResult } from '@src/lib/queries/product'
 import { client } from '@src/lib/client'
 
-const Shop = (props: shopPageProductsType) => {
+const Shop = () => {
   const router = useRouter()
 
   const {
@@ -22,9 +22,7 @@ const Shop = (props: shopPageProductsType) => {
   }: UseQueryResult<shopPageProductsType | undefined, Error> = useQuery<
     shopPageProductsType | undefined,
     Error
-  >(['all_products'], () => getAllProducts(), {
-    initialData: props,
-  })
+  >(['all_products'], getAllProducts)
   if (isLoading) {
     return <Loading />
   }
@@ -54,7 +52,7 @@ const Shop = (props: shopPageProductsType) => {
           <div className='w-full'>
             <SortBy />
             <div className='grid grid-cols-2 md:grid-cols-3  gap-4 mt-8'>
-              {data.allProducts.products.map((product) => (
+              {data.products.map((product) => (
                 <ProductItem product={product} key={product.id} />
               ))}
             </div>
@@ -76,14 +74,15 @@ const Shop = (props: shopPageProductsType) => {
   }
 }
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  console.log('query')
-  const allProducts = await getAllProducts()
-  if (!allProducts) {
-    return {
-      notFound: true,
-    }
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery('posts', getAllProducts)
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   }
-  return { props: { allProducts } }
 }
 
 export default Shop

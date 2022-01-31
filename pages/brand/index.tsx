@@ -1,23 +1,22 @@
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { useQuery, UseQueryResult } from 'react-query'
+import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
+
 import { getAllBrands } from '@lib/queries/brand'
 import Loading from '@components/Loading'
 import { GetStaticProps } from 'next'
 
-const Brand = (props: AllBrandsType) => {
+const Brand = () => {
   const {
     isLoading,
     isError,
     error,
     data,
-  }: UseQueryResult<AllBrandsType | undefined, Error> = useQuery<
-    AllBrandsType | undefined,
+  }: UseQueryResult<BrandType[] | undefined, Error> = useQuery<
+    BrandType[] | undefined,
     Error
-  >(['all_brands'], () => getAllBrands(), {
-    initialData: props,
-  })
+  >(['all_brands'], getAllBrands)
   if (isLoading) {
     return <Loading />
   }
@@ -42,7 +41,7 @@ const Brand = (props: AllBrandsType) => {
       </div>
     )
   } else {
-    const brands = data.brands.reduce((r: any, e: GroupType) => {
+    const brands = data.reduce((r: any, e: GroupType) => {
       let group = e.title[0]
       if (!r[group]) r[group] = { group, children: [e] }
       else r[group].children.push(e)
@@ -79,13 +78,11 @@ const Brand = (props: AllBrandsType) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const brands = await getAllBrands()
-  if (!brands) {
-    return {
-      notFound: true,
-    }
-  }
-  return { props: { brands } }
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery('all_brands', getAllBrands)
+
+  return { props: { dehydratedState: dehydrate(queryClient) } }
 }
 
 export default Brand

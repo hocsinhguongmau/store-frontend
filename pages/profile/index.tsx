@@ -92,30 +92,10 @@ function Profile() {
     signOut: () => void
     user: MyCognitoUserAmplify
   }
-  const services = {
-    async handleSignIn(formData: { username: string; password: string }) {
-      let { username, password } = formData
-      try {
-        const user = await Auth.signIn({
-          username,
-          password,
-        })
-
-        return user
-      } catch (error) {}
-    },
-  }
-
-  const handleSignOut = async (signOut: () => void) => {
-    try {
-      signOut()
-      await Auth.currentCredentials()
-    } catch (error) {}
-  }
 
   return (
     <div className='flex-grow py-10 flex flex-row justify-center'>
-      <Authenticator variation='default' services={services}>
+      <Authenticator variation='default'>
         {({ signOut, user }: AmplifyType) => (
           <div className='container'>
             <div>
@@ -123,9 +103,7 @@ function Profile() {
                 <h1 className='no-underline text-sm md:text-2xl break-words'>
                   {user?.attributes?.email}
                 </h1>
-                <button
-                  className='text-sm md:text-lg'
-                  onClick={() => handleSignOut(signOut)}>
+                <button className='text-sm md:text-lg' onClick={signOut}>
                   Sign out
                 </button>
               </div>

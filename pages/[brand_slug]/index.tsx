@@ -1,8 +1,8 @@
-import LeftNav from '@components/main/LeftNav'
 import React from 'react'
 import ProductItem from '@components/main/ProductItem'
 import Pagination from '@components/main/Pagination'
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
+import LeftNav from '@components/sidebar/LeftNav'
 
 const BrandDetail = () => {
   return (
@@ -11,7 +11,7 @@ const BrandDetail = () => {
       <h1 className='text-3xl font-bold no-underline mt-4'>Brand name</h1>
       <div className='lg:flex mt-4'>
         <div className='lg:h-screen lg:sticky lg:top-0'>
-          <LeftNav brand={false} />
+          <LeftNav />
         </div>
         <div className='w-full'>
           <select className='outline-none mt-4 text-sm'>

@@ -6,9 +6,9 @@ import Services from '@components/main/Services'
 import { getMainPageProducts } from '@src/lib/queries/product'
 import { GetServerSideProps, GetStaticProps } from 'next'
 import Head from 'next/head'
-import { useQuery, UseQueryResult } from 'react-query'
+import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
 
-const Home = (props: mainPageProductsType) => {
+const Home = () => {
   const {
     isLoading,
     isError,
@@ -17,9 +17,7 @@ const Home = (props: mainPageProductsType) => {
   }: UseQueryResult<mainPageProductsType | undefined, Error> = useQuery<
     mainPageProductsType | undefined,
     Error
-  >(['main_products'], () => getMainPageProducts(), {
-    initialData: props,
-  })
+  >(['main_products'], getMainPageProducts)
   if (isLoading) {
     return <Loading />
   }
@@ -48,18 +46,18 @@ const Home = (props: mainPageProductsType) => {
         <ListProducts
           title='Weekly offer'
           href='/shop?discount=true'
-          products={data.mainProducts.weekly_offer}
+          products={data.weekly_offer}
         />
         <Category />
         <ListProducts
           title='New products'
           href='/shop?order=date'
-          products={data.mainProducts.new_products}
+          products={data.new_products}
         />
         <ListProducts
           title='Best selling'
           href='/shop?order=sale'
-          products={data.mainProducts.best_selling}
+          products={data.best_selling}
         />
         <Services />
       </div>
@@ -68,13 +66,15 @@ const Home = (props: mainPageProductsType) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const mainProducts = await getMainPageProducts()
-  if (!mainProducts) {
-    return {
-      notFound: true,
-    }
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery('posts', getMainPageProducts)
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   }
-  return { props: { mainProducts } }
 }
 
 export default Home

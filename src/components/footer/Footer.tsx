@@ -12,7 +12,7 @@ export default function Footer(): ReactElement | null {
   }: UseQueryResult<BrandType[] | undefined, Error> = useQuery<
     BrandType[] | undefined,
     Error
-  >(['common_brands'], () => getCommonBrands())
+  >(['common_brands'], getCommonBrands)
 
   if (isLoading) return <div>Loading</div>
 

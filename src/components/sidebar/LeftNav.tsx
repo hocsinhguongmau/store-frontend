@@ -4,21 +4,12 @@ import { useRouter } from 'next/router'
 import FilterByBrand from './FilterByBrand'
 import FilterByGender from './FilterByGender'
 import FilterByPrice from './FilterByPrice'
+import FilterByDiscount from './FilterByDiscount'
 
 const LeftNav = () => {
-  const router = useRouter()
-  const [discount, setDiscount] = useState<boolean>(
-    router.query.discount === 'true',
-  )
   const [show, setShow] = useState(false)
 
-  const handleDiscountRouter = () => {
-    setDiscount(!discount)
-    router.push({
-      pathname: '/shop',
-      query: { ...router.query, discount: discount },
-    })
-  }
+
   return (
     <div>
       <button className='flex mb-6 lg:hidden' onClick={() => setShow(!show)}>
@@ -36,16 +27,7 @@ const LeftNav = () => {
         <FilterByGender />
         <FilterByPrice />
         <FilterByBrand />
-        <p>
-          <input
-            type='checkbox'
-            checked={discount}
-            id='discount'
-            className='mr-4'
-            onChange={handleDiscountRouter}
-          />
-          <label htmlFor='discount'>Sales</label>
-        </p>
+        <FilterByDiscount/>
       </div>
     </div>
   )

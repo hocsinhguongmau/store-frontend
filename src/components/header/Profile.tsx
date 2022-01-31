@@ -24,7 +24,7 @@ const Profile = () => {
     }
     Hub.listen('auth', updateUser)
     updateUser()
-    return () => Hub.remove('auth', updateUser) // cleanup
+    return () => Hub.remove('auth', updateUser)
   }, [])
 
   return (
@@ -55,23 +55,21 @@ const Profile = () => {
 
       {profile.email ? (
         <>
-          <div className='text-sm overflow-hidden w-24 lg:w-36 overflow-ellipsis mt-1'>
-            <Link href='/profile'>
-              <a className=''>{profile.email}</a>
-            </Link>
-          </div>
-          <div>
-            <Link href='/cart'>
-              <a className='text-2xl mt-1'>
-                <AiOutlineShoppingCart />
-              </a>
-            </Link>
-          </div>
+          <Link href='/profile'>
+            <a className='text-2xl mt-1'>
+              <BsPersonCircle />
+            </a>
+          </Link>
+          <Link href='/cart'>
+            <a className='text-2xl mt-1'>
+              <AiOutlineShoppingCart />
+            </a>
+          </Link>
         </>
       ) : (
         <Link href='/profile'>
           <a className='text-2xl mt-1'>
-            <BsPersonCircle />
+            <BiLogIn />
           </a>
         </Link>
       )}
