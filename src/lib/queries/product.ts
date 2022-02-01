@@ -73,6 +73,7 @@ export const getSideBar = async (): Promise<any | undefined> => {
 }
 
 //get data for filter components
+//brand pages
 //shop pages and pagination
 //detail page
 //comment

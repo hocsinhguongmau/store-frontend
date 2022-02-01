@@ -6,17 +6,10 @@ import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
 import { getAllBrands } from '@lib/queries/brand'
 import Loading from '@components/Loading'
 import { GetStaticProps } from 'next'
+import { useBrand } from '@src/hooks/useBrand'
 
 const Brand = () => {
-  const {
-    isLoading,
-    isError,
-    error,
-    data,
-  }: UseQueryResult<BrandType[] | undefined, Error> = useQuery<
-    BrandType[] | undefined,
-    Error
-  >(['all_brands'], getAllBrands)
+  const { isLoading, isError, error, data } = useBrand()
   if (isLoading) {
     return <Loading />
   }

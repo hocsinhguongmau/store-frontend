@@ -1,6 +1,5 @@
 import Loading from '@components/Loading'
 import { useShopProduct } from '@src/hooks/useShopProduct'
-import { useRouter } from 'next/router'
 import React from 'react'
 import Pagination from './Pagination'
 import ProductItem from './ProductItem'
@@ -8,12 +7,6 @@ import ProductItem from './ProductItem'
 const productsPerPage = 12
 
 const ShopProducts = () => {
-  const { query } = useRouter()
-  const sort = query.order as string
-  const gender = query.gender as string
-  const discount = query.discount as string
-  const price = query.price as string[]
-  const brand = query.brand as string
   const { isLoading, isError, error, data } = useShopProduct()
   if (isLoading) {
     return <Loading />
