@@ -9,6 +9,6 @@ const allBrands =
 export const getCommonBrands = async (): Promise<BrandType[] | undefined> => {
   return await client.fetch(commonBrands)
 }
-export const getAllBrands = async (): Promise<AllBrandsType | undefined> => {
+export const getAllBrands = async (): Promise<BrandType[] | undefined> => {
   return await client.fetch(allBrands)
 }

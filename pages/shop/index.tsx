@@ -4,7 +4,7 @@ import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
 import { GetServerSideProps } from 'next'
 import SortBy from '@components/main/SortBy'
-import { getAllProducts, queryResult } from '@src/lib/queries/product'
+import { getAllProducts } from '@src/lib/queries/product'
 import ShopProducts from '@components/main/ShopProducts'
 
 const Shop = () => {

@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 type Props = {
   currentPage: number
-  numberOfPosts: number
-  postsPerPage: number
+  numberOfProducts: number
+  productsPerPage: number
   maxPages: number
   urlName: string
   query?: string
@@ -12,13 +12,13 @@ type Props = {
 
 export default function Pagination({
   currentPage,
-  numberOfPosts,
-  postsPerPage,
+  numberOfProducts,
+  productsPerPage,
   maxPages,
   urlName,
   query,
 }: Props): ReactElement {
-  let totalPages = Math.ceil(numberOfPosts / postsPerPage)
+  let totalPages = Math.ceil(numberOfProducts / productsPerPage)
 
   if (currentPage < 1) {
     currentPage = 1

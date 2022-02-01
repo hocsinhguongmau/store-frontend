@@ -34,13 +34,6 @@ const BrandDetail = () => {
             <ProductItem />
             <ProductItem /> */}
           </div>
-          <Pagination
-            currentPage={1}
-            numberOfPosts={5!}
-            postsPerPage={8}
-            maxPages={5}
-            urlName={`shop`}
-          />
         </div>
       </div>
     </div>

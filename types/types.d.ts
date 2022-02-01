@@ -50,13 +50,15 @@ type ProductType = {
   title: string
   slug: string
   sold: number
-  discount: boolean
+  sales: boolean
   blurb: LocaleStringType
+  discount: number
   vendor: {
     title: string
     slug: string
   }
-  defaultProductVariant: ProductVariant
+  price: number
+  priceDiscount: number
   comments: [{ rating: number }]
 }
 
@@ -105,6 +107,7 @@ type mainPageProductsType = {
 
 type shopPageProductsType = {
   products: ProductType[]
+  numberOfProducts: number
 }
 
 type shopPageQueryType = {

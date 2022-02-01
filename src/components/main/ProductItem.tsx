@@ -30,11 +30,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
     return (
       <div className='product-item mt-4 lg:px-8 '>
         <div className='text-center relative'>
-          <button className='absolute top-0 right-0 z-10 product-item__button'>
-            <AiOutlineHeart className='hover:text-red-500' />
-            <AiFillHeart className='text-red-500 hidden' />
-          </button>
-          {product.discount === true ? (
+          {product.sales === true ? (
             <div className='text-center absolute top-0 left-0 z-10'>
               <span
                 className='bg-red-500  px-4 py-1 text-white inline-block text-xs lg:text-xs'
@@ -70,14 +66,9 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
           <p className='text-xs mt-1 mb-2'>{product.blurb[locale]}</p>
           <Star rating={rating} />
           <p className='font-bold mt-2'>
-            {product.defaultProductVariant.discount
-              ? (
-                  product.defaultProductVariant.price -
-                  (product.defaultProductVariant.price *
-                    product.defaultProductVariant.discount) /
-                    100
-                ).toFixed(0)
-              : product.defaultProductVariant.price}
+            {product.discount > 0
+              ? product.priceDiscount.toFixed(0)
+              : product.price}
             &euro;
           </p>
           {button ? <button className='button mt-4'>Add to cart</button> : null}

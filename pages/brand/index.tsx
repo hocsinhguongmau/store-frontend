@@ -48,6 +48,7 @@ const Brand = () => {
       return r
     }, {})
     const result = Object.values(brands)
+
     return (
       <div className='container'>
         <BreadcrumbsComponent />

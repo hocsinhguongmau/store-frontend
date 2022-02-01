@@ -1,9 +1,12 @@
+import { useShopProduct } from '@src/hooks/useShopProduct'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 const FilterByBrand = () => {
   const router = useRouter()
   const showBrand = router.query.brand
+  const { isLoading, isError, error, data } = useShopProduct()
+  console.log(data?.products)
   const brands = ['chanel', 'dior', 'byredo', 'cc ne']
   const [filteredBrands, setFilteredBrands] = useState<string[]>(brands)
   const handleBrandRouter = (brand: string) => {
