@@ -1,7 +1,7 @@
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
+import React from 'react'
+import { dehydrate, QueryClient } from 'react-query'
 
 import { getAllBrands } from '@lib/queries/brand'
 import Loading from '@components/Loading'
@@ -56,7 +56,7 @@ const Brand = () => {
               <h2 className='text-2xl mt-8 text-center'>{alphabet.group}</h2>
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8'>
                 {alphabet.children.map((brand: GroupType) => (
-                  <Link href={`/${brand.slug}`} key={brand.title}>
+                  <Link href={`/shop?brand=${brand.slug}`} key={brand.title}>
                     <a>
                       <span className='text-sm'>{brand.title}</span>
                     </a>

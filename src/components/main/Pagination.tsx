@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 type Props = {
   currentPage: number
@@ -7,7 +8,6 @@ type Props = {
   productsPerPage: number
   maxPages: number
   urlName: string
-  query?: string
 }
 
 export default function Pagination({
@@ -16,8 +16,8 @@ export default function Pagination({
   productsPerPage,
   maxPages,
   urlName,
-  query,
 }: Props): ReactElement {
+  const router = useRouter()
   let totalPages = Math.ceil(numberOfProducts / productsPerPage)
 
   if (currentPage < 1) {
@@ -54,148 +54,98 @@ export default function Pagination({
   const isFirst = currentPage === 1
   const isLast = currentPage === totalPages
   let prevPage, nextPage
-  if (query) {
-    prevPage = `/${urlName}/page/${currentPage - 1}?q=${query}`
-    nextPage = `/${urlName}/page/${currentPage + 1}?q=${query}`
-  } else {
-    prevPage = `/${urlName}/page/${currentPage - 1}`
-    nextPage = `/${urlName}/page/${currentPage + 1}`
-  }
+
+  prevPage = `/${urlName}/page/${currentPage - 1}`
+  nextPage = `/${urlName}/page/${currentPage + 1}`
 
   // create an array of pages to ng-repeat in the pager control
   let pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
     (i) => startPage + i,
   )
 
+  let hmm = router.query
+
+  if (hmm.hasOwnProperty('page_slug')) {
+    delete hmm['page_slug']
+  }
+
   return (
     <div className='pagination'>
-      {query ? (
-        <ul>
-          {!isFirst && (
-            <>
-              <li>
-                <Link href={`/${urlName}?q=${query}`}>
-                  <a>First</a>
-                </Link>
-              </li>
-              {currentPage === 2 ? (
-                <li>
-                  <Link href={`/${urlName}?q=${query}`}>
-                    <a>Previous</a>
-                  </Link>
-                </li>
-              ) : (
-                <li>
-                  <Link href={prevPage}>
-                    <a>Previous</a>
-                  </Link>
-                </li>
-              )}
-            </>
-          )}
-
-          {pages.map((page) => {
-            if (page === 1) {
-              return (
-                <li key={page} className={page === currentPage ? 'active' : ''}>
-                  <Link href={`/${urlName}?q=${query}`}>
-                    <a>{page}</a>
-                  </Link>
-                </li>
-              )
-            } else {
-              return (
-                <li key={page} className={page === currentPage ? 'active' : ''}>
-                  <Link
-                    href={`/${urlName}/page/${page}/${
-                      query ? '?q=' + query : ''
-                    }`}>
-                    <a>{page}</a>
-                  </Link>
-                </li>
-              )
-            }
-          })}
-
-          {!isLast && (
-            <>
-              <li>
-                <Link href={nextPage}>
-                  <a>Next</a>
-                </Link>
-              </li>
+      <ul>
+        {!isFirst && (
+          <>
+            <li>
+              <Link href={{ pathname: `/${urlName}`, query: hmm }}>
+                <a>First</a>
+              </Link>
+            </li>
+            {currentPage === 2 ? (
               <li>
                 <Link
-                  href={`/search/page/${totalPages.toString()}/${
-                    query ? '?q=' + query : ''
-                  }`}>
-                  <a>Last</a>
+                  href={{
+                    pathname: `/${urlName}`,
+                    query: hmm,
+                  }}>
+                  <a>Previous</a>
                 </Link>
               </li>
-            </>
-          )}
-        </ul>
-      ) : (
-        <ul>
-          {!isFirst && (
-            <>
+            ) : (
               <li>
-                <Link href={`/${urlName}`}>
-                  <a>First</a>
+                <Link href={{ pathname: prevPage, query: hmm }}>
+                  <a>Previous</a>
                 </Link>
               </li>
-              {currentPage === 2 ? (
-                <li>
-                  <Link href={`/${urlName}`}>
-                    <a>Previous</a>
-                  </Link>
-                </li>
-              ) : (
-                <li>
-                  <Link href={prevPage}>
-                    <a>Previous</a>
-                  </Link>
-                </li>
-              )}
-            </>
-          )}
+            )}
+          </>
+        )}
 
-          {pages.map((page) => {
-            if (page === 1) {
-              return (
-                <li key={page} className={page === currentPage ? 'active' : ''}>
-                  <Link href={`/${urlName}`}>
-                    <a>{page}</a>
-                  </Link>
-                </li>
-              )
-            } else {
-              return (
-                <li key={page} className={page === currentPage ? 'active' : ''}>
-                  <Link href={`/${urlName}/page/${page}`}>
-                    <a>{page}</a>
-                  </Link>
-                </li>
-              )
-            }
-          })}
+        {pages.map((page) => {
+          if (page === 1) {
+            return (
+              <li key={page} className={page === currentPage ? 'active' : ''}>
+                <Link
+                  href={{
+                    pathname: `/${urlName}`,
+                    query: hmm,
+                  }}>
+                  <a>{page}</a>
+                </Link>
+              </li>
+            )
+          } else {
+            return (
+              <li key={page} className={page === currentPage ? 'active' : ''}>
+                <Link
+                  href={{
+                    pathname: `/${urlName}/page/${page}`,
+                    query: hmm,
+                  }}>
+                  <a>{page}</a>
+                </Link>
+              </li>
+            )
+          }
+        })}
 
-          {!isLast && (
-            <>
-              <li>
-                <Link href={nextPage}>
-                  <a>Next</a>
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${urlName}/page/${totalPages.toString()}`}>
-                  <a>Last</a>
-                </Link>
-              </li>
-            </>
-          )}
-        </ul>
-      )}
+        {!isLast && (
+          <>
+            <li>
+              <Link href={{ pathname: nextPage, query: hmm }}>
+                <a>Next</a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={{
+                  pathname: `/${urlName}/page/${totalPages.toString()}`,
+                  query: hmm,
+                }}>
+                <a>Last</a>
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
     </div>
   )
 }

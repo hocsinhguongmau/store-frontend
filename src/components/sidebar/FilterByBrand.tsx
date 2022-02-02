@@ -1,6 +1,5 @@
 import Loading from '@components/Loading'
 import { useBrand } from '@src/hooks/useBrand'
-import { useShopProduct } from '@src/hooks/useShopProduct'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -35,9 +34,13 @@ const FilterByBrand = () => {
 
   if (data) {
     const handleBrandRouter = (brand: string) => {
+      let path = router.pathname
+
+      let hmm = { ...router.query, brand: brand, page_slug: '1' }
+
       router.push({
-        pathname: router.pathname,
-        query: { ...router.query, brand: brand },
+        pathname: path,
+        query: hmm,
       })
     }
 
@@ -77,6 +80,8 @@ const FilterByBrand = () => {
         )}
       </>
     )
+  } else {
+    return <Loading />
   }
 }
 

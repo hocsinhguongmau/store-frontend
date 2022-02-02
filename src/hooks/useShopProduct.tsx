@@ -2,7 +2,7 @@ import { getAllProducts } from '@src/lib/queries/product'
 import { useRouter } from 'next/router'
 import { useQuery, UseQueryResult } from 'react-query'
 
-export const useShopProduct = () => {
+export const useShopProduct = (start: number, end: number) => {
   const { query } = useRouter()
   const sort = query.order as string
   const gender = query.gender as string
@@ -20,14 +20,14 @@ export const useShopProduct = () => {
   >(
     [
       'all_products',
-      'sort:' + sort,
-      'gender:' + gender,
-      'discount:' + discount,
-      'price:' + price,
-      'brand:' + brand,
+      sort ? 'sort:' + sort : 'sort',
+      gender ? 'gender:' + gender : 'gender',
+      discount ? 'discount:' + discount : 'discount',
+      price ? 'price:' + price : 'price',
+      brand ? 'brand:' + brand : 'brand',
+      query.page_slug ? 'page:' + query.page_slug : 'page',
     ],
-    () => getAllProducts(sort, gender, discount, price, brand),
+    () => getAllProducts(sort, gender, discount, price, brand, start, end),
   )
-
   return { isLoading, isError, error, data }
 }

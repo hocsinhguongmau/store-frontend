@@ -12,9 +12,12 @@ const FilterByPrice = () => {
 
   const handlePriceRouter = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    let path = router.pathname
+
+    let hmm = { ...router.query, price: [priceMin, priceMax], page_slug: '1' }
     router.push({
-      pathname: router.pathname,
-      query: { ...router.query, price: [priceMin, priceMax] },
+      pathname: path,
+      query: hmm,
     })
   }
   return (
@@ -46,7 +49,7 @@ const FilterByPrice = () => {
             type='number'
             id='max-price'
             className='w-14 text-right border-none outline-none text-sm'
-            placeholder='200'
+            placeholder='0'
             value={priceMax}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPriceMax(e.target.value)

@@ -5,9 +5,12 @@ const FilterByGender = () => {
   const router = useRouter()
   const showGender = router.query.gender
   const handleGenderRouter = (gender: string) => {
+    let path = router.pathname
+
+    let hmm = { ...router.query, gender: gender, page_slug: '1' }
     router.push({
-      pathname: router.pathname,
-      query: { ...router.query, gender: gender },
+      pathname: path,
+      query: hmm,
     })
   }
   return (

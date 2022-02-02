@@ -18,6 +18,8 @@ export const getAllProducts = async (
   discount: string,
   price: string[],
   brand: string,
+  start: number,
+  end: number,
 ): Promise<shopPageProductsType | undefined> => {
   let order = ''
   let sex = ''
@@ -26,13 +28,13 @@ export const getAllProducts = async (
   let vendor = ''
 
   if (sort === undefined || sort === '') {
-    order = 'order(_createdAt desc)'
+    order = '| order(_createdAt desc)'
   } else if (sort === 'sell') {
-    order = 'order(sold desc)'
+    order = '| order(sold desc)'
   } else if (sort === 'price_desc') {
-    order = 'order(defaultProductVariant.price desc)'
+    order = '| order(defaultProductVariant.price desc)'
   } else if (sort === 'price_asc') {
-    order = 'order(defaultProductVariant.price asc)'
+    order = '| order(defaultProductVariant.price asc)'
   }
 
   if (discount === undefined || discount === 'false') {
@@ -47,7 +49,7 @@ export const getAllProducts = async (
   if (brand !== undefined && brand !== '') {
     vendor = ` && vendor->slug.current=="${brand}"`
   }
-  if (price !== undefined) {
+  if (price !== undefined && price !== ['']) {
     if (price[0] === '' && price[1] === '') {
       costs = ''
     } else if (price[0] === '') {
@@ -62,18 +64,42 @@ export const getAllProducts = async (
   }
 
   const variables = sex + sales + vendor + costs
-  const shopPage = `{"products":*[_type=="product" ${variables}]|${order}[0...12]${queryResult},"numberOfProducts": count(*[_type=="product" ${variables}])}`
-
+  const shopPage = `{"products":*[_type=="product"${variables}]${order}[${start}...${end}]${queryResult},"numberOfProducts": count(*[_type=="product" ${variables}])}`
   return await client.fetch(shopPage)
 }
 
 const sideBar = `*[_type=="product"]{"title":vendor->title,"slug":vendor->slug.current}`
-export const getSideBar = async (): Promise<any | undefined> => {
+export const getSideBar = async (): Promise<BrandType[] | undefined> => {
   return await client.fetch(sideBar)
 }
 
-//get data for filter components
-//brand pages
+export const getProductDetail = async (
+  slug: string,
+): Promise<ProductDetailType | undefined> => {
+  const query = `*[_type=="product" && slug.current == "${slug}"]{
+      "id":_id,
+      "images": images[0].asset._ref,
+      title,
+      "slug":slug.current,
+      blurb,
+      top_notes,
+      middle_notes,
+      base_notes,
+      body,
+      defaultProductVariant,
+      variants,
+      "comments":  *[_type=="comment" && references(^._id)]{
+        "id":_id,
+        approved,
+        "comment":comment[0].children,
+        name,
+        email,
+        rating,
+      }
+   }`
+  return await client.fetch(query)
+}
+
 //shop pages and pagination
 //detail page
 //comment
@@ -82,3 +108,4 @@ export const getSideBar = async (): Promise<any | undefined> => {
 //checkout
 //order history
 //localized
+//search

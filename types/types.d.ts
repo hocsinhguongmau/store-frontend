@@ -72,6 +72,7 @@ type CommentType = {
 }
 
 type LocaleStringType = {
+  _type?: string
   en: string
   fi: string
   se: string
@@ -86,6 +87,7 @@ type ProductDetailType = {
   middle_notes: LocaleStringType
   base_notes: LocaleStringType
   body: {
+    _type?: string
     en: string[]
     fi: string[]
     sw: string[]

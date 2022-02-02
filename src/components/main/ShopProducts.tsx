@@ -4,10 +4,17 @@ import React from 'react'
 import Pagination from './Pagination'
 import ProductItem from './ProductItem'
 
-const productsPerPage = 12
+type Props = {
+  productsPerPage: number
+  page: number
+}
 
-const ShopProducts = () => {
-  const { isLoading, isError, error, data } = useShopProduct()
+const ShopProducts = ({ productsPerPage, page }: Props) => {
+  const { isLoading, isError, error, data } = useShopProduct(
+    productsPerPage * page - productsPerPage,
+    productsPerPage * page,
+  )
+
   if (isLoading) {
     return <Loading />
   }
@@ -35,9 +42,9 @@ const ShopProducts = () => {
         </div>
         {data.numberOfProducts > productsPerPage ? (
           <Pagination
-            currentPage={1}
+            currentPage={page}
             numberOfProducts={data.numberOfProducts}
-            productsPerPage={12}
+            productsPerPage={productsPerPage}
             maxPages={5}
             urlName={`shop`}
           />

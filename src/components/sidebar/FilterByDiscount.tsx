@@ -8,9 +8,12 @@ const FilterByDiscount = () => {
   )
   const handleDiscountRouter = () => {
     setDiscount(!discount)
+    let path = router.pathname
+
+    let hmm = { ...router.query, discount: !discount, page_slug: '1' }
     router.push({
-      pathname: '/shop',
-      query: { ...router.query, discount: !discount },
+      pathname: path,
+      query: hmm,
     })
   }
   return (

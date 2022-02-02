@@ -4,10 +4,14 @@ import React from 'react'
 const SortBy = () => {
   const router = useRouter()
   const handleOrderProducts = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    let path = router.pathname
     const params = event.target.value
+
+    let hmm = { ...router.query, order: params, page_slug: '1' }
+
     router.push({
-      pathname: router.pathname,
-      query: { ...router.query, order: params },
+      pathname: path,
+      query: hmm,
     })
   }
   return (
