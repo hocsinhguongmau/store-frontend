@@ -39,7 +39,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
               </span>
             </div>
           ) : null}
-          <Link href={`/${product.vendor.slug}/${product.slug}`}>
+          <Link href={`/${product.slug}`}>
             <a>
               <Image
                 {...imageProps}
@@ -54,12 +54,12 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
 
         <div className='text-center leading-6'>
           <h3 className='mt-2'>
-            <Link href={`/${product.vendor.slug}/${product.slug}`}>
+            <Link href={`/${product.slug}`}>
               <a>{product.title}</a>
             </Link>
           </h3>
           <h3 className='font-bold mt-1'>
-            <Link href={`/${product.vendor.slug}`}>
+            <Link href={`/shop?brand=${product.vendor.slug}`}>
               <a>{product.vendor.title}</a>
             </Link>
           </h3>
