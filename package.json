@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^2.1.6",
     "@hookform/error-message": "^2.0.0",
+    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.23.2",
     "aws-amplify": "^4.3.12",
     "next": "12.0.7",
@@ -27,6 +28,7 @@
     "sass": "^1.47.0",
     "sharp": "^0.29.3",
     "slick-carousel": "^1.8.1",
+    "uuid": "^8.3.2",
     "zustand": "^3.6.9"
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "@types/react": "17.0.38",
     "@types/react-slick": "^0.23.8",
     "@types/react-star-ratings": "^2.3.0",
+    "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.2",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",

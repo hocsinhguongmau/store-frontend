@@ -35,6 +35,17 @@ type BrandType = {
   slug: string
 }
 
+type BrandDetailType = {
+  title: string
+  slug: string
+  body: {
+    en: string[]
+    fi: string[]
+    se: string[]
+  }
+  products: ProductType[]
+}
+
 type ProductVariant = {
   _type: string
   ml: number
@@ -62,11 +73,17 @@ type ProductType = {
   comments: [{ rating: number }]
 }
 
+type CommentText = {
+  key: string
+  _type: string
+  text: string
+}
+
 type CommentType = {
+  date: string
   id: string
   approved: boolean
-  comment: string[]
-  name: string
+  comment: CommentText[]
   email: string
   rating: number
 }
@@ -86,11 +103,12 @@ type ProductDetailType = {
   top_notes: LocaleStringType
   middle_notes: LocaleStringType
   base_notes: LocaleStringType
+  discount: boolean
   body: {
     _type?: string
     en: string[]
     fi: string[]
-    sw: string[]
+    se: string[]
   }
   vendor: {
     title: string
@@ -99,6 +117,7 @@ type ProductDetailType = {
   defaultProductVariant: ProductVariant
   variants: ProductVariant[]
   comments: CommentType[]
+  related: ProductType[]
 }
 
 type mainPageProductsType = {

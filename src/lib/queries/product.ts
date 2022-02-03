@@ -6,9 +6,7 @@ export const queryResult = `{"id":_id,"images":images[0].asset._ref,title,"slug"
 
 const mainPage = `{"new_products":*[_type=="product" ]|order(_createdAt desc)[0...8]${queryResult},"weekly_offer":*[_type=="product" && discount][0...8]${queryResult},"best_selling":*[_type=="product" ]|order(sold desc)[0...8]${queryResult}}`
 
-export const getMainPageProducts = async (): Promise<
-  mainPageProductsType | undefined
-> => {
+export const getMainPageProducts = async (): Promise<mainPageProductsType> => {
   return await client.fetch(mainPage)
 }
 
@@ -20,7 +18,7 @@ export const getAllProducts = async (
   brand: string,
   start: number,
   end: number,
-): Promise<shopPageProductsType | undefined> => {
+): Promise<shopPageProductsType> => {
   let order = ''
   let sex = ''
   let costs = ''
@@ -69,18 +67,23 @@ export const getAllProducts = async (
 }
 
 const sideBar = `*[_type=="product"]{"title":vendor->title,"slug":vendor->slug.current}`
-export const getSideBar = async (): Promise<BrandType[] | undefined> => {
+export const getSideBar = async (): Promise<BrandType[]> => {
   return await client.fetch(sideBar)
 }
 
 export const getProductDetail = async (
+  brand_slug: string,
   slug: string,
-): Promise<ProductDetailType | undefined> => {
+): Promise<ProductDetailType> => {
   const query = `*[_type=="product" && slug.current == "${slug}"]{
       "id":_id,
       "images": images[0].asset._ref,
       title,
       "slug":slug.current,
+      "vendor":{
+        "title": vendor->title,
+         "slug":vendor->slug.current
+       },
       blurb,
       top_notes,
       middle_notes,
@@ -88,21 +91,24 @@ export const getProductDetail = async (
       body,
       defaultProductVariant,
       variants,
+      discount,
       "comments":  *[_type=="comment" && references(^._id)]{
+       "date": _createdAt,
         "id":_id,
         approved,
-        "comment":comment[0].children,
-        name,
+        comment,
         email,
         rating,
-      }
-   }`
+      },
+      "related": *[_type=="product" && vendor->slug.current == "${brand_slug}" && slug.current!="${slug}"][0...4]${queryResult}
+   }[0]`
   return await client.fetch(query)
 }
 
-//shop pages and pagination
+// "comment":comment[0].children,
+
 //detail page
-//comment
+//comment into array of string
 //fav items
 //cart
 //checkout

@@ -17,7 +17,6 @@ const Breadcrumbs = () => {
   const language = useLanguageStore((state) => state.language)
   const router = useRouter()
   const [breadcrumbs, setBreadcrumbs] = useState<PathArray[]>([])
-  console.log(router.query.page_slug)
 
   useEffect(() => {
     if (router) {
@@ -50,6 +49,17 @@ const Breadcrumbs = () => {
             </a>
           </Link>
         </li>
+        {router.query.brand_slug && !router.query.product_slug ? (
+          <li className='ml-2 flex flex-row'>
+            <RiArrowRightSFill
+              className='text-2xl mr-1'
+              style={{ marginTop: '-1px' }}
+            />
+            <Link href='/brand'>
+              <a className='capitalize'>{headerContent[language].brand}</a>
+            </Link>
+          </li>
+        ) : null}
         {breadcrumbs.map((breadcrumb, i) => {
           let text = convertBreadcrumb(breadcrumb.breadcrumb).toLowerCase()
 
@@ -61,7 +71,7 @@ const Breadcrumbs = () => {
             text === 'contact'
           ) {
             text = headerContent[language][text]
-          } else if (text === 'page' || typeof parseInt(text) === 'number') {
+          } else if (text === 'page' || parseInt(text) > 0) {
             return null
           }
           return (

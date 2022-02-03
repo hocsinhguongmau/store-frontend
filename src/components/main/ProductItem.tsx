@@ -17,7 +17,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
   const imageProps = useNextSanityImage(client, product.images)
   let rating: number = 0
   let total: number = 0
-  let count: number = 1
+  let count: number = 0
   product.comments.map((comment) => {
     if (comment.rating) {
       total += comment.rating
@@ -39,7 +39,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
               </span>
             </div>
           ) : null}
-          <Link href={`/${product.slug}`}>
+          <Link href={`/${product.vendor.slug}/${product.slug}`}>
             <a>
               <Image
                 {...imageProps}
@@ -54,7 +54,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
 
         <div className='text-center leading-6'>
           <h3 className='mt-2'>
-            <Link href={`/${product.slug}`}>
+            <Link href={`/${product.vendor.slug}/${product.slug}`}>
               <a>{product.title}</a>
             </Link>
           </h3>
