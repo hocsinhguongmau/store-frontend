@@ -1,18 +1,19 @@
 import Loading from '@components/Loading'
 import { useBrand } from '@src/hooks/useBrand'
+import { useFilteredBrand } from '@src/hooks/useFilteredBrand'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
 const FilterByBrand = () => {
   const router = useRouter()
-  const { isLoading, isError, error, data } = useBrand()
+  const { isLoading, isError, error, data } = useFilteredBrand()
   const showBrand = router.query.brand
-  const [filteredBrands, setFilterBrands] = useState<BrandType[]>([])
+  const [filteredBrands, setFilterBrands] = useState<FilteredBrandType[]>([])
   useEffect(() => {
     if (data) setFilterBrands(data)
   }, [data])
   const handleFilterBrands = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let hmm: BrandType[] = []
+    let hmm: FilteredBrandType[] = []
     if (data) {
       hmm = data.filter((brand) => brand.slug.includes(event.target.value))
       setFilterBrands(hmm)
@@ -35,7 +36,6 @@ const FilterByBrand = () => {
   if (data) {
     const handleBrandRouter = (brand: string) => {
       let path = router.pathname
-
       let hmm = { ...router.query, brand: brand, page_slug: '1' }
 
       router.push({
@@ -57,14 +57,17 @@ const FilterByBrand = () => {
             />
             <div className='max-h-72 overflow-auto mt-4'>
               <ul>
-                {filteredBrands.map((brand) => (
-                  <li
-                    key={brand.slug}
-                    className='text-xs mb-4 cursor-pointer capitalize'
-                    onClick={() => handleBrandRouter(brand.slug)}>
-                    {brand.title}
-                  </li>
-                ))}
+                {filteredBrands.map((brand) =>
+                  brand.count > 0 ? (
+                    <li
+                      key={brand.slug}
+                      className='text-xs mb-4 cursor-pointer capitalize'
+                      onClick={() => handleBrandRouter(brand.slug)}>
+                      {brand.title}{' '}
+                      <span className='text-gray-400 ml-2'>{brand.count}</span>
+                    </li>
+                  ) : null,
+                )}
               </ul>
             </div>
           </div>

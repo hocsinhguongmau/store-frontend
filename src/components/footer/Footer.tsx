@@ -28,22 +28,22 @@ export default function Footer(): ReactElement | null {
               <h3 className='font-bold text-2xl text-white'>Fragrances</h3>
               <ul>
                 <li className='mt-2'>
-                  <Link href='/shop?discount=true'>
+                  <Link href='/shop/page/1?discount=true'>
                     <a className='hover:text-white'>Sales</a>
                   </Link>
                 </li>
                 <li className='mt-2'>
-                  <Link href='/shop?gender=women'>
+                  <Link href='/shop/page/1?gender=women'>
                     <a className='hover:text-white'>Women's Perfume</a>
                   </Link>
                 </li>
                 <li className='mt-2'>
-                  <Link href='/shop?gender=men'>
+                  <Link href='/shop/page/1?gender=men'>
                     <a className='hover:text-white'>Men's Cologne</a>
                   </Link>
                 </li>
                 <li className='mt-2'>
-                  <Link href='/shop?gender=unisex'>
+                  <Link href='/shop/page/1?gender=unisex'>
                     <a className='hover:text-white'>Unisex Fragrances</a>
                   </Link>
                 </li>

@@ -16,19 +16,19 @@ const Home = () => {
       <Banner />
       <ListProducts
         title='Weekly offer'
-        href='/shop?discount=true'
+        href='/shop/page/1?discount=true'
         products='weekly_offer'
       />
       <Category />
       <ListProducts
         title='New products'
-        href='/shop?order=date'
+        href='/shop/page/1?order=date'
         products='new_products'
       />
 
       <ListProducts
         title='Best selling'
-        href='/shop?order=sale'
+        href='/shop/page/1?order=sale'
         products='best_selling'
       />
 

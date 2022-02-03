@@ -149,7 +149,7 @@ const ProductDetail = () => {
         </div>
         <div className='md:hidden'>
           <h2 className='mt-4 text-xl'>
-            <Link href={`/shop?brand=${data.vendor.slug}`}>
+            <Link href={`/shop/page/1?brand=${data.vendor.slug}`}>
               <a>{data.vendor.title}</a>
             </Link>
           </h2>
@@ -169,7 +169,7 @@ const ProductDetail = () => {
             <div className='hidden md:block'>
               <BreadcrumbsComponent />
               <h2 className='mt-4 text-lg'>
-                <Link href={`/shop?brand=${data.vendor.slug}`}>
+                <Link href={`/shop/page/1?brand=${data.vendor.slug}`}>
                   <a>{data.vendor.title}</a>
                 </Link>
               </h2>

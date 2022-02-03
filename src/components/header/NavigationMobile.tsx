@@ -35,14 +35,14 @@ const NavigationDesktop = () => {
             </Link>
           </li>
           <li className='py-2'>
-            <Link href='/shop'>
+            <Link href='/shop/page/1'>
               <a onClick={() => setActive(false)}>
                 {headerContent[language].shop}
               </a>
             </Link>
           </li>
           <li className='py-2'>
-            <Link href='/shop?discount=true'>
+            <Link href='/shop/page/1?discount=true'>
               <a onClick={() => setActive(false)}>
                 {headerContent[language].sales}
               </a>

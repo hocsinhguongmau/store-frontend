@@ -10,7 +10,7 @@ const Category = () => {
       </h2>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-0 mt-4 md:mt-8'>
         <div className='relative'>
-          <Link href='/shop?gender=women'>
+          <Link href='/shop/page/1?gender=women'>
             <a>
               <div className='absolute w-full h-full top-0 left-0 bg-black bg-opacity-60 z-10 hidden md:flex flex-col justify-center opacity-0 hover:opacity-100 transition-all duration-300'>
                 <h2 className='text-3xl text-white font-bold px-8 capitalize'>
@@ -28,7 +28,7 @@ const Category = () => {
         </div>
         <div>
           <div className='relative'>
-            <Link href='/shop?gender=unisex'>
+            <Link href='/shop/page/1?gender=unisex'>
               <a>
                 <div className='absolute w-full h-full top-0 left-0 bg-black bg-opacity-60 z-10 hidden md:flex flex-col justify-center opacity-0 hover:opacity-100 transition-all duration-300 text-center'>
                   <h2 className='text-3xl text-white font-bold px-8 capitalize'>
@@ -47,7 +47,7 @@ const Category = () => {
         </div>
         <div>
           <div className='relative'>
-            <Link href='/shop?gender=men'>
+            <Link href='/shop/page/1?gender=men'>
               <a>
                 <div className='absolute w-full h-full top-0 left-0 bg-black bg-opacity-60 z-10 hidden md:flex flex-col justify-center opacity-0 hover:opacity-100 transition-all duration-300 text-right'>
                   <h2 className='text-3xl text-white font-bold px-8 capitalize'>

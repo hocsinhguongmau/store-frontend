@@ -115,7 +115,7 @@ const BrandDetail = () => {
         ) : null}
         <div className='text-center mt-4'>
           {data.products.length > 4 ? (
-            <Link href={`/shop?brand=${brand_slug}`}>
+            <Link href={`/shop/page/1?brand=${brand_slug}`}>
               <a className='button inline-block'>View more</a>
             </Link>
           ) : null}

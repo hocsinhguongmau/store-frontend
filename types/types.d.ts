@@ -138,3 +138,9 @@ type shopPageQueryType = {
   price: string[]
   brand: string
 }
+
+type FilteredBrandType = {
+  title: string
+  slug: string
+  count: number
+}

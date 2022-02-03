@@ -6,7 +6,6 @@ const SortBy = () => {
   const handleOrderProducts = (event: React.ChangeEvent<HTMLSelectElement>) => {
     let path = router.pathname
     const params = event.target.value
-
     let hmm = { ...router.query, order: params, page_slug: '1' }
 
     router.push({
