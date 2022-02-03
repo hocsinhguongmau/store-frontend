@@ -144,3 +144,7 @@ type FilteredBrandType = {
   slug: string
   count: number
 }
+
+type filterPrice = {
+  price: number
+}

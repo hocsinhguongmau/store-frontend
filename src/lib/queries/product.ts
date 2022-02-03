@@ -105,6 +105,37 @@ export const getProductDetail = async (
   return await client.fetch(query)
 }
 
+export const getProductPrice = async (
+  gender: string,
+  discount: string,
+  brand: string,
+): Promise<filterPrice[]> => {
+  let sex = ''
+  let sales = ''
+  let vendor = ''
+
+  if (discount === undefined || discount === 'false') {
+    sales = ''
+  } else {
+    sales = ' && discount==true'
+  }
+
+  if (gender !== undefined && gender !== '') {
+    sex = ` && gender[0]->slug.current=="${gender}"`
+  }
+  if (brand !== undefined && brand !== '') {
+    vendor = ` && vendor->slug.current=="${brand}"`
+  }
+  const variables = sex + sales + vendor
+  const query = `*[_type=="product" ${variables}]{
+  "price": select(
+  defaultProductVariant.price > variants[0].price => defaultProductVariant.price,
+  defaultProductVariant.price < variants[0].price => variants[0].price,defaultProductVariant.price
+    )
+}`
+  return await client.fetch(query)
+}
+
 // "comment":comment[0].children,
 
 //detail page

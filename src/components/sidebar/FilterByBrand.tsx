@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 const FilterByBrand = () => {
   const router = useRouter()
+  const [filterText, setFilterText] = useState<string>('')
   const { isLoading, isError, error, data } = useFilteredBrand()
   const showBrand = router.query.brand
   const [filteredBrands, setFilterBrands] = useState<FilteredBrandType[]>([])
@@ -14,6 +15,7 @@ const FilterByBrand = () => {
   }, [data])
   const handleFilterBrands = (event: React.ChangeEvent<HTMLInputElement>) => {
     let hmm: FilteredBrandType[] = []
+    setFilterText(event.target.value)
     if (data) {
       hmm = data.filter((brand) => brand.slug.includes(event.target.value))
       setFilterBrands(hmm)
@@ -37,7 +39,6 @@ const FilterByBrand = () => {
     const handleBrandRouter = (brand: string) => {
       let path = router.pathname
       let hmm = { ...router.query, brand: brand, page_slug: '1' }
-
       router.push({
         pathname: path,
         query: hmm,
@@ -54,6 +55,7 @@ const FilterByBrand = () => {
               className='text-sm border-2 border-solid border-gray-300 w-full p-2'
               placeholder='Filter brands'
               onChange={handleFilterBrands}
+              value={filterText}
             />
             <div className='max-h-72 overflow-auto mt-4'>
               <ul>
