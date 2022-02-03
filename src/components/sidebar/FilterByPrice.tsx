@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import Slider, { Range } from 'rc-slider'
+import { Range } from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { useQuery, UseQueryResult } from 'react-query'
 import { getProductPrice } from '@src/lib/queries/product'
@@ -30,14 +30,7 @@ const FilterByPrice = () => {
     ],
     () => getProductPrice(gender, discount, brand),
   )
-  useEffect(() => {
-    max = data?.reduce(function (a, b) {
-      return Math.max(a, b.price)
-    }, 0)
-    min = data?.reduce(function (a, b) {
-      return Math.min(a, b.price)
-    }, 1000)
-  }, [data])
+
   let max = data?.reduce(function (a, b) {
     return Math.max(a, b.price)
   }, 0)
@@ -45,14 +38,14 @@ const FilterByPrice = () => {
   let min = data?.reduce(function (a, b) {
     return Math.min(a, b.price)
   }, 1000)
-
-  const [priceMin, setPriceMin] = useState<string>(
-    router.query.price ? router.query.price[0] : min ? min.toString() : '0',
-  )
+  useEffect(() => {
+    setPriceMin(min ? min.toString() : '0')
+    setPriceMax(max ? max.toString() : '1000')
+  }, [data])
+  const [priceMin, setPriceMin] = useState<string>(min ? min.toString() : '0')
   const [priceMax, setPriceMax] = useState<string>(
-    router.query.price ? router.query.price[1] : max ? max.toString() : '1000',
+    max ? max.toString() : '1000',
   )
-
   const handlePriceRouter = (value: number[]) => {
     let path = router.pathname
     setPriceMin(value[0].toString())
@@ -67,6 +60,7 @@ const FilterByPrice = () => {
       query: hmm,
     })
   }
+
   if (isLoading) {
     return <Loading />
   }

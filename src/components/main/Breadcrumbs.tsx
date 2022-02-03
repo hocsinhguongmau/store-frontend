@@ -81,9 +81,15 @@ const Breadcrumbs = () => {
                   className='text-2xl mr-1'
                   style={{ marginTop: '-1px' }}
                 />
-                <Link href={breadcrumb.href}>
-                  <a className='capitalize'>{text}</a>
-                </Link>
+                {breadcrumb.breadcrumb === 'shop' ? (
+                  <Link href={`${breadcrumb.href}/page/1`}>
+                    <a className='capitalize'>{text}</a>
+                  </Link>
+                ) : (
+                  <Link href={breadcrumb.href}>
+                    <a className='capitalize'>{text}</a>
+                  </Link>
+                )}
               </li>
             </React.Fragment>
           )
