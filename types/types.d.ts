@@ -148,3 +148,14 @@ type FilteredBrandType = {
 type filterPrice = {
   price: number
 }
+
+type PostCommentType = {
+  _type: string
+  approved: boolean
+  comment: string
+  product: {
+    _ref: string
+  }
+  rating: number
+  email: string
+}

@@ -1,25 +1,10 @@
-import { client } from '@lib/client'
-
-import { v4 as uuidv4 } from 'uuid'
-
-type PostCommentType = {
-  _type: string
-  approved: boolean
-  comment: string
-  product: {
-    _ref: string
-  }
-  rating: number
-  email: string
-}
-
 export const postComment = async (
   comment: string,
   email: string,
   rating: number,
   product: string,
 ) => {
-  const userComment = {
+  const userComment: PostCommentType = {
     _type: 'comment',
     approved: false,
     comment: comment,
@@ -29,6 +14,7 @@ export const postComment = async (
     rating: rating,
     email: email,
   }
+  console.log(comment)
   const mutations = [
     {
       create: userComment,

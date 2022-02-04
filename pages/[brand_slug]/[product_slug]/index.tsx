@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 import Link from 'next/link'
 import { AiOutlineHeart } from 'react-icons/ai'
-import StarRatings from 'react-star-ratings'
 import Star from '@components/main/Star'
 import ProductItem from '@components/main/ProductItem'
 import { useProductDetail } from '@src/hooks/useProductDetail'
@@ -15,8 +14,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { useNextSanityImage } from 'next-sanity-image'
 import { client } from '@src/lib/client'
 import useLanguageStore from '@src/lib/store/languageStore'
-import { postComment } from '@src/lib/queries/comment'
-import { Auth, Hub } from 'aws-amplify'
+import Comment from '@components/main/Comment'
 
 const BlockContent = require('@sanity/block-content-to-react')
 type linksType = {
@@ -71,7 +69,6 @@ const serializers = {
 
 const ProductDetail = () => {
   const router = useRouter()
-  const [profile, setProfile] = useState<IProfile>({})
   const slug = router.query.product_slug as string
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useProductDetail(brand_slug, slug)
@@ -84,30 +81,6 @@ const ProductDetail = () => {
   const [commentRating, setCommentRating] = useState<number>(0)
   const [review, setReview] = useState<string>('')
 
-  const handleChangeRating = (star: number) => {
-    setCommentRating(star)
-  }
-
-  const handleSubmitReview = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (data && profile.email)
-      postComment(review, profile.email, commentRating, data?.id)
-    setCommentRating(0)
-    setReview('')
-  }
-  useEffect(() => {
-    let getUser = async () => {
-      try {
-        let user = await Auth.currentAuthenticatedUser()
-        setProfile(user.attributes)
-      } catch {
-        setProfile({})
-      }
-    }
-    Hub.listen('auth', getUser)
-    getUser()
-    return () => Hub.remove('auth', getUser)
-  }, [])
   const [swap, setSwap] = useState<boolean>(true)
   if (isLoading) {
     return <Loading />
@@ -141,7 +114,17 @@ const ProductDetail = () => {
     rating = total / count
 
     const [selectedVariant, setSelectedVariant] = useState()
-
+    const [disableButton, setDisableButton] = useState<boolean>(true)
+    const handleChangeReview = (
+      event: React.ChangeEvent<HTMLTextAreaElement>,
+    ) => {
+      setReview(event.target.value)
+      if (event.target.value.length < 1) {
+        setDisableButton(true)
+      } else {
+        setDisableButton(false)
+      }
+    }
     return (
       <div className='container'>
         <div className='md:hidden'>
@@ -285,45 +268,12 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className={`${swap ? 'hidden' : 'block'} mt-4 md:mt-8`}>
-            <h3 className='text-xl md:text-3xl tracking-tight mb-2 md:mb-6'>
-              <span className='font-bold'>Review</span> {data.title}
-            </h3>
-            {profile.email ? (
-              <form onSubmit={handleSubmitReview}>
-                <div>
-                  <StarRatings
-                    starRatedColor='#EB4849'
-                    changeRating={handleChangeRating}
-                    rating={commentRating}
-                    name='rating'
-                    starSpacing='0'
-                    starDimension='20px'
-                  />
-                </div>
-                <textarea
-                  className='resize-none w-full h-32 outline-none border border-solid border-gray-400 mt-6 p-2 text-sm'
-                  onChange={(e) => setReview(e.target.value)}
-                  value={review}
-                  placeholder='Write your review'></textarea>
-                <p className='mt-4'>
-                  <button className='button' type='submit'>
-                    Review
-                  </button>
-                </p>
-              </form>
-            ) : (
-              <p>
-                <Link href='/profile'>
-                  <a>Please login to review</a>
-                </Link>
-              </p>
-            )}
-
+            <Comment id={data.id} title={data.title} />
             <div className='mt-8 pt-2 border-t border-solid border-gray-400'>
               {data.comments.length > 0 ? (
                 data.comments.map((comment) => (
                   <div className='mt-4' key={comment.id}>
-                    <p className='text-sm'>{comment.comment}</p>
+                    <div className='text-sm'>{comment.comment}</div>
                     <p className='flex flex-row mt-2 text-xs leading-4'>
                       <Star rating={comment.rating} />
                       <span className='font-bold mr-2 ml-4'>
