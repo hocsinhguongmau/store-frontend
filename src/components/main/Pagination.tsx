@@ -75,7 +75,7 @@ export default function Pagination({
         {!isFirst && (
           <>
             <li>
-              <Link href={{ pathname: `/${urlName}`, query: hmm }}>
+              <Link href={{ pathname: `/${urlName}/page/1`, query: hmm }}>
                 <a>First</a>
               </Link>
             </li>
@@ -83,7 +83,7 @@ export default function Pagination({
               <li>
                 <Link
                   href={{
-                    pathname: `/${urlName}`,
+                    pathname: `/${urlName}/page/1`,
                     query: hmm,
                   }}>
                   <a>Previous</a>
@@ -105,7 +105,7 @@ export default function Pagination({
               <li key={page} className={page === currentPage ? 'active' : ''}>
                 <Link
                   href={{
-                    pathname: `/${urlName}`,
+                    pathname: `/${urlName}/page/1`,
                     query: hmm,
                   }}>
                   <a>{page}</a>

@@ -38,6 +38,7 @@ const FilterByBrand = () => {
   if (data) {
     const handleBrandRouter = (brand: string) => {
       let path = router.pathname
+
       let hmm = { ...router.query, brand: brand, page_slug: '1' }
       router.push({
         pathname: path,
