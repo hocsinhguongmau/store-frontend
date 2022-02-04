@@ -53,6 +53,7 @@ type ProductVariant = {
   sku: number
   title: string
   discount?: number
+  main?: boolean
 }
 
 type ProductType = {

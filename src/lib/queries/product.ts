@@ -136,10 +136,7 @@ export const getProductPrice = async (
   return await client.fetch(query)
 }
 
-// "comment":comment[0].children,
-
 //detail page
-//comment into array of string
 //fav items
 //cart
 //checkout

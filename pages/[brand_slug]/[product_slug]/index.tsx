@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
@@ -72,16 +72,61 @@ const ProductDetail = () => {
   const slug = router.query.product_slug as string
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useProductDetail(brand_slug, slug)
+  const [items, setItems] = useState<ProductVariant[]>([])
+  const [currentSize, setCurrentSize] = useState<string>('')
+  const [price, setPrice] = useState({ size: 0, price: 0, discount: 0, sku: 0 })
+  useEffect(() => {
+    let hmm = []
+    if (data?.defaultProductVariant) {
+      hmm.push({ ...data.defaultProductVariant, main: true })
+    }
+    if (data?.variants) {
+      data.variants.map((product) => hmm.push({ ...product, main: false }))
+    }
+    hmm.sort(function (a, b) {
+      return b.ml - a.ml
+    })
 
-  const size = router.asPath
-    .match(/#([a-z0-9]+)/gi)
-    ?.toString()
-    .slice(1)
+    if (router.query.size !== undefined || router.query.size === '') {
+      const size = router.query.size as string
+      const filteredItem = hmm.filter((item) => item.ml.toString() === size)[0]
+      setCurrentSize(size)
+      setPrice({
+        size: parseInt(size),
+        price: filteredItem.price,
+        discount: filteredItem.discount ? filteredItem.discount : 0,
+        sku: filteredItem.sku,
+      })
+    } else {
+      const lbmc = hmm.filter((item) => item.main === true)[0].ml
+      const filteredItem = hmm.filter((item) => item.ml === lbmc)[0]
+      setPrice({
+        size: lbmc,
+        price: filteredItem.price,
+        discount: filteredItem.discount ? filteredItem.discount : 0,
+        sku: filteredItem.sku,
+      })
+      setCurrentSize(lbmc.toString())
+    }
 
-  const [commentRating, setCommentRating] = useState<number>(0)
-  const [review, setReview] = useState<string>('')
+    setItems(hmm)
+  }, [data, router.query.size])
 
   const [swap, setSwap] = useState<boolean>(true)
+
+  const handleSelectedVariant = (size: string) => {
+    let path = router.pathname
+    let hmm = { ...router.query, size: size }
+    setCurrentSize(size)
+    router.push(
+      {
+        pathname: path,
+        query: hmm,
+      },
+      undefined,
+      { shallow: true },
+    )
+  }
   if (isLoading) {
     return <Loading />
   }
@@ -113,18 +158,6 @@ const ProductDetail = () => {
     })
     rating = total / count
 
-    const [selectedVariant, setSelectedVariant] = useState()
-    const [disableButton, setDisableButton] = useState<boolean>(true)
-    const handleChangeReview = (
-      event: React.ChangeEvent<HTMLTextAreaElement>,
-    ) => {
-      setReview(event.target.value)
-      if (event.target.value.length < 1) {
-        setDisableButton(true)
-      } else {
-        setDisableButton(false)
-      }
-    }
     return (
       <div className='container'>
         <div className='md:hidden'>
@@ -168,51 +201,74 @@ const ProductDetail = () => {
               </p>
             ) : null}
             <p className='flex flex-row justify-between mt-6 pb-2'>
-              <span className='text-xl leading-10'>100ml</span>
-              <span className='text-4xl leading-8'>44,50&euro;</span>
+              <span className='text-xl leading-10'>{price.size}ml</span>
+              <span className='text-4xl leading-8'>
+                {price.discount > 0 ? (
+                  <span>
+                    <span className='line-through text-lg text-red-500'>
+                      {price.price}&euro;
+                    </span>{' '}
+                    <span className=''>
+                      {(price.price * (100 - price.discount)) / 100}
+                    </span>
+                  </span>
+                ) : (
+                  price.price
+                )}
+                &euro;
+              </span>
             </p>
             <hr />
             <p className='mt-6 flex flex-row gap-1'>
-              <Link href='#100'>
-                <a className='relative inline-block pl-3 py-1.5 md:pr-8 border border-solid border-gray-400 w-1/3 md:w-auto'>
-                  <span className='text-sm'>100ml</span>
+              {items.map((item) => (
+                <button
+                  onClick={() => handleSelectedVariant(item.ml.toString())}
+                  key={item.title}
+                  className={`relative inline-block pl-3 py-1.5 md:pr-8 border border-solid w-1/3 md:w-auto ${
+                    currentSize === item.ml.toString()
+                      ? 'border-gray-400 cursor-default'
+                      : 'border-gray-100 bg-gray-100 hover:bg-gray-200'
+                  }`}>
+                  <span className='text-sm'>{item.title}</span>
                   <br />
-                  <span className='font-bold text-sm'>95,00&euro;</span>
-                  <span className='absolute top-0 right-0 text-sm overflow-hidden h-8 w-8'>
-                    <span className='inline-block h-11 w-11 bg-red-500 -rotate-45 transform origin-top-left'></span>
-                    <span className='absolute left-1/2 top-1/2 text-white text-xs inline-block -mt-3 ml-0.5'>
-                      %
-                    </span>
+                  <span className='font-bold text-sm'>
+                    {item.discount !== undefined
+                      ? (item.price * (100 - item.discount)) / 100
+                      : item.price}
+                    &euro;
                   </span>
-                </a>
-              </Link>
-              <Link href='#50'>
-                <a className='relative inline-block pl-3 py-1.5 md:pr-8 border border-solid border-gray-100 bg-gray-100 hover:bg-gray-200 w-1/3 md:w-auto'>
-                  <span className='text-sm'>50ml</span>
-                  <br />
-                  <span className='font-bold text-sm'>95,00&euro;</span>
-                </a>
-              </Link>
-              <Link href='#50'>
-                <a className='relative inline-block pl-3 py-1.5 md:pr-8 border border-solid border-gray-100 bg-gray-100 hover:bg-gray-200 w-1/3 md:w-auto'>
-                  <span className='text-sm'>50ml</span>
-                  <br />
-                  <span className='font-bold text-sm'>95,00&euro;</span>
-                </a>
-              </Link>
+                  {item.discount && item.discount > 0 ? (
+                    <span className='absolute top-0 right-0 text-sm overflow-hidden h-8 w-8'>
+                      <span className='inline-block h-11 w-11 bg-red-500 -rotate-45 transform origin-top-left'></span>
+                      <span className='absolute left-1/2 top-1/2 text-white text-xs inline-block -mt-3 ml-0.5'>
+                        %
+                      </span>
+                    </span>
+                  ) : null}
+                </button>
+              ))}
             </p>
             <p className='mt-4'>
-              <span className='text-green-600'>In stock</span>
+              {price.sku > 0 ? (
+                <span className='text-green-600'>In stock</span>
+              ) : (
+                <span className='text-red-600'>Out of stock</span>
+              )}
             </p>
             <p className='mt-4'>
-              <select className='w-24 outline-none border border-solid border-gray-400 h-10 px-2'>
+              <select
+                className='w-24 outline-none border border-solid border-gray-400 h-10 px-2'
+                disabled={price.sku < 1}>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
                 <option>4</option>
                 <option>5</option>
               </select>
-              <button className='button ml-2'>Add to cart</button>
+              <button
+                className={`button ml-2 ${price.sku < 1 ? 'disabled' : null}`}>
+                Add to cart
+              </button>
             </p>
             <p className='mt-4'>
               <button className='flex hover:text-red-500'>
