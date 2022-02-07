@@ -1,5 +1,4 @@
 import CartProduct from '@components/cart/CartProduct'
-import { fetchPostJSON } from '@src/lib/stripe/api-helpers'
 import { Auth } from 'aws-amplify'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -27,18 +26,6 @@ const CartPage: NextPage = () => {
     event,
   ) => {
     event.preventDefault()
-
-    const response = await fetchPostJSON(
-      '/api/checkout_sessions/cart',
-      cartDetails,
-    )
-
-    if (response.statusCode > 399) {
-      console.error(response.message)
-      return
-    }
-
-    redirectToCheckout({ sessionId: response.id })
   }
 
   if (profile?.email) {
