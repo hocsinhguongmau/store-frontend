@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 import Link from 'next/link'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHeart } from 'react-icons/ai'
 import Star from '@components/main/Star'
 import ProductItem from '@components/main/ProductItem'
 import { useProductDetail } from '@src/hooks/useProductDetail'
@@ -15,68 +15,30 @@ import { useNextSanityImage } from 'next-sanity-image'
 import { client } from '@src/lib/client'
 import useLanguageStore from '@src/lib/store/languageStore'
 import Comment from '@components/main/Comment'
+import { useShoppingCart } from 'use-shopping-cart/react'
+import { CURRENCY } from '@src/config/cart'
+import { Auth } from 'aws-amplify'
+import { serializers } from '@config/serializer'
 
 const BlockContent = require('@sanity/block-content-to-react')
-type linksType = {
-  mark: { blank: boolean; href: string }
-  children: HTMLElement
-}
-type alignmentType = {
-  mark: { alignment: 'left' | 'right' | 'center' }
-  children: HTMLElement
-}
-const serializers = {
-  marks: {
-    link: ({ mark, children }: linksType) => {
-      const { blank, href } = mark
-      return blank ? (
-        <a href={href} target='_blank' rel='noopener'>
-          {children}
-        </a>
-      ) : (
-        <a href={href}>{children}</a>
-      )
-    },
-    textAlignment: ({ mark, children }: alignmentType) => {
-      if (mark.alignment === 'right') {
-        return (
-          <span
-            style={{
-              textAlign: 'right',
-              display: 'inline-block',
-              width: '100%',
-            }}>
-            {children}
-          </span>
-        )
-      } else if (mark.alignment === 'center') {
-        return (
-          <span
-            style={{
-              textAlign: 'center',
-              display: 'inline-block',
-              width: '100%',
-            }}>
-            {children}
-          </span>
-        )
-      } else {
-        return <span>{children}</span>
-      }
-    },
-  },
-}
 
 const ProductDetail = () => {
   const router = useRouter()
+  const { addItem } = useShoppingCart()
+
   const slug = router.query.product_slug as string
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useProductDetail(brand_slug, slug)
   const [items, setItems] = useState<ProductVariant[]>([])
   const [currentSize, setCurrentSize] = useState<string>('')
-  const [price, setPrice] = useState({ size: 0, price: 0, discount: 0, sku: 0 })
+  const [price, setPrice] = useState<PriceType>({
+    size: 0,
+    price: 0,
+    discount: 0,
+    sku: 0,
+  })
   useEffect(() => {
-    let hmm = []
+    let hmm: ProductVariant[] = []
     if (data?.defaultProductVariant) {
       hmm.push({ ...data.defaultProductVariant, main: true })
     }
@@ -87,17 +49,7 @@ const ProductDetail = () => {
       return b.ml - a.ml
     })
 
-    if (router.query.size !== undefined || router.query.size === '') {
-      const size = router.query.size as string
-      const filteredItem = hmm.filter((item) => item.ml.toString() === size)[0]
-      setCurrentSize(size)
-      setPrice({
-        size: parseInt(size),
-        price: filteredItem.price,
-        discount: filteredItem.discount ? filteredItem.discount : 0,
-        sku: filteredItem.sku,
-      })
-    } else {
+    const setPriceDefault = () => {
       const lbmc = hmm.filter((item) => item.main === true)[0].ml
       const filteredItem = hmm.filter((item) => item.ml === lbmc)[0]
       setPrice({
@@ -107,6 +59,25 @@ const ProductDetail = () => {
         sku: filteredItem.sku,
       })
       setCurrentSize(lbmc.toString())
+    }
+
+    if (router.query.size !== undefined || router.query.size === '') {
+      const size = router.query.size as string
+      const filteredItem = hmm.filter((item) => item.ml.toString() === size)[0]
+
+      if (filteredItem !== undefined) {
+        setCurrentSize(size)
+        setPrice({
+          size: parseInt(size),
+          price: filteredItem.price,
+          discount: filteredItem.discount ? filteredItem.discount : 0,
+          sku: filteredItem.sku,
+        })
+      } else {
+        setPriceDefault()
+      }
+    } else {
+      setPriceDefault()
     }
 
     setItems(hmm)
@@ -127,6 +98,44 @@ const ProductDetail = () => {
       { shallow: true },
     )
   }
+
+  const handleAddToCart = (data: ProductDetailType, price: PriceType) => {
+    addItem({
+      id: price.size ? data.id + price.size.toString() : data.id + currentSize,
+      currency: CURRENCY,
+      price: (price.price * (100 - price.discount)) / 100,
+      name: data.title,
+      image: data.images,
+      size: price.size,
+      href: `/${data.vendor.slug}/${data.slug}`,
+    })
+    setTimeout(async () => {
+      try {
+        await Auth.currentAuthenticatedUser()
+      } catch (error) {
+        router.push('/profile')
+      }
+    }, 100)
+  }
+
+  const [favorite, setFavorite] = useState(false)
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser()
+        if (user.attributes['custom:favorite_items'].includes(data?.id)) {
+          setFavorite(true)
+        } else {
+          setFavorite(false)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getUser()
+  }, [])
+
   if (isLoading) {
     return <Loading />
   }
@@ -256,24 +265,25 @@ const ProductDetail = () => {
               )}
             </p>
             <p className='mt-4'>
-              <select
-                className='w-24 outline-none border border-solid border-gray-400 h-10 px-2'
-                disabled={price.sku < 1}>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
               <button
-                className={`button ml-2 ${price.sku < 1 ? 'disabled' : null}`}>
+                onClick={() => handleAddToCart(data, price)}
+                className={`button ${price.sku < 1 ? 'disabled' : null}`}>
                 Add to cart
               </button>
             </p>
             <p className='mt-4'>
-              <button className='flex hover:text-red-500'>
-                <AiOutlineHeart className='text-xl mr-2' />
-                <span className='text-black text-sm'>Add to favorite</span>
+              <button
+                className={`flex hover:text-red-500 ${
+                  favorite ? 'text-red-500' : 'text-black'
+                }`}
+                onClick={() => {
+                  setFavorite(!favorite)
+                  // handleFavoriteAuth(data?.id as string, favorite)
+                }}>
+                <AiFillHeart className='text-xl mr-2' />
+                <span className='text-sm'>
+                  {favorite ? 'Added to favorite' : 'Add to favorite'}
+                </span>
               </button>
             </p>
           </div>

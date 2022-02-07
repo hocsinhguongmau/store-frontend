@@ -31,7 +31,6 @@ const Home = () => {
         href='/shop/page/1?order=sale'
         products='best_selling'
       />
-
       <Services />
     </div>
   )

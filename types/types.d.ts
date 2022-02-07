@@ -18,6 +18,8 @@ interface IProfile {
   zoneinfo?: string
   phone_number?: string
   email?: string
+  'custom:favorite_items'?: string
+  'custom:order_history'?: string
 }
 type InputType = {
   value: string | undefined
@@ -159,4 +161,11 @@ type PostCommentType = {
   }
   rating: number
   email: string
+}
+
+type PriceType = {
+  size: number
+  price: number
+  discount: number
+  sku: number
 }

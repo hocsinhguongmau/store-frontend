@@ -20,7 +20,8 @@
       "@lib/*": ["src/lib/*"],
       "@pages/*": ["pages/*"],
       "@styles/*": ["styles/*"],
-      "@graphql/*": ["src/graphql/*"]
+      "@config/*": ["src/config/*"],
+      "@stripe/*": ["src/lib/stripe*"]
     },
     "incremental": true
   },

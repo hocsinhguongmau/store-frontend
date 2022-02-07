@@ -1,6 +1,7 @@
 import Loading from '@components/Loading'
 import Breadcrumbs from '@components/main/Breadcrumbs'
 import ProductItem from '@components/main/ProductItem'
+import { serializers } from '@src/config/serializer'
 import { useBrandDetail } from '@src/hooks/useBrandDetail'
 import { getAllBrands, getBrandDetail } from '@src/lib/queries/brand'
 import useLanguageStore from '@src/lib/store/languageStore'
@@ -11,55 +12,6 @@ import React from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 
 const BlockContent = require('@sanity/block-content-to-react')
-type linksType = {
-  mark: { blank: boolean; href: string }
-  children: HTMLElement
-}
-type alignmentType = {
-  mark: { alignment: 'left' | 'right' | 'center' }
-  children: HTMLElement
-}
-const serializers = {
-  marks: {
-    link: ({ mark, children }: linksType) => {
-      const { blank, href } = mark
-      return blank ? (
-        <a href={href} target='_blank' rel='noopener'>
-          {children}
-        </a>
-      ) : (
-        <a href={href}>{children}</a>
-      )
-    },
-    textAlignment: ({ mark, children }: alignmentType) => {
-      if (mark.alignment === 'right') {
-        return (
-          <span
-            style={{
-              textAlign: 'right',
-              display: 'inline-block',
-              width: '100%',
-            }}>
-            {children}
-          </span>
-        )
-      } else if (mark.alignment === 'center') {
-        return (
-          <span
-            style={{
-              textAlign: 'center',
-              display: 'inline-block',
-              width: '100%',
-            }}>
-            {children}
-          </span>
-        )
-      } else {
-        return <span>{children}</span>
-      }
-    },
-  },
-}
 
 const BrandDetail = () => {
   const language = useLanguageStore((state) => state.language)

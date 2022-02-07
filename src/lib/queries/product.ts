@@ -136,10 +136,17 @@ export const getProductPrice = async (
   return await client.fetch(query)
 }
 
-//detail page
-//fav items
-//cart
+export const getFavoriteItems = async (
+  favItems: string,
+): Promise<ProductType[]> => {
+  const query = `*[_type=="product" && _id in  [${favItems}]]${queryResult}`
+  return await client.fetch(query)
+}
+
 //checkout
 //order history
 //localized
 //search
+//add head title...
+//check responsive
+//testing

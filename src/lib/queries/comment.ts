@@ -27,7 +27,7 @@ export const postComment = async (
       method: 'post',
       headers: {
         'Content-type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_TOKEN}`,
+        Authorization: `Bearer ${process.env.SANITY_TOKEN}`,
       },
       body: JSON.stringify({ mutations }),
     },

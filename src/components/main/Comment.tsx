@@ -29,7 +29,6 @@ const Comment = ({ id, title }: Props) => {
   const handleSubmitReview = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (id && profile.email) {
-      console.log(review)
       postComment(review, profile.email, commentRating, id)
     }
     setCommentRating(0)

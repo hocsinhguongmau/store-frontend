@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
-import { useForm, SubmitHandler, UseFormRegister } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { Auth } from 'aws-amplify'
 import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
-import ProductItem from '@components/main/ProductItem'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
+import FavoriteItems from '@components/main/FavoriteItems'
+import useGetFavorite from '@src/hooks/useGetFavorite'
 
 const Input = ({
   value,
@@ -52,6 +53,8 @@ function Profile() {
     formState: { errors },
   } = useForm<IProfile>()
 
+  const { favoriteItems } = useGetFavorite()
+
   async function updateUser(data: IProfile) {
     const user = await Auth.currentAuthenticatedUser()
     try {
@@ -61,6 +64,7 @@ function Profile() {
         address: data.address,
         zoneinfo: data.zoneinfo,
       })
+
       toast.success('Information updated')
       setButtonDisabled(true)
     } catch (error: unknown) {
@@ -116,7 +120,7 @@ function Profile() {
                 }`}>
                 Contact information
               </button>
-              <button
+              {/* <button
                 onClick={() => setTab('favorite')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'favorite' ? 'border-b border-black' : ''
@@ -129,7 +133,7 @@ function Profile() {
                   tab === 'order' ? 'border-b border-black' : ''
                 }`}>
                 My order
-              </button>
+              </button> */}
             </p>
             {tab === 'contact' ? (
               <div>
@@ -194,14 +198,7 @@ function Profile() {
               <div>
                 <h2 className='text-xl mt-8 font-bold'>Favorite</h2>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
-                  {/* <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} />
-                  <ProductItem button={true} /> */}
+                  <FavoriteItems favItems={favoriteItems} />
                 </div>
               </div>
             ) : null}
@@ -216,4 +213,5 @@ function Profile() {
     </div>
   )
 }
+
 export default Profile

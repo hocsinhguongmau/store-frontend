@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { BsSearch, BsPersonCircle } from 'react-icons/bs'
-import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { BiLogIn } from 'react-icons/bi'
 import { AiOutlineShoppingCart, AiOutlineCloseCircle } from 'react-icons/ai'
 import Language from './Language'
 import { Auth, Hub } from 'aws-amplify'
+import { useShoppingCart } from 'use-shopping-cart/react'
 
 const Profile = () => {
   const [profile, setProfile] = useState<IProfile>({})
@@ -26,7 +27,7 @@ const Profile = () => {
     updateUser()
     return () => Hub.remove('auth', updateUser)
   }, [])
-
+  const { cartCount } = useShoppingCart()
   return (
     <div className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'>
       <div className='relative z-10 mt-1'>
@@ -61,8 +62,13 @@ const Profile = () => {
             </a>
           </Link>
           <Link href='/cart'>
-            <a className='text-2xl mt-1'>
+            <a className='text-2xl mt-1 relative'>
               <AiOutlineShoppingCart />
+              {cartCount > 0 ? (
+                <span className='absolute -top-4 -right-4 text-xs text-white bg-red-500 rounded-full h-6 w-6 text-center leading-6'>
+                  {cartCount}
+                </span>
+              ) : null}
             </a>
           </Link>
         </>

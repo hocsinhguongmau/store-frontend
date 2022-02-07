@@ -1,4 +1,3 @@
-import { getAllBrands } from '@src/lib/queries/brand'
 import { getMainPageProducts } from '@src/lib/queries/product'
 import { useQuery, UseQueryResult } from 'react-query'
 
