@@ -153,3 +153,14 @@ h1 {
     @apply font-bold text-sm md:text-lg mt-2 leading-4 md:leading-6;
   }
 }
+
+.heart-button {
+  &:hover {
+    .heart {
+      @apply block;
+    }
+  }
+  .heart {
+    @apply hidden;
+  }
+}

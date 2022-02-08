@@ -19,13 +19,14 @@ import { useShoppingCart } from 'use-shopping-cart/react'
 import { CURRENCY } from '@src/config/cart'
 import { Auth } from 'aws-amplify'
 import { serializers } from '@config/serializer'
+import useFavoriteStore from '@src/lib/store/favoriteStore'
 
 const BlockContent = require('@sanity/block-content-to-react')
 
 const ProductDetail = () => {
   const router = useRouter()
   const { addItem } = useShoppingCart()
-
+  const { favoriteItems, setFavoriteItems } = useFavoriteStore()
   const slug = router.query.product_slug as string
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useProductDetail(brand_slug, slug)
@@ -120,22 +121,6 @@ const ProductDetail = () => {
 
   const [favorite, setFavorite] = useState(false)
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const user = await Auth.currentAuthenticatedUser()
-        if (user.attributes['custom:favorite_items'].includes(data?.id)) {
-          setFavorite(true)
-        } else {
-          setFavorite(false)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getUser()
-  }, [])
-
   if (isLoading) {
     return <Loading />
   }
@@ -150,7 +135,7 @@ const ProductDetail = () => {
   if (data === undefined) {
     return (
       <div className='container text-center text-2xl font-bold mt-12'>
-        aaaaaaaa
+        Product not found!
       </div>
     )
   } else {
@@ -274,11 +259,12 @@ const ProductDetail = () => {
             <p className='mt-4'>
               <button
                 className={`flex hover:text-red-500 ${
-                  favorite ? 'text-red-500' : 'text-black'
+                  favoriteItems.includes(data.id)
+                    ? 'text-red-500'
+                    : 'text-black'
                 }`}
                 onClick={() => {
                   setFavorite(!favorite)
-                  // handleFavoriteAuth(data?.id as string, favorite)
                 }}>
                 <AiFillHeart className='text-xl mr-2' />
                 <span className='text-sm'>

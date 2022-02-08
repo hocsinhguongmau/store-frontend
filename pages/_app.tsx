@@ -20,6 +20,7 @@ import Layout from '@components/Layout'
 import { useRouter } from 'next/router'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { CURRENCY } from '@src/config/cart'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const state = useLanguageStore()
@@ -70,33 +71,39 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Hydrate state={pageProps.dehydratedState}>
-        <CartProvider
-          mode='payment'
-          cartMode='client-only'
-          successUrl=''
-          cancelUrl=''
-          allowedCountries={['US', 'GB', 'CA']}
-          billingAddressCollection={true}
-          stripe={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string}
-          currency={CURRENCY}>
-          <Layout>
-            <NextNProgress
-              color='#29D'
-              startPosition={0.3}
-              height={5}
-              showOnShallow={false}
-            />
+        <PayPalScriptProvider
+          options={{
+            'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
+            currency: CURRENCY,
+          }}>
+          <CartProvider
+            mode='payment'
+            cartMode='client-only'
+            successUrl=''
+            cancelUrl=''
+            allowedCountries={['US', 'GB', 'CA']}
+            billingAddressCollection={true}
+            stripe={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string}
+            currency={CURRENCY}>
+            <Layout>
+              <NextNProgress
+                color='#29D'
+                startPosition={0.3}
+                height={5}
+                showOnShallow={false}
+              />
 
-            <Component {...pageProps} />
+              <Component {...pageProps} />
 
-            <ToastContainer
-              position='bottom-right'
-              hideProgressBar={true}
-              autoClose={3000}
-              closeOnClick
-            />
-          </Layout>
-        </CartProvider>
+              <ToastContainer
+                position='bottom-right'
+                hideProgressBar={true}
+                autoClose={3000}
+                closeOnClick
+              />
+            </Layout>
+          </CartProvider>
+        </PayPalScriptProvider>
       </Hydrate>
     </QueryClientProvider>
   )

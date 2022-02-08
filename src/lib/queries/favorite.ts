@@ -1,22 +1,14 @@
-export const postComment = async (
-  comment: string,
-  email: string,
-  rating: number,
-  product: string,
-) => {
-  const userComment: PostCommentType = {
-    _type: 'comment',
-    approved: false,
-    comment: comment,
-    product: {
-      _ref: product,
-    },
-    rating: rating,
+import { client } from '../client'
+
+export const postFavorite = async (email: string, products: string[]) => {
+  const newFavorite: PostFavoriteType = {
+    _type: 'favorite',
     email: email,
+    product: products,
   }
   const mutations = [
     {
-      create: userComment,
+      create: newFavorite,
     },
   ]
 
@@ -33,4 +25,12 @@ export const postComment = async (
   )
     .then((response) => response.json())
     .catch((error) => console.error(error))
+}
+
+export const getFavorite = async (
+  email: string,
+): Promise<OrderHistoryType[]> => {
+  return await client.fetch(
+    `*[_type=="favorite" && email=="${email}"]|order(_createdAt desc)`,
+  )
 }

@@ -1,22 +1,19 @@
-export const postComment = async (
-  comment: string,
+import { client } from '../client'
+
+export const postOrder = async (
   email: string,
-  rating: number,
-  product: string,
+  status: string,
+  total: string,
 ) => {
-  const userComment: PostCommentType = {
-    _type: 'comment',
-    approved: false,
-    comment: comment,
-    product: {
-      _ref: product,
-    },
-    rating: rating,
+  const newOrder: PostOrderType = {
+    _type: 'payment',
     email: email,
+    status: status,
+    total: total,
   }
   const mutations = [
     {
-      create: userComment,
+      create: newOrder,
     },
   ]
 
@@ -33,4 +30,12 @@ export const postComment = async (
   )
     .then((response) => response.json())
     .catch((error) => console.error(error))
+}
+
+export const getOrderHistory = async (
+  email: string,
+): Promise<OrderHistoryType[]> => {
+  return await client.fetch(
+    `*[_type=="payment" && email=="${email}"]|order(_createdAt desc)`,
+  )
 }

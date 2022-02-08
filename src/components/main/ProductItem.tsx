@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import Star from './Star'
 import { client } from '@src/lib/client'
-import { Auth, Hub } from 'aws-amplify'
 import useFavoriteStore from '@src/lib/store/favoriteStore'
 
 type ProductItemType = {
@@ -17,40 +16,8 @@ type ProductItemType = {
 
 const ProductItem = ({ button = false, product }: ProductItemType) => {
   const [favorite, setFavorite] = useState(false)
-  const { favoriteItems, initialItems, setFavoriteItems, removeFavoriteItems } =
+  const { favoriteItems, setFavoriteItems, removeFavoriteItems } =
     useFavoriteStore()
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     try {
-  //       const user = await Auth.currentAuthenticatedUser()
-
-  //       initialItems(user.attributes['custom:favorite_items'])
-  //       console.log(favoriteItems)
-  //       if (favoriteItems.includes(product.id)) {
-  //         setFavorite(true)
-  //       } else {
-  //         setFavorite(false)
-  //       }
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   getUser()
-  // }, [])
-
-  // useEffect(() => {
-  //   let updateFavorite = async () => {
-  //     try {
-  //       let user = await Auth.currentAuthenticatedUser()
-  //       await Auth.updateUserAttributes(user, {
-  //         'custom:favorite_items': favoriteItems.join(','),
-  //       })
-  //     } catch {}
-  //   }
-  //   Hub.listen('auth', updateFavorite)
-  //   updateFavorite()
-  //   return () => Hub.remove('auth', updateFavorite)
-  // }, [])
 
   const imageProps = useNextSanityImage(client, product.images)
   let rating: number = 0
@@ -76,15 +43,15 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
   }
   if (locale == 'en' || locale == 'fi' || locale == 'se') {
     return (
-      <div className='product-item mt-4 lg:px-8 '>
+      <div className='product-item mt-4 lg:px-8 heart-button'>
         <div className='text-center relative'>
-          {/* <button
+          <button
             onClick={handleFavoriteToggle}
             className={`absolute top-0 right-0 z-10 ${
               favorite ? 'text-red-500' : 'text-black'
             }`}>
-            {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
-          </button> */}
+            {favorite ? <AiFillHeart /> : <AiOutlineHeart className='heart' />}
+          </button>
           {product.sales === true ? (
             <div className='text-center absolute top-0 left-0 z-10'>
               <span
@@ -114,7 +81,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
             </Link>
           </h3>
           <h3 className='font-bold mt-1'>
-            <Link href={`/shop?brand=${product.vendor.slug}`}>
+            <Link href={`/shop/page/1?brand=${product.vendor.slug}`}>
               <a>{product.vendor.title}</a>
             </Link>
           </h3>

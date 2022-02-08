@@ -4,14 +4,9 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useShoppingCart } from 'use-shopping-cart/react'
-import {
-  PayPalScriptProvider,
-  PayPalButtons,
-  FUNDING,
-} from '@paypal/react-paypal-js'
-import { useMutation } from 'react-query'
-import axios, { AxiosError } from 'axios'
+import { PayPalButtons } from '@paypal/react-paypal-js'
 import SandBox from '@components/main/SandBox'
+import { postOrder } from '@src/lib/queries/order'
 
 interface OnApproveData {
   billingToken?: string | null
@@ -24,25 +19,10 @@ interface OnApproveData {
 }
 
 const CartPage: NextPage = () => {
-  const createMutation = useMutation<{ data: any }, AxiosError, any, Response>(
-    (): any => axios.post('/api/paypal/createOrder'),
-  )
-  const captureMutation = useMutation<string, AxiosError, any, Response>(
-    (data): any => axios.post('/api/paypal/captureOrder', data),
-  )
-
-  const createPayPalOrder = async (): Promise<string> => {
-    const response = await createMutation.mutateAsync({})
-    return response.data.orderID
-  }
-  const onApprove = async (data: OnApproveData): Promise<void> => {
-    return captureMutation.mutate({ orderID: data.orderID })
-  }
-
   const [profile, setProfile] = useState<IProfile>()
   const router = useRouter()
-  const { totalPrice, redirectToCheckout, cartCount, clearCart, cartDetails } =
-    useShoppingCart()
+  const { totalPrice, cartCount, clearCart } = useShoppingCart()
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -80,38 +60,32 @@ const CartPage: NextPage = () => {
               <SandBox />
             </div>
             <div className='w-1/3'>
-              <PayPalScriptProvider
-                options={{
-                  'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
-                }}>
-                <PayPalButtons
-                  createOrder={(data, actions) => {
-                    console.log(data)
-                    return actions.order.create({
-                      purchase_units: [
-                        {
-                          amount: {
-                            value: totalPrice,
-                          },
+              <PayPalButtons
+                forceReRender={[totalPrice]}
+                createOrder={(_data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [
+                      {
+                        amount: {
+                          value: totalPrice,
                         },
-                      ],
-                    })
-                  }}
-                  onApprove={(data, actions: any) => {
-                    return actions.order.capture().then((details: any) => {
-                      const name = details.payer.name.given_name
-                      alert(`Transaction completed by ${name}`)
-                    })
-                  }}
-                />
-              </PayPalScriptProvider>
+                      },
+                    ],
+                  })
+                }}
+                onApprove={(_data, actions: any) => {
+                  return actions.order.capture().then((details: any) => {
+                    const name = details.payer.name.given_name
+                    postOrder(profile.email as string, 'done', totalPrice + '€')
+                    clearCart()
+                    router.push('/success')
+                  })
+                }}
+              />
             </div>
           </div>
         ) : (
           <div>No product in cart</div>
-        )}
-        {captureMutation.data && (
-          <div>{JSON.stringify(captureMutation.data)}</div>
         )}
       </div>
     )

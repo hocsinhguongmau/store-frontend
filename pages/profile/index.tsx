@@ -7,7 +7,8 @@ import { toast } from 'react-toastify'
 import { ErrorMessage } from '@hookform/error-message'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
 import FavoriteItems from '@components/main/FavoriteItems'
-import useGetFavorite from '@src/hooks/useGetFavorite'
+import OrderHistory from '@components/main/OrderHistory'
+import useFavoriteStore from '@src/lib/store/favoriteStore'
 
 const Input = ({
   value,
@@ -47,13 +48,12 @@ const Input = ({
 }
 
 function Profile() {
+  const favoriteItems = useFavoriteStore((state) => state.favoriteItems)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IProfile>()
-
-  const { favoriteItems } = useGetFavorite()
 
   async function updateUser(data: IProfile) {
     const user = await Auth.currentAuthenticatedUser()
@@ -86,7 +86,7 @@ function Profile() {
 
   type TabType = 'contact' | 'favorite' | 'order'
 
-  const [tab, setTab] = useState<TabType>('contact')
+  const [tab, setTab] = useState<TabType>('favorite')
 
   interface MyCognitoUserAmplify extends CognitoUserAmplify {
     attributes?: IProfile
@@ -113,14 +113,14 @@ function Profile() {
               </div>
             </div>
             <p className='flex flex-row gap-8 mt-6 border-b border-solid border-gray-400'>
-              <button
+              {/* <button
                 onClick={() => setTab('contact')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'contact' ? 'border-b border-black' : ''
                 }`}>
                 Contact information
-              </button>
-              {/* <button
+              </button> */}
+              <button
                 onClick={() => setTab('favorite')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'favorite' ? 'border-b border-black' : ''
@@ -133,7 +133,7 @@ function Profile() {
                   tab === 'order' ? 'border-b border-black' : ''
                 }`}>
                 My order
-              </button> */}
+              </button>
             </p>
             {tab === 'contact' ? (
               <div>
@@ -198,13 +198,14 @@ function Profile() {
               <div>
                 <h2 className='text-xl mt-8 font-bold'>Favorite</h2>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
-                  <FavoriteItems favItems={favoriteItems} />
+                  <FavoriteItems />
                 </div>
               </div>
             ) : null}
             {tab === 'order' ? (
               <div>
                 <h2 className='text-xl mt-8 font-bold'>My order</h2>
+                <OrderHistory />
               </div>
             ) : null}
           </div>

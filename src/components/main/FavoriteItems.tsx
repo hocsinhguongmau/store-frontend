@@ -1,15 +1,28 @@
 import Loading from '@components/Loading'
 import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
-import React from 'react'
+import useFavoriteStore from '@src/lib/store/favoriteStore'
+import { Auth } from 'aws-amplify'
+import React, { useEffect, useState } from 'react'
 import ProductItem from './ProductItem'
 
-type Props = {
-  favItems: string
-}
+const FavoriteItems = () => {
+  const [profile, setProfile] = useState<IProfile>()
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser()
+        setProfile(user.attributes)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    checkAuth()
+  }, [])
 
-const FavoriteItems = ({ favItems }: Props) => {
-  const { isLoading, isError, error, data } = useFavoriteItems(favItems)
-  console.log('favItem', favItems)
+  const { isLoading, isError, error, data } = useFavoriteItems(
+    profile?.email as string,
+  )
+
   if (isLoading) {
     return <Loading />
   }
@@ -21,11 +34,11 @@ const FavoriteItems = ({ favItems }: Props) => {
     )
   }
 
-  if (data?.length) {
+  if (data) {
     return (
       <>
-        {data.map((product) => (
-          <ProductItem key={product.id} button={true} product={product} />
+        {data.products.map((product) => (
+          <ProductItem product={product} key={product.id} />
         ))}
       </>
     )

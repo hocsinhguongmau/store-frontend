@@ -169,3 +169,37 @@ type PriceType = {
   discount: number
   sku: number
 }
+
+type PostOrderType = {
+  _type: string
+  status: string
+  email: string
+  total: string
+}
+
+type OrderHistoryType = {
+  _createdAt: string
+  _id: string
+  _rev: string
+  _type: string
+  _updatedAt: string
+  email: string
+  status: string
+  total: string
+}
+
+type PostFavoriteType = {
+  _type: string
+  email: string
+  product: string[]
+}
+
+type FavoriteType = {
+  email: string
+  products: string[]
+}
+
+type FavoriteItem = {
+  products: ProductType[]
+  favorite: string[]
+}

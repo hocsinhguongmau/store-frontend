@@ -139,24 +139,17 @@ export const getProductPrice = async (
   const variables = sex + sales + vendor
   const query = `*[_type=="product" ${variables}]{
   "price": select(
-  defaultProductVariant.price > variants[0].price => defaultProductVariant.price,
-  defaultProductVariant.price < variants[0].price => variants[0].price,defaultProductVariant.price
+    defaultProductVariant.price*(100-defaultProductVariant.discount)/100 > variants[0].price => defaultProductVariant.price*(100-defaultProductVariant.discount)/100,
+    defaultProductVariant.price*(100-defaultProductVariant.discount)/100 < variants[0].price => variants[0].price,defaultProductVariant.price*(100-defaultProductVariant.discount)/100
     )
 }`
   return await client.fetch(query)
 }
 
 export const getFavoriteItems = async (
-  favItems: string,
-): Promise<ProductType[]> => {
-  const query = `*[_type=="product" && _id in  [${favItems}]]${queryResult}`
+  email: string,
+): Promise<FavoriteItem> => {
+  const query = `{"products":*[_type=='product' && _id in  *[_type=="favorite" && email=="${email}"][0].products]${queryResult}, "favorite": *[_type=="favorite" && email=="${email}"][0]{products}}
+  `
   return await client.fetch(query)
 }
-
-//checkout
-//order history
-//localized
-//search
-//add head title...
-//check responsive
-//testing
