@@ -46,7 +46,6 @@ const ListProducts = ({ title, href, products }: Props) => {
     ],
   }
   if (data) {
-    console.log(data)
     return (
       <div className='container'>
         <h2 className='text-2xl md:text-3xl text-center mt-8 lg:mt-14 pb-6 md:pb-10 tracking-tight font-bold'>

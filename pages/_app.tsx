@@ -71,7 +71,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ReactQueryDevtools initialIsOpen={false} />
       <Hydrate state={pageProps.dehydratedState}>
         <CartProvider
-          cartMode='checkout-session'
+          mode='payment'
+          cartMode='client-only'
+          successUrl=''
+          cancelUrl=''
+          allowedCountries={['US', 'GB', 'CA']}
+          billingAddressCollection={true}
           stripe={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string}
           currency={CURRENCY}>
           <Layout>

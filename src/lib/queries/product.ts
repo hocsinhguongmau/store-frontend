@@ -1,4 +1,5 @@
 import { client } from '@lib/client'
+import groq from 'groq'
 
 const price = `"price":defaultProductVariant.price,"priceDiscount":defaultProductVariant.price*(100-defaultProductVariant.discount)/100,"discount":defaultProductVariant.discount`
 
@@ -9,6 +10,15 @@ const mainPage = `{"new_products":*[_type=="product" ]|order(_createdAt desc)[0.
 export const getMainPageProducts = async (): Promise<mainPageProductsType> => {
   return await client.fetch(mainPage)
 }
+
+export const merchQuery = groq`
+*[_type=="product"]{
+    title,
+    'description': blurb.en,
+    "price":defaultProductVariant.price,
+    "id": _id,
+    "image":images[0].asset._ref
+  }`
 
 export const getAllProducts = async (
   sort: string,

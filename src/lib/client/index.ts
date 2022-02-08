@@ -5,7 +5,7 @@ export const client = sanityClient({
   dataset: process.env.NEXT_PUBLIC_PROJECT_DATASET,
   apiVersion: process.env.NEXT_PUBLIC_API_VERSION,
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
-  useCdn: false,
+  useCdn: process.env.NODE_ENV === 'production',
 })
 
 export const languagesList = ['en', 'fi', 'se']

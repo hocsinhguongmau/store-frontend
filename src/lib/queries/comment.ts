@@ -14,7 +14,6 @@ export const postComment = async (
     rating: rating,
     email: email,
   }
-  console.log(comment)
   const mutations = [
     {
       create: userComment,
@@ -33,6 +32,5 @@ export const postComment = async (
     },
   )
     .then((response) => response.json())
-    .then((result) => console.log(result))
     .catch((error) => console.error(error))
 }
