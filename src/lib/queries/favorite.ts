@@ -1,14 +1,20 @@
 import { client } from '../client'
 
-export const postFavorite = async (email: string, products: string[]) => {
+export const postFavorite = async (
+  id: string,
+  email: string,
+  products: string[],
+) => {
+  console.log(products)
   const newFavorite: PostFavoriteType = {
     _type: 'favorite',
     email: email,
-    product: products,
+    products: products,
+    _id: id,
   }
   const mutations = [
     {
-      create: newFavorite,
+      createOrReplace: newFavorite,
     },
   ]
 

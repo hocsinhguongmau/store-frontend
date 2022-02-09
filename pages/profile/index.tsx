@@ -8,7 +8,6 @@ import { ErrorMessage } from '@hookform/error-message'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
 import FavoriteItems from '@components/main/FavoriteItems'
 import OrderHistory from '@components/main/OrderHistory'
-import useFavoriteStore from '@src/lib/store/favoriteStore'
 
 const Input = ({
   value,
@@ -48,7 +47,6 @@ const Input = ({
 }
 
 function Profile() {
-  const favoriteItems = useFavoriteStore((state) => state.favoriteItems)
   const {
     register,
     handleSubmit,
@@ -86,7 +84,7 @@ function Profile() {
 
   type TabType = 'contact' | 'favorite' | 'order'
 
-  const [tab, setTab] = useState<TabType>('favorite')
+  const [tab, setTab] = useState<TabType>('order')
 
   interface MyCognitoUserAmplify extends CognitoUserAmplify {
     attributes?: IProfile
@@ -120,13 +118,13 @@ function Profile() {
                 }`}>
                 Contact information
               </button> */}
-              <button
+              {/* <button
                 onClick={() => setTab('favorite')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'favorite' ? 'border-b border-black' : ''
                 }`}>
                 Favorite items
-              </button>
+              </button> */}
               <button
                 onClick={() => setTab('order')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${

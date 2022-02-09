@@ -19,14 +19,12 @@ import { useShoppingCart } from 'use-shopping-cart/react'
 import { CURRENCY } from '@src/config/cart'
 import { Auth } from 'aws-amplify'
 import { serializers } from '@config/serializer'
-import useFavoriteStore from '@src/lib/store/favoriteStore'
 
 const BlockContent = require('@sanity/block-content-to-react')
 
 const ProductDetail = () => {
   const router = useRouter()
   const { addItem } = useShoppingCart()
-  const { favoriteItems, setFavoriteItems } = useFavoriteStore()
   const slug = router.query.product_slug as string
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useProductDetail(brand_slug, slug)
@@ -256,12 +254,10 @@ const ProductDetail = () => {
                 Add to cart
               </button>
             </p>
-            <p className='mt-4'>
+            {/* <p className='mt-4'>
               <button
                 className={`flex hover:text-red-500 ${
-                  favoriteItems.includes(data.id)
-                    ? 'text-red-500'
-                    : 'text-black'
+                  favorite ? 'text-red-500' : 'text-black'
                 }`}
                 onClick={() => {
                   setFavorite(!favorite)
@@ -271,7 +267,7 @@ const ProductDetail = () => {
                   {favorite ? 'Added to favorite' : 'Add to favorite'}
                 </span>
               </button>
-            </p>
+            </p> */}
           </div>
         </div>
         <div>

@@ -16,6 +16,7 @@ const FavoriteItems = () => {
         console.log(error)
       }
     }
+
     checkAuth()
   }, [])
 

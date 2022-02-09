@@ -149,7 +149,7 @@ export const getProductPrice = async (
 export const getFavoriteItems = async (
   email: string,
 ): Promise<FavoriteItem> => {
-  const query = `{"products":*[_type=='product' && _id in  *[_type=="favorite" && email=="${email}"][0].products]${queryResult}, "favorite": *[_type=="favorite" && email=="${email}"][0]{products}}
+  const query = `{"products":*[_type=='product' && _id in  *[_type=="favorite" && email=="${email}"][0].products]${queryResult}, "favorite": *[_type=="favorite" && email=="${email}"][0]{products[]}}
   `
   return await client.fetch(query)
 }

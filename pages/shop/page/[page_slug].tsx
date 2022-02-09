@@ -1,5 +1,5 @@
 import LeftNav from '@components/sidebar/LeftNav'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadcrumbsComponent from '@components/main/Breadcrumbs'
 import { dehydrate, QueryClient, useQuery, UseQueryResult } from 'react-query'
 import { GetServerSideProps } from 'next'
@@ -7,12 +7,15 @@ import SortBy from '@components/main/SortBy'
 import { getAllProducts } from '@src/lib/queries/product'
 import ShopProducts from '@components/main/ShopProducts'
 import { useRouter } from 'next/router'
+import { Auth } from 'aws-amplify'
+import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
 
 const productsPerPage = 6
 
 const Shop = () => {
   const router = useRouter()
   const page = router.query.page_slug as string
+
   return (
     <div className='container'>
       <BreadcrumbsComponent />

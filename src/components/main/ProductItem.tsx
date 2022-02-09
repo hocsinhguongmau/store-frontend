@@ -7,7 +7,9 @@ import { useRouter } from 'next/router'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import Star from './Star'
 import { client } from '@src/lib/client'
-import useFavoriteStore from '@src/lib/store/favoriteStore'
+import { Auth } from 'aws-amplify'
+import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
+import { postFavorite } from '@src/lib/queries/favorite'
 
 type ProductItemType = {
   button?: boolean
@@ -16,8 +18,6 @@ type ProductItemType = {
 
 const ProductItem = ({ button = false, product }: ProductItemType) => {
   const [favorite, setFavorite] = useState(false)
-  const { favoriteItems, setFavoriteItems, removeFavoriteItems } =
-    useFavoriteStore()
 
   const imageProps = useNextSanityImage(client, product.images)
   let rating: number = 0
@@ -31,27 +31,36 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
   })
   rating = total / count
   const { locale } = useRouter()
+  const [userId, setUserId] = useState('')
+  const [profile, setProfile] = useState<IProfile>()
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser()
+        setProfile(user.attributes)
+        setUserId(user.username)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    checkAuth()
+  }, [])
+
   const handleFavoriteToggle = () => {
     setFavorite(!favorite)
-    if (!favorite) {
-      if (!favoriteItems.includes(product.id)) {
-        setFavoriteItems(product.id, favoriteItems)
-      }
-    } else {
-      removeFavoriteItems(product.id, favoriteItems)
-    }
   }
   if (locale == 'en' || locale == 'fi' || locale == 'se') {
     return (
       <div className='product-item mt-4 lg:px-8 heart-button'>
         <div className='text-center relative'>
-          <button
+          {/* <button
             onClick={handleFavoriteToggle}
             className={`absolute top-0 right-0 z-10 ${
               favorite ? 'text-red-500' : 'text-black'
             }`}>
             {favorite ? <AiFillHeart /> : <AiOutlineHeart className='heart' />}
-          </button>
+          </button> */}
           {product.sales === true ? (
             <div className='text-center absolute top-0 left-0 z-10'>
               <span

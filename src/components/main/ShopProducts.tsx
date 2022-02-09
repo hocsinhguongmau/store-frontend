@@ -1,6 +1,8 @@
 import Loading from '@components/Loading'
+import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
 import { useShopProduct } from '@src/hooks/useShopProduct'
-import React from 'react'
+import { Auth } from 'aws-amplify'
+import React, { useEffect, useState } from 'react'
 import Pagination from './Pagination'
 import ProductItem from './ProductItem'
 

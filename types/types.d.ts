@@ -191,7 +191,8 @@ type OrderHistoryType = {
 type PostFavoriteType = {
   _type: string
   email: string
-  product: string[]
+  products: string[]
+  _id: string
 }
 
 type FavoriteType = {
@@ -201,5 +202,7 @@ type FavoriteType = {
 
 type FavoriteItem = {
   products: ProductType[]
-  favorite: string[]
+  favorite: {
+    products: string[]
+  }
 }
