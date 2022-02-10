@@ -3,6 +3,7 @@ import Breadcrumbs from '@components/main/Breadcrumbs'
 import ProductItem from '@components/main/ProductItem'
 import { serializers } from '@src/config/serializer'
 import { useBrandDetail } from '@src/hooks/useBrandDetail'
+import { mainPageContent } from '@src/lib/locale/shop'
 import { getAllBrands, getBrandDetail } from '@src/lib/queries/brand'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { GetStaticProps } from 'next'
@@ -34,7 +35,7 @@ const BrandDetail = () => {
   if (!data) {
     return (
       <div className='container text-center text-2xl font-bold'>
-        No brand found!
+        Brand not found!
       </div>
     )
   } else {
@@ -68,7 +69,9 @@ const BrandDetail = () => {
         <div className='text-center mt-4'>
           {data.products.length > 4 ? (
             <Link href={`/shop/page/1?brand=${brand_slug}`}>
-              <a className='button inline-block'>View more</a>
+              <a className='button inline-block'>
+                {mainPageContent[language].viewMore}
+              </a>
             </Link>
           ) : null}
         </div>
@@ -86,18 +89,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return { props: { dehydratedState: dehydrate(queryClient) } }
 }
+
 export const getStaticPaths = async () => {
   const brands = await getAllBrands()
-
   const paths = brands.map((brand) => ({
     params: {
       brand_slug: brand.slug,
     },
   }))
-
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 

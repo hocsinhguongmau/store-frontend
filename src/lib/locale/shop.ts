@@ -28,6 +28,9 @@ export const mainPageContent = {
     first: 'First',
     last: 'Last',
     addToCart: 'Add To Cart',
+    description: 'Description',
+    noReview: 'There is no review for this product',
+    related: 'Related products',
   },
   fi: {
     newYear: "New year's Deals",
@@ -58,6 +61,9 @@ export const mainPageContent = {
     first: 'Ensimmäinen',
     last: 'Viimeinen',
     addToCart: 'Lisää ostoskoriin',
+    description: 'Kuvaus',
+    noReview: 'Tälle tuotteelle ei ole arvostelua',
+    related: 'Liittyvät tuotteet',
   },
   se: {
     newYear: 'Nyårserbjudanden',
@@ -88,5 +94,8 @@ export const mainPageContent = {
     first: 'Först',
     last: 'Sista',
     addToCart: 'Lägg till i varukorgen',
+    description: 'Beskrivning',
+    noReview: 'Det finns ingen recension för denna produkt',
+    related: 'Relaterade produkter',
   },
 }

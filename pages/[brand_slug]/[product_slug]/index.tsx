@@ -19,10 +19,12 @@ import { useShoppingCart } from 'use-shopping-cart/react'
 import { CURRENCY } from '@src/config/cart'
 import { Auth } from 'aws-amplify'
 import { serializers } from '@config/serializer'
+import { mainPageContent } from '@src/lib/locale/shop'
 
 const BlockContent = require('@sanity/block-content-to-react')
 
 const ProductDetail = () => {
+  const language = useLanguageStore((state) => state.language)
   const router = useRouter()
   const { addItem } = useShoppingCart()
   const slug = router.query.product_slug as string
@@ -133,7 +135,7 @@ const ProductDetail = () => {
   if (data === undefined) {
     return (
       <div className='container text-center text-2xl font-bold mt-12'>
-        Product not found!
+        {mainPageContent[language].noItem}
       </div>
     )
   } else {
@@ -251,7 +253,7 @@ const ProductDetail = () => {
               <button
                 onClick={() => handleAddToCart(data, price)}
                 className={`button ${price.sku < 1 ? 'disabled' : null}`}>
-                Add to cart
+                {mainPageContent[language].addToCart}
               </button>
             </p>
             {/* <p className='mt-4'>
@@ -277,14 +279,14 @@ const ProductDetail = () => {
                 swap ? 'border-b-2 border-black' : 'border-b'
               }`}
               onClick={() => setSwap(true)}>
-              Description
+              {mainPageContent[language].description}
             </button>
             <button
               className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                 !swap ? 'border-b-2 border-black' : 'border-b'
               }`}
               onClick={() => setSwap(false)}>
-              Review
+              {mainPageContent[language].review}
             </button>
           </p>
           <div
@@ -333,7 +335,7 @@ const ProductDetail = () => {
                 ))
               ) : (
                 <div className='mt-4 text-lg'>
-                  There is no review for this product
+                  {mainPageContent[language].noReview}
                 </div>
               )}
             </div>
@@ -342,7 +344,7 @@ const ProductDetail = () => {
         {data.related.length > 0 ? (
           <>
             <h2 className='text-xl md:text-2xl font-bold mt-8'>
-              Related products
+              {mainPageContent[language].related}
             </h2>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8'>
               {data.related.map((product) => (
