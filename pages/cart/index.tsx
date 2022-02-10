@@ -7,6 +7,8 @@ import { useShoppingCart } from 'use-shopping-cart/react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import SandBox from '@components/main/SandBox'
 import { postOrder } from '@src/lib/queries/order'
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface OnApproveData {
   billingToken?: string | null
@@ -73,19 +75,42 @@ const CartPage: NextPage = () => {
                     ],
                   })
                 }}
-                onApprove={(_data, actions: any) => {
+                onCancel={(_data, actions: any) => {
                   return actions.order.capture().then((details: any) => {
-                    const name = details.payer.name.given_name
-                    postOrder(profile.email as string, 'done', totalPrice + '€')
+                    postOrder(
+                      profile.email as string,
+                      'cancel',
+                      totalPrice + '€',
+                    )
                     clearCart()
                     router.push('/success')
+                  })
+                }}
+                onApprove={(_data, actions: any) => {
+                  return actions.order.capture().then((details: any) => {
+                    console.log(details.purchase_units[0])
+                    postOrder(
+                      profile.email as string,
+                      details.status,
+                      details.purchase_units[0].amount.value + '€',
+                    )
+                      .then(() => clearCart())
+                      .then(() => router.push('/success'))
                   })
                 }}
               />
             </div>
           </div>
         ) : (
-          <div>No product in cart</div>
+          <div className='text-center'>
+            <Image src='/images/cart-empty.jpg' height={183} width={500} />
+            <p className='mt-8'>Your cart is currently empty</p>
+            <p>
+              <Link href='/shop'>
+                <a className='button inline-block mt-4'>Return to shop</a>
+              </Link>
+            </p>
+          </div>
         )}
       </div>
     )

@@ -4,12 +4,14 @@ export const postOrder = async (
   email: string,
   status: string,
   total: string,
+  // products: ProductType[]
 ) => {
   const newOrder: PostOrderType = {
     _type: 'payment',
     email: email,
     status: status,
     total: total,
+    // products: products
   }
   const mutations = [
     {
