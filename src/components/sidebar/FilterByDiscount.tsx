@@ -11,10 +11,14 @@ const FilterByDiscount = () => {
     let path = router.pathname
 
     let hmm = { ...router.query, discount: !discount, page_slug: '1' }
-    router.push({
-      pathname: path,
-      query: hmm,
-    })
+    router.push(
+      {
+        pathname: path,
+        query: hmm,
+      },
+      undefined,
+      { shallow: true },
+    )
   }
   return (
     <p>

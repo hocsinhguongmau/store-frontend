@@ -40,10 +40,14 @@ const FilterByBrand = () => {
       let path = router.pathname
 
       let hmm = { ...router.query, brand: brand, page_slug: '1' }
-      router.push({
-        pathname: path,
-        query: hmm,
-      })
+      router.push(
+        {
+          pathname: path,
+          query: hmm,
+        },
+        undefined,
+        { shallow: true },
+      )
     }
 
     return (

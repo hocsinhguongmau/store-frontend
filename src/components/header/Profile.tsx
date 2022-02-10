@@ -38,14 +38,14 @@ const Profile = () => {
           {searchActive ? <AiOutlineCloseCircle /> : <BsSearch />}
         </button>
         <div
-          className={`absolute left-0 md:left-auto md:right-0 mt-8 lg:mt-9 ${
+          className={`absolute left-0 md:left-auto md:right-0 mt-8 ${
             searchActive ? 'block' : 'hidden'
           }`}>
           <form onSubmit={handleSubmit} className='flex'>
             <input
               type='text'
               placeholder='Search our store'
-              className='text-sm bg-white p-3 border-none outline-none'
+              className='text-sm bg-white p-3 border border-gray-300 outline-none'
             />
             <button className='bg-red-500 text-white px-4' type='submit'>
               <BsSearch />

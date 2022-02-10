@@ -21,7 +21,7 @@ const Shop = () => {
       <BreadcrumbsComponent />
       <h1 className='text-3xl font-bold no-underline mt-4'>Perfume</h1>
       <div className='lg:flex mt-4'>
-        <div className='lg:h-screen lg:sticky lg:top-0'>
+        <div className=''>
           <LeftNav />
         </div>
         <div className='w-full'>

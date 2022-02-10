@@ -8,10 +8,14 @@ const SortBy = () => {
     const params = event.target.value
     let hmm = { ...router.query, order: params, page_slug: '1' }
 
-    router.push({
-      pathname: path,
-      query: hmm,
-    })
+    router.push(
+      {
+        pathname: path,
+        query: hmm,
+      },
+      undefined,
+      { shallow: true },
+    )
   }
   return (
     <select

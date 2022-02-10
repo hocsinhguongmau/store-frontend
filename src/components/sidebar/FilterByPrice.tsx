@@ -55,10 +55,14 @@ const FilterByPrice = () => {
       price: [value[0].toString(), value[1].toString()],
       page_slug: '1',
     }
-    router.push({
-      pathname: path,
-      query: hmm,
-    })
+    router.push(
+      {
+        pathname: path,
+        query: hmm,
+      },
+      undefined,
+      { shallow: true },
+    )
   }
 
   if (isLoading) {
