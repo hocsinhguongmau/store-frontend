@@ -10,6 +10,9 @@ import { client } from '@src/lib/client'
 import { Auth } from 'aws-amplify'
 import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
 import { postFavorite } from '@src/lib/queries/favorite'
+import Loading from '@components/Loading'
+import { mainPageContent } from '@src/lib/locale/shop'
+import useLanguageStore from '@src/lib/store/languageStore'
 
 type ProductItemType = {
   button?: boolean
@@ -18,7 +21,7 @@ type ProductItemType = {
 
 const ProductItem = ({ button = false, product }: ProductItemType) => {
   const [favorite, setFavorite] = useState(false)
-
+  const language = useLanguageStore((state) => state.language)
   const imageProps = useNextSanityImage(client, product.images)
   let rating: number = 0
   let total: number = 0
@@ -103,12 +106,16 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
             &euro;
           </p>
 
-          {button ? <button className='button mt-4'>Add to cart</button> : null}
+          {button ? (
+            <button className='button mt-4'>
+              {mainPageContent[language].addToCart}
+            </button>
+          ) : null}
         </div>
       </div>
     )
   } else {
-    return <div>Loading...</div>
+    return <Loading />
   }
 }
 

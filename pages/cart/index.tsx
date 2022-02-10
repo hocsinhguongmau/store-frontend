@@ -75,20 +75,8 @@ const CartPage: NextPage = () => {
                     ],
                   })
                 }}
-                onCancel={(_data, actions: any) => {
-                  return actions.order.capture().then((details: any) => {
-                    postOrder(
-                      profile.email as string,
-                      'cancel',
-                      totalPrice + '€',
-                    )
-                    clearCart()
-                    router.push('/success')
-                  })
-                }}
                 onApprove={(_data, actions: any) => {
                   return actions.order.capture().then((details: any) => {
-                    console.log(details.purchase_units[0])
                     postOrder(
                       profile.email as string,
                       details.status,
@@ -106,7 +94,7 @@ const CartPage: NextPage = () => {
             <Image src='/images/cart-empty.jpg' height={183} width={500} />
             <p className='mt-8'>Your cart is currently empty</p>
             <p>
-              <Link href='/shop'>
+              <Link href='/shop/page/1'>
                 <a className='button inline-block mt-4'>Return to shop</a>
               </Link>
             </p>

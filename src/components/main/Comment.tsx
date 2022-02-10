@@ -1,4 +1,6 @@
+import { mainPageContent } from '@src/lib/locale/shop'
 import { postComment } from '@src/lib/queries/comment'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { Auth, Hub } from 'aws-amplify'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -8,6 +10,7 @@ import { toast } from 'react-toastify'
 type Props = { id: string; title: string }
 
 const Comment = ({ id, title }: Props) => {
+  const language = useLanguageStore((state) => state.language)
   const [profile, setProfile] = useState<IProfile>({})
   const [commentRating, setCommentRating] = useState<number>(0)
   const [review, setReview] = useState<string>('')
@@ -76,14 +79,14 @@ const Comment = ({ id, title }: Props) => {
               className={`button ${disableButton ? 'disabled' : ''}`}
               type='submit'
               disabled={disableButton}>
-              Review
+              {mainPageContent[language].review}
             </button>
           </p>
         </form>
       ) : (
         <p>
           <Link href='/profile'>
-            <a>Please login to review</a>
+            <a>{mainPageContent[language].loginToReview}</a>
           </Link>
         </p>
       )}

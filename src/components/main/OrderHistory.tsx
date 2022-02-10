@@ -1,5 +1,7 @@
 import Loading from '@components/Loading'
 import { useOrderHistory } from '@src/hooks/useOrderHistory'
+import { mainPageContent } from '@src/lib/locale/shop'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { Auth } from 'aws-amplify'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -22,6 +24,7 @@ const Order = ({ order }: OrderProps) => {
 }
 
 function OrderHistory() {
+  const language = useLanguageStore((state) => state.language)
   const [profile, setProfile] = useState<IProfile>()
   useEffect(() => {
     const checkAuth = async () => {
@@ -59,11 +62,21 @@ function OrderHistory() {
             <table className='mt-6 border border-gray-400 w-full'>
               <thead>
                 <tr className='text-left'>
-                  <th className='p-2 border border-gray-400'>Order ID</th>
-                  <th className='p-2 border border-gray-400'>Date</th>
-                  <th className='p-2 border border-gray-400'>Email</th>
-                  <th className='p-2 border border-gray-400'>Status</th>
-                  <th className='p-2 border border-gray-400'>Total</th>
+                  <th className='p-2 border border-gray-400'>
+                    {mainPageContent[language].orderId}
+                  </th>
+                  <th className='p-2 border border-gray-400'>
+                    {mainPageContent[language].date}
+                  </th>
+                  <th className='p-2 border border-gray-400'>
+                    {mainPageContent[language].email}
+                  </th>
+                  <th className='p-2 border border-gray-400'>
+                    {mainPageContent[language].status}
+                  </th>
+                  <th className='p-2 border border-gray-400'>
+                    {mainPageContent[language].total}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -108,11 +121,13 @@ function OrderHistory() {
           <div className='mt-8 text-center'>
             <Image src='/images/no-history.jpg' width={300} height={375} />
             <p className='mt-8 font-bold text-2xl capitalize'>
-              No purchase history
+              {mainPageContent[language].noPurchase}
             </p>
-            <p className='mt-2'>You dont have any orders in your history</p>
-            <Link href='/shop'>
-              <a className='button inline-block mt-4'>Back To Shop</a>
+            <p className='mt-2'>{mainPageContent[language].noOrder}</p>
+            <Link href='/shop/page/1'>
+              <a className='button inline-block mt-4'>
+                {mainPageContent[language].backTopShop}
+              </a>
             </Link>
           </div>
         )}

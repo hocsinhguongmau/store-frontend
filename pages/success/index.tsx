@@ -8,7 +8,7 @@ function Success() {
       <AiOutlineCheckCircle className='mx-auto text-5xl text-green-500' />
       <p className='mt-4'>Thank you for your purchase</p>
       <p className='mt-4'>
-        <Link href='/shop'>
+        <Link href='/shop/page/1'>
           <a className='button inline-block'>Continue Shopping</a>
         </Link>
       </p>

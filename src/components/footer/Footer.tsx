@@ -2,8 +2,11 @@ import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import { useQuery, UseQueryResult } from 'react-query'
 import { getCommonBrands } from '@lib/queries/brand'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { headerContent } from '@src/lib/locale/header'
 
 export default function Footer(): ReactElement | null {
+  const language = useLanguageStore((state) => state.language)
   const {
     isLoading,
     isError,
@@ -25,26 +28,36 @@ export default function Footer(): ReactElement | null {
         <div className='container'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
             <div>
-              <h3 className='font-bold text-2xl text-white'>Fragrances</h3>
+              <h3 className='font-bold text-2xl text-white'>
+                {headerContent[language].fragrances}
+              </h3>
               <ul>
                 <li className='mt-2'>
                   <Link href='/shop/page/1?discount=true'>
-                    <a className='hover:text-white'>Sales</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].sales}
+                    </a>
                   </Link>
                 </li>
                 <li className='mt-2'>
                   <Link href='/shop/page/1?gender=women'>
-                    <a className='hover:text-white'>Women's Perfume</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].womenFragrance}
+                    </a>
                   </Link>
                 </li>
                 <li className='mt-2'>
                   <Link href='/shop/page/1?gender=men'>
-                    <a className='hover:text-white'>Men's Cologne</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].menFragrance}
+                    </a>
                   </Link>
                 </li>
                 <li className='mt-2'>
                   <Link href='/shop/page/1?gender=unisex'>
-                    <a className='hover:text-white'>Unisex Fragrances</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].unisexFragrance}
+                    </a>
                   </Link>
                 </li>
               </ul>
@@ -62,36 +75,50 @@ export default function Footer(): ReactElement | null {
               </ul>
             </div>
             <div>
-              <h3 className='font-bold text-2xl text-white'>About</h3>
+              <h3 className='font-bold text-2xl text-white'>
+                {headerContent[language].about}
+              </h3>
               <ul>
                 <li className='mt-2'>
                   <Link href='/'>
-                    <a className='hover:text-white'>Company</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].company}
+                    </a>
                   </Link>
                 </li>
                 <li className='mt-2'>
                   <Link href='/'>
-                    <a className='hover:text-white'>Location</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].location}
+                    </a>
                   </Link>
                 </li>
                 <li className='mt-2'>
                   <Link href='/'>
-                    <a className='hover:text-white'>Contact us</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].contact}
+                    </a>
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className='font-bold text-2xl text-white'>Services</h3>
+              <h3 className='font-bold text-2xl text-white'>
+                {headerContent[language].service}
+              </h3>
               <ul>
                 <li className='mt-2'>
                   <Link href='/'>
-                    <a className='hover:text-white'>Free ship</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].freeShip}
+                    </a>
                   </Link>
                 </li>
                 <li className='mt-2'>
                   <Link href='/'>
-                    <a className='hover:text-white'>90 days return</a>
+                    <a className='hover:text-white'>
+                      {headerContent[language].return}
+                    </a>
                   </Link>
                 </li>
               </ul>

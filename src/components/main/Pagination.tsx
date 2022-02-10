@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { mainPageContent } from '@src/lib/locale/shop'
 
 type Props = {
   currentPage: number
@@ -19,7 +21,7 @@ export default function Pagination({
 }: Props): ReactElement {
   const router = useRouter()
   let totalPages = Math.ceil(numberOfProducts / productsPerPage)
-
+  const language = useLanguageStore((state) => state.language)
   if (currentPage < 1) {
     currentPage = 1
   } else if (currentPage > totalPages) {
@@ -76,7 +78,7 @@ export default function Pagination({
           <>
             <li>
               <Link href={{ pathname: `/${urlName}/page/1`, query: hmm }}>
-                <a>First</a>
+                <a>{mainPageContent[language].first}</a>
               </Link>
             </li>
             {currentPage === 2 ? (
@@ -86,13 +88,13 @@ export default function Pagination({
                     pathname: `/${urlName}/page/1`,
                     query: hmm,
                   }}>
-                  <a>Previous</a>
+                  <a>{mainPageContent[language].prev}</a>
                 </Link>
               </li>
             ) : (
               <li>
                 <Link href={{ pathname: prevPage, query: hmm }}>
-                  <a>Previous</a>
+                  <a>{mainPageContent[language].prev}</a>
                 </Link>
               </li>
             )}
@@ -131,7 +133,7 @@ export default function Pagination({
           <>
             <li>
               <Link href={{ pathname: nextPage, query: hmm }}>
-                <a>Next</a>
+                <a>{mainPageContent[language].next}</a>
               </Link>
             </li>
             <li>
@@ -140,7 +142,7 @@ export default function Pagination({
                   pathname: `/${urlName}/page/${totalPages.toString()}`,
                   query: hmm,
                 }}>
-                <a>Last</a>
+                <a>{mainPageContent[language].last}</a>
               </Link>
             </li>
           </>

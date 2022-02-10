@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Slider from 'react-slick'
 import Image from 'next/image'
 import Link from 'next/link'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { mainPageContent } from '@src/lib/locale/shop'
 
 const Banner = () => {
   const settings = {
@@ -11,7 +13,7 @@ const Banner = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   }
-
+  const language = useLanguageStore((state) => state.language)
   return (
     <Slider {...settings} className='banner hidden md:block'>
       <div className='text-center'>
@@ -20,12 +22,14 @@ const Banner = () => {
             <a>
               <div className='absolute top-0 left-0 text-center z-10 w-full h-full flex flex-col justify-center mt-4 lg:mt-10'>
                 <div>
-                  <h2 className='text-2xl lg:text-3xl'>New year's Deals</h2>
+                  <h2 className='text-2xl lg:text-3xl'>
+                    {mainPageContent[language].newYear}
+                  </h2>
                   <h2 className='text-3xl lg:text-4xl font-bold mt-1 lg:mt-2'>
-                    20-50% OFF
+                    {mainPageContent[language].off}
                   </h2>
                   <h2 className='text-xl lg:text-2xl mt-1 lg:mt-4'>
-                    Free shipping
+                    {mainPageContent[language].freeShip}
                   </h2>
                 </div>
               </div>

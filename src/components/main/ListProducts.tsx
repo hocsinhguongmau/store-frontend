@@ -1,5 +1,7 @@
 import Loading from '@components/Loading'
 import useMainProducts from '@src/hooks/useMainProducts'
+import { mainPageContent } from '@src/lib/locale/shop'
+import useLanguageStore from '@src/lib/store/languageStore'
 import Link from 'next/link'
 import React from 'react'
 import Slider from 'react-slick'
@@ -13,7 +15,7 @@ type Props = {
 
 const ListProducts = ({ title, href, products }: Props) => {
   const { isLoading, isError, error, data } = useMainProducts()
-
+  const language = useLanguageStore((state) => state.language)
   if (isLoading) {
     return <Loading />
   }
@@ -58,7 +60,9 @@ const ListProducts = ({ title, href, products }: Props) => {
         </Slider>
         <div className='text-center'>
           <Link href={href}>
-            <a className='button uppercase mt-14 inline-block'>View more</a>
+            <a className='button uppercase mt-14 inline-block'>
+              {mainPageContent[language].viewMore}
+            </a>
           </Link>
         </div>
       </div>
@@ -66,7 +70,7 @@ const ListProducts = ({ title, href, products }: Props) => {
   } else {
     return (
       <div className='container text-center text-2xl font-bold'>
-        No item found!
+        {mainPageContent[language].noItem}
       </div>
     )
   }
