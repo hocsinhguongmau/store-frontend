@@ -1,6 +1,6 @@
 export const mainPageContent = {
   en: {
-    newYear: 'Uuden vuoden tarjoukset',
+    newYear: "New year's Deals",
     off: '20-50% OFF',
     freeShip: 'Free shipping',
     diverse: 'Diverse variety of',
