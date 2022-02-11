@@ -35,7 +35,7 @@ const BrandDetail = () => {
   if (!data) {
     return (
       <div className='container text-center text-2xl font-bold'>
-        Brand not found!
+        {mainPageContent[language].noBrand}
       </div>
     )
   } else {

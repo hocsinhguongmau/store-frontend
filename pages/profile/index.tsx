@@ -8,6 +8,8 @@ import { ErrorMessage } from '@hookform/error-message'
 import { CognitoUserAmplify } from '@aws-amplify/ui'
 import FavoriteItems from '@components/main/FavoriteItems'
 import OrderHistory from '@components/main/OrderHistory'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { userPageContent } from '@src/lib/locale/user'
 
 const Input = ({
   value,
@@ -52,7 +54,7 @@ function Profile() {
     handleSubmit,
     formState: { errors },
   } = useForm<IProfile>()
-
+  const language = useLanguageStore((state) => state.language)
   async function updateUser(data: IProfile) {
     const user = await Auth.currentAuthenticatedUser()
     try {
@@ -106,7 +108,7 @@ function Profile() {
                   {user?.attributes?.email}
                 </h1>
                 <button className='text-sm md:text-lg' onClick={signOut}>
-                  Sign out
+                  {userPageContent[language].signOut}
                 </button>
               </div>
             </div>
@@ -130,7 +132,7 @@ function Profile() {
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'order' ? 'border-b border-black' : ''
                 }`}>
-                My order
+                {userPageContent[language].myOrder}
               </button>
             </p>
             {tab === 'contact' ? (
@@ -194,7 +196,10 @@ function Profile() {
             ) : null}
             {tab === 'favorite' ? (
               <div>
-                <h2 className='text-xl mt-8 font-bold'>Favorite</h2>
+                <h2 className='text-xl mt-8 font-bold'>
+                  {' '}
+                  {userPageContent[language].favorite}
+                </h2>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
                   <FavoriteItems />
                 </div>
@@ -202,7 +207,10 @@ function Profile() {
             ) : null}
             {tab === 'order' ? (
               <div>
-                <h2 className='text-xl mt-8 font-bold'>My order</h2>
+                <h2 className='text-xl mt-8 font-bold'>
+                  {' '}
+                  {userPageContent[language].myOrder}
+                </h2>
                 <OrderHistory />
               </div>
             ) : null}

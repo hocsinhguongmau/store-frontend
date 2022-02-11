@@ -1,11 +1,14 @@
 import Loading from '@components/Loading'
 import { useBrand } from '@src/hooks/useBrand'
 import { useFilteredBrand } from '@src/hooks/useFilteredBrand'
+import { productPageContent } from '@src/lib/locale/product'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
 const FilterByBrand = () => {
   const router = useRouter()
+  const language = useLanguageStore((state) => state.language)
   const [filterText, setFilterText] = useState<string>('')
   const { isLoading, isError, error, data } = useFilteredBrand()
   const showBrand = router.query.brand
@@ -52,13 +55,15 @@ const FilterByBrand = () => {
 
     return (
       <>
-        <h3 className='font-bold text-lg pb-2 mt-2'>Brand</h3>
+        <h3 className='font-bold text-lg pb-2 mt-2'>
+          {productPageContent[language].brand}
+        </h3>
         {!showBrand ? (
           <div>
             <input
               type='text'
               className='text-sm border-2 border-solid border-gray-300 w-full p-2'
-              placeholder='Filter brands'
+              placeholder={productPageContent[language].filterBrand}
               onChange={handleFilterBrands}
               value={filterText}
             />

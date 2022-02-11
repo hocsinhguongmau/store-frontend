@@ -1,8 +1,11 @@
+import { productPageContent } from '@src/lib/locale/product'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 const FilterByGender = () => {
   const router = useRouter()
+  const language = useLanguageStore((state) => state.language)
   const showGender = router.query.gender
   const handleGenderRouter = (gender: string) => {
     let path = router.pathname
@@ -19,23 +22,25 @@ const FilterByGender = () => {
   }
   return (
     <>
-      <h3 className='font-bold text-lg pb-2 '>Gender</h3>
+      <h3 className='font-bold text-lg pb-2 '>
+        {productPageContent[language].gender}
+      </h3>
       {!showGender ? (
         <ul>
           <li
             className='mt-1 cursor-pointer hover:text-gray-500'
             onClick={() => handleGenderRouter('women')}>
-            Women's fragrances
+            {productPageContent[language].womenFragrance}
           </li>
           <li
             className='mt-1 cursor-pointer hover:text-gray-500'
             onClick={() => handleGenderRouter('men')}>
-            Men's fragrances
+            {productPageContent[language].menFragrance}
           </li>
           <li
             className='mt-1 cursor-pointer hover:text-gray-500'
             onClick={() => handleGenderRouter('unisex')}>
-            Unisex's fragrances
+            {productPageContent[language].unisexFragrance}
           </li>
         </ul>
       ) : (

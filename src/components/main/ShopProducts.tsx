@@ -1,6 +1,8 @@
 import Loading from '@components/Loading'
 import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
 import { useShopProduct } from '@src/hooks/useShopProduct'
+import { mainPageContent } from '@src/lib/locale/shop'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { Auth } from 'aws-amplify'
 import React, { useEffect, useState } from 'react'
 import Pagination from './Pagination'
@@ -12,6 +14,7 @@ type Props = {
 }
 
 const ShopProducts = ({ productsPerPage, page }: Props) => {
+  const language = useLanguageStore((state) => state.language)
   const { isLoading, isError, error, data } = useShopProduct(
     productsPerPage * page - productsPerPage,
     productsPerPage * page,
@@ -31,7 +34,7 @@ const ShopProducts = ({ productsPerPage, page }: Props) => {
   if (data === undefined || data.products.length < 1) {
     return (
       <div className='container text-center text-2xl font-bold mt-12'>
-        No product found!
+        {mainPageContent[language].noItem}
       </div>
     )
   } else {

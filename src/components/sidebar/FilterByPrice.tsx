@@ -5,9 +5,12 @@ import 'rc-slider/assets/index.css'
 import { useQuery, UseQueryResult } from 'react-query'
 import { getProductPrice } from '@src/lib/queries/product'
 import Loading from '@components/Loading'
+import { productPageContent } from '@src/lib/locale/product'
+import useLanguageStore from '@src/lib/store/languageStore'
 
 const FilterByPrice = () => {
   const router = useRouter()
+  const language = useLanguageStore((state) => state.language)
   const { query } = useRouter()
   const gender = query.gender as string
   const discount = query.discount as string
@@ -79,7 +82,9 @@ const FilterByPrice = () => {
   if (data) {
     return (
       <>
-        <h3 className='font-bold text-lg pb-2 mt-2'>Price</h3>
+        <h3 className='font-bold text-lg pb-2 mt-2'>
+          {productPageContent[language].price}
+        </h3>
         <div className='leading-8 text-sm text-gray-400 px-2 lg:w-48'>
           <Range
             min={min}

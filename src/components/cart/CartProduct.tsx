@@ -1,4 +1,6 @@
 import { client } from '@src/lib/client'
+import { productPageContent } from '@src/lib/locale/product'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,6 +21,7 @@ const Images = ({ imageData, name }: ImagesType) => {
 
 const CartProduct = () => {
   const { cartDetails, setItemQuantity, removeItem } = useShoppingCart()
+  const language = useLanguageStore((state) => state.language)
   const products = []
   for (const sku in cartDetails) {
     const product = cartDetails[sku]
@@ -46,9 +49,15 @@ const CartProduct = () => {
                 <a>{product.name} </a>
               </Link>
             </p>
-            <p>Size: {product.size}ml</p>
-            <p>Price: {product.price}</p>
-            <p>Quantity: {product.quantity}</p>
+            <p>
+              {productPageContent[language].size}: {product.size}ml
+            </p>
+            <p>
+              {productPageContent[language].price}: {product.price}
+            </p>
+            <p>
+              {productPageContent[language].quantity}: {product.quantity}
+            </p>
           </div>
         </div>
         <div className='flex flex-row'>

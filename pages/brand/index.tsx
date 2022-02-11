@@ -7,8 +7,11 @@ import { getAllBrands } from '@lib/queries/brand'
 import Loading from '@components/Loading'
 import { GetStaticProps } from 'next'
 import { useBrand } from '@src/hooks/useBrand'
+import { mainPageContent } from '@src/lib/locale/shop'
+import useLanguageStore from '@src/lib/store/languageStore'
 
 const Brand = () => {
+  const language = useLanguageStore((state) => state.language)
   const { isLoading, isError, error, data } = useBrand()
   if (isLoading) {
     return <Loading />
@@ -30,7 +33,7 @@ const Brand = () => {
   if (!data) {
     return (
       <div className='container text-center text-2xl font-bold'>
-        No brand found!
+        {mainPageContent[language].noBrand}
       </div>
     )
   } else {
@@ -46,7 +49,7 @@ const Brand = () => {
       <div className='container'>
         <BreadcrumbsComponent />
         <h1 className='no-underline mt-4 text-xl md:text-2xl'>
-          Perfume brands
+          {mainPageContent[language].perfumeBrands}
         </h1>
         <div className='mt-8'>
           {result.map((alphabet: any) => (

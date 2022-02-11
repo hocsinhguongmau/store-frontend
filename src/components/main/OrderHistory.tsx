@@ -134,7 +134,7 @@ function OrderHistory() {
       </>
     )
   } else {
-    return <div>No payment</div>
+    return <div>{mainPageContent[language].noPayment}</div>
   }
 }
 

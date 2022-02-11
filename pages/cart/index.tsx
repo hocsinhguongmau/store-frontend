@@ -9,6 +9,8 @@ import SandBox from '@components/main/SandBox'
 import { postOrder } from '@src/lib/queries/order'
 import Link from 'next/link'
 import Image from 'next/image'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { mainPageContent } from '@src/lib/locale/shop'
 
 interface OnApproveData {
   billingToken?: string | null
@@ -21,6 +23,7 @@ interface OnApproveData {
 }
 
 const CartPage: NextPage = () => {
+  const language = useLanguageStore((state) => state.language)
   const [profile, setProfile] = useState<IProfile>()
   const router = useRouter()
   const { totalPrice, cartCount, clearCart } = useShoppingCart()
@@ -43,20 +46,27 @@ const CartPage: NextPage = () => {
         {cartCount ? (
           <div className='flex flex-row'>
             <div className='w-2/3 pr-8'>
-              <h1 className='no-underline text-2xl'>Shopping Cart</h1>
+              <h1 className='no-underline text-2xl'>
+                {mainPageContent[language].shoppingCart}
+              </h1>
               <CartProduct />
               <div className='flex flex-row justify-between mt-8'>
                 <div className=''>
                   <p className='text-sm'>
-                    <span className='font-bold'>Number of Items:</span>{' '}
+                    <span className='font-bold'>
+                      {mainPageContent[language].numberOfItems}:
+                    </span>{' '}
                     {cartCount}
                   </p>
                   <p className='text-sm mt-1'>
-                    <span className='font-bold'>Total:</span> {totalPrice}&euro;
+                    <span className='font-bold'>
+                      {mainPageContent[language].total}:
+                    </span>{' '}
+                    {totalPrice}&euro;
                   </p>
                 </div>
                 <button className='button' onClick={clearCart}>
-                  Delete all items
+                  {mainPageContent[language].deleteAll}
                 </button>
               </div>
               <SandBox />
@@ -92,10 +102,12 @@ const CartPage: NextPage = () => {
         ) : (
           <div className='text-center'>
             <Image src='/images/cart-empty.jpg' height={183} width={500} />
-            <p className='mt-8'>Your cart is currently empty</p>
+            <p className='mt-8'>{mainPageContent[language].emptyCart}</p>
             <p>
               <Link href='/shop/page/1'>
-                <a className='button inline-block mt-4'>Return to shop</a>
+                <a className='button inline-block mt-4'>
+                  {mainPageContent[language].returnShop}
+                </a>
               </Link>
             </p>
           </div>

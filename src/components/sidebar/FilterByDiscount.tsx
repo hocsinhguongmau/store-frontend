@@ -1,8 +1,11 @@
+import { productPageContent } from '@src/lib/locale/product'
+import useLanguageStore from '@src/lib/store/languageStore'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 const FilterByDiscount = () => {
   const router = useRouter()
+  const language = useLanguageStore((state) => state.language)
   const [discount, setDiscount] = useState<boolean>(
     router.query.discount === 'true',
   )
@@ -30,7 +33,7 @@ const FilterByDiscount = () => {
         onChange={handleDiscountRouter}
       />
       <label htmlFor='discount' className='text-sm'>
-        Sales
+        {productPageContent[language].sales}
       </label>
     </p>
   )
