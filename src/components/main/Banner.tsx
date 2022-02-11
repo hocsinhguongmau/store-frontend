@@ -47,11 +47,17 @@ const Banner = () => {
         <div style={{ backgroundColor: '#fff' }} className='relative'>
           <div className='absolute top-0 left-0 text-center z-10 w-full h-full flex flex-col justify-center'>
             <div className='uppercase mt-8'>
-              <h2 className='text-lg'>Diverse variety of</h2>
-              <h2 className='text-2xl lg:text-4xl mt-1'>Perfumes</h2>
-              <h2 className='text-lg mt-1'>From top brands</h2>
+              <h2 className='text-lg'> {mainPageContent[language].diverse}</h2>
+              <h2 className='text-2xl lg:text-4xl mt-1'>
+                {mainPageContent[language].perfumes}
+              </h2>
+              <h2 className='text-lg mt-1'>
+                {mainPageContent[language].topBrand}
+              </h2>
               <Link href='/shop/page/1'>
-                <a className='button mt-2 lg:mt-4 inline-block'>shop now</a>
+                <a className='button mt-2 lg:mt-4 inline-block'>
+                  {mainPageContent[language].shopNow}
+                </a>
               </Link>
             </div>
           </div>

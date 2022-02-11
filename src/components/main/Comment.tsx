@@ -55,7 +55,9 @@ const Comment = ({ id, title }: Props) => {
   return (
     <>
       <h3 className='text-xl md:text-3xl tracking-tight mb-2 md:mb-6'>
-        <span className='font-bold'>Review {title}</span>
+        <span className='font-bold'>
+          {mainPageContent[language].review} {title}
+        </span>
       </h3>
       {profile.email ? (
         <form onSubmit={handleSubmitReview}>
@@ -73,7 +75,7 @@ const Comment = ({ id, title }: Props) => {
             className='resize-none w-full h-32 outline-none border border-solid border-gray-400 mt-6 p-2 text-sm'
             onChange={handleChangeReview}
             value={review}
-            placeholder='Write your review'></textarea>
+            placeholder={mainPageContent[language].writeReview}></textarea>
           <p className='mt-4'>
             <button
               className={`button ${disableButton ? 'disabled' : ''}`}

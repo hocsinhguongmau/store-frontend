@@ -1,15 +1,31 @@
 import { productPageContent } from '@src/lib/locale/product'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
+import { AiOutlineClose } from 'react-icons/ai'
+
+type GenderType = 'womenFragrance' | 'menFragrance' | 'unisexFragrance'
 
 const FilterByGender = () => {
   const router = useRouter()
   const language = useLanguageStore((state) => state.language)
   const showGender = router.query.gender
+  const [gender, setGender] = useState<GenderType>('womenFragrance')
   const handleGenderRouter = (gender: string) => {
     let path = router.pathname
-
+    if (gender === 'women' || gender === 'men' || gender === 'unisex') {
+      switch (gender) {
+        case 'women':
+          setGender('womenFragrance')
+          break
+        case 'men':
+          setGender('menFragrance')
+          break
+        case 'unisex':
+          setGender('unisexFragrance')
+          break
+      }
+    }
     let hmm = { ...router.query, gender: gender, page_slug: '1' }
     router.push(
       {
@@ -47,9 +63,9 @@ const FilterByGender = () => {
         <p
           className='cursor-pointer text-sm text-gray-500 inline-block'
           onClick={() => handleGenderRouter('')}>
-          {router.query.gender}{' '}
+          {productPageContent[language][gender]}{' '}
           <span className='text-xl text-red-500 inline-block align-middle -mt-1'>
-            x
+            <AiOutlineClose />
           </span>
         </p>
       )}

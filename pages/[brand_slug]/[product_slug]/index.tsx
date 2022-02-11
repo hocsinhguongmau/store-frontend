@@ -20,6 +20,7 @@ import { CURRENCY } from '@src/config/cart'
 import { Auth } from 'aws-amplify'
 import { serializers } from '@config/serializer'
 import { mainPageContent } from '@src/lib/locale/shop'
+import { productPageContent } from '@src/lib/locale/product'
 
 const BlockContent = require('@sanity/block-content-to-react')
 
@@ -190,7 +191,7 @@ const ProductDetail = () => {
             {data.discount ? (
               <p>
                 <span className='py-1 px-2 bg-red-500 text-white uppercase md:text-xs mt-2 inline-block'>
-                  Sale
+                  {productPageContent[language].sales}
                 </span>
               </p>
             ) : null}
@@ -244,9 +245,13 @@ const ProductDetail = () => {
             </p>
             <p className='mt-4'>
               {price.sku > 0 ? (
-                <span className='text-green-600'>In stock</span>
+                <span className='text-green-600'>
+                  {productPageContent[language].inStock}
+                </span>
               ) : (
-                <span className='text-red-600'>Out of stock</span>
+                <span className='text-red-600'>
+                  {productPageContent[language].outStock}
+                </span>
               )}
             </p>
             <p className='mt-4'>
@@ -295,7 +300,10 @@ const ProductDetail = () => {
             }  flex-row mt-4 md:mt-8 gap-8`}>
             <div className='content md:w-3/4'>
               <h3 className='text-lg md:text-3xl tracking-tight mb-2 md:mb-6'>
-                <span className='font-bold'>Description</span> {data.title}
+                <span className='font-bold'>
+                  {productPageContent[language].description}
+                </span>{' '}
+                {data.title}
               </h3>
               <BlockContent
                 blocks={data.body[language]}
@@ -307,13 +315,21 @@ const ProductDetail = () => {
             </div>
             <div className='md:w-1/4 text-sm mt-6 md:mt-0'>
               <h3 className='text-xl md:text-3xl tracking-tight mb-6'>
-                <span className='font-bold'>Ingredients</span>
+                <span className='font-bold'>
+                  {productPageContent[language].ingredients}
+                </span>
               </h3>
-              <h4 className='font-bold mt-2'>Top notes</h4>
+              <h4 className='font-bold mt-2'>
+                {productPageContent[language].topNotes}
+              </h4>
               <p className='mt-2'>{data.top_notes[language]}</p>
-              <h4 className='font-bold mt-2'>Middle notes</h4>
+              <h4 className='font-bold mt-2'>
+                {productPageContent[language].middleNotes}
+              </h4>
               <p className='mt-2'>{data.middle_notes[language]}</p>
-              <h4 className='font-bold mt-2'>Base notes</h4>
+              <h4 className='font-bold mt-2'>
+                {productPageContent[language].baseNotes}
+              </h4>
               <p className='mt-2'>{data.base_notes[language]}</p>
             </div>
           </div>

@@ -9,17 +9,22 @@ import ShopProducts from '@components/main/ShopProducts'
 import { useRouter } from 'next/router'
 import { Auth } from 'aws-amplify'
 import { useFavoriteItems } from '@src/hooks/useFavoriteItems'
+import { mainPageContent } from '@src/lib/locale/shop'
+import useLanguageStore from '@src/lib/store/languageStore'
 
 const productsPerPage = 6
 
 const Shop = () => {
   const router = useRouter()
+  const language = useLanguageStore((state) => state.language)
   const page = router.query.page_slug as string
 
   return (
     <div className='container'>
       <BreadcrumbsComponent />
-      <h1 className='text-3xl font-bold no-underline mt-4'>Perfume</h1>
+      <h1 className='text-3xl font-bold no-underline mt-4'>
+        {mainPageContent[language].perfumes}
+      </h1>
       <div className='lg:flex mt-4'>
         <div className=''>
           <LeftNav />

@@ -13,6 +13,7 @@ import { postFavorite } from '@src/lib/queries/favorite'
 import Loading from '@components/Loading'
 import { mainPageContent } from '@src/lib/locale/shop'
 import useLanguageStore from '@src/lib/store/languageStore'
+import { productPageContent } from '@src/lib/locale/product'
 
 type ProductItemType = {
   button?: boolean
@@ -69,7 +70,7 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
               <span
                 className='bg-red-500  px-4 py-1 text-white inline-block text-xs lg:text-xs'
                 style={{ borderRadius: '0 999px 0 999px' }}>
-                Sale
+                {productPageContent[language].sales}
               </span>
             </div>
           ) : null}
