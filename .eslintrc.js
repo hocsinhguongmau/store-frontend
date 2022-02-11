@@ -6,10 +6,8 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'airbnb',
     'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
@@ -24,7 +22,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'import', 'jsx-a11y'],
+  plugins: [
+    'react',
+    'react-hooks',
+    '@typescript-eslint',
+    'prettier',
+    'import',
+    'jsx-a11y',
+  ],
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
@@ -37,7 +42,12 @@ module.exports = {
     'import/order': [
       'error',
       {
-        groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'object', 'index']],
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling', 'object', 'index'],
+        ],
         pathGroups: [
           {
             pattern: 'react',
@@ -56,7 +66,13 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['jest.setup.ts', '**/*.test.tsx', '**/*.spec.tsx', '**/*.test.ts', '**/*.spec.ts'],
+        devDependencies: [
+          'jest.setup.ts',
+          '**/*.test.tsx',
+          '**/*.spec.tsx',
+          '**/*.test.ts',
+          '**/*.spec.ts',
+        ],
       },
     ],
   },
@@ -71,4 +87,4 @@ module.exports = {
       },
     },
   },
-};
+}
