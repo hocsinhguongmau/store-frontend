@@ -10,6 +10,7 @@ import FavoriteItems from '@components/main/FavoriteItems'
 import OrderHistory from '@components/main/OrderHistory'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { userPageContent } from '@src/lib/locale/user'
+import Head from 'next/head'
 
 const Input = ({
   value,
@@ -98,125 +99,130 @@ function Profile() {
   }
 
   return (
-    <div className='flex-grow py-10 flex flex-row justify-center'>
-      <Authenticator variation='default'>
-        {({ signOut, user }: AmplifyType) => (
-          <div className='container'>
-            <div>
-              <div className='md:flex flex-row justify-between'>
-                <h1 className='no-underline text-sm md:text-2xl break-words'>
-                  {user?.attributes?.email}
-                </h1>
-                <button className='text-sm md:text-lg' onClick={signOut}>
-                  {userPageContent[language].signOut}
-                </button>
+    <div>
+      <Head>
+        <title>Odour</title>
+      </Head>
+      <div className='flex-grow py-10 flex flex-row justify-center'>
+        <Authenticator variation='default'>
+          {({ signOut, user }: AmplifyType) => (
+            <div className='container'>
+              <div>
+                <div className='md:flex flex-row justify-between'>
+                  <h1 className='no-underline text-sm md:text-2xl break-words'>
+                    {user?.attributes?.email}
+                  </h1>
+                  <button className='text-sm md:text-lg' onClick={signOut}>
+                    {userPageContent[language].signOut}
+                  </button>
+                </div>
               </div>
-            </div>
-            <p className='flex flex-row gap-8 mt-6 border-b border-solid border-gray-400'>
-              {/* <button
+              <p className='flex flex-row gap-8 mt-6 border-b border-solid border-gray-400'>
+                {/* <button
                 onClick={() => setTab('contact')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'contact' ? 'border-b border-black' : ''
                 }`}>
                 Contact information
               </button> */}
-              {/* <button
+                {/* <button
                 onClick={() => setTab('favorite')}
                 className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                   tab === 'favorite' ? 'border-b border-black' : ''
                 }`}>
                 Favorite items
               </button> */}
-              <button
-                onClick={() => setTab('order')}
-                className={`text-sm py-2  border-solid border-transparent hover:border-black ${
-                  tab === 'order' ? 'border-b border-black' : ''
-                }`}>
-                {userPageContent[language].myOrder}
-              </button>
-            </p>
-            {tab === 'contact' ? (
-              <div>
-                <h2 className='text-xl mt-8 font-bold'>
-                  Update Personal information
-                </h2>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm mt-4'>
-                    <Input
-                      value={user?.attributes?.given_name}
-                      register={register}
-                      handleChange={handleChange}
-                      label='First name'
-                      errors={errors}
-                      errorMessage='First name is required'
-                      name='given_name'
-                      type='text'
-                    />
-                    <Input
-                      value={user?.attributes?.family_name}
-                      register={register}
-                      handleChange={handleChange}
-                      label='Last name'
-                      errors={errors}
-                      errorMessage='Last name is required'
-                      name='family_name'
-                      type='text'
-                    />
-                    <Input
-                      value={user?.attributes?.address}
-                      register={register}
-                      handleChange={handleChange}
-                      label='Address'
-                      errors={errors}
-                      errorMessage='Address is required'
-                      name='address'
-                      type='text'
-                    />
-                    <Input
-                      value={user?.attributes?.zoneinfo}
-                      register={register}
-                      handleChange={handleChange}
-                      label='Postal code'
-                      errors={errors}
-                      errorMessage='Postal code is required'
-                      name='zoneinfo'
-                      type='number'
-                    />
-                  </div>
-                  <button
-                    type='submit'
-                    className={`button mt-8 ${
-                      buttonDisabled ? 'disabled' : ''
-                    }`}
-                    disabled={buttonDisabled}>
-                    Update
-                  </button>
-                </form>
-              </div>
-            ) : null}
-            {tab === 'favorite' ? (
-              <div>
-                <h2 className='text-xl mt-8 font-bold'>
-                  {' '}
-                  {userPageContent[language].favorite}
-                </h2>
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
-                  <FavoriteItems />
-                </div>
-              </div>
-            ) : null}
-            {tab === 'order' ? (
-              <div>
-                <h2 className='text-xl mt-8 font-bold'>
-                  {' '}
+                <button
+                  onClick={() => setTab('order')}
+                  className={`text-sm py-2  border-solid border-transparent hover:border-black ${
+                    tab === 'order' ? 'border-b border-black' : ''
+                  }`}>
                   {userPageContent[language].myOrder}
-                </h2>
-                <OrderHistory />
-              </div>
-            ) : null}
-          </div>
-        )}
-      </Authenticator>
+                </button>
+              </p>
+              {tab === 'contact' ? (
+                <div>
+                  <h2 className='text-xl mt-8 font-bold'>
+                    Update Personal information
+                  </h2>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm mt-4'>
+                      <Input
+                        value={user?.attributes?.given_name}
+                        register={register}
+                        handleChange={handleChange}
+                        label='First name'
+                        errors={errors}
+                        errorMessage='First name is required'
+                        name='given_name'
+                        type='text'
+                      />
+                      <Input
+                        value={user?.attributes?.family_name}
+                        register={register}
+                        handleChange={handleChange}
+                        label='Last name'
+                        errors={errors}
+                        errorMessage='Last name is required'
+                        name='family_name'
+                        type='text'
+                      />
+                      <Input
+                        value={user?.attributes?.address}
+                        register={register}
+                        handleChange={handleChange}
+                        label='Address'
+                        errors={errors}
+                        errorMessage='Address is required'
+                        name='address'
+                        type='text'
+                      />
+                      <Input
+                        value={user?.attributes?.zoneinfo}
+                        register={register}
+                        handleChange={handleChange}
+                        label='Postal code'
+                        errors={errors}
+                        errorMessage='Postal code is required'
+                        name='zoneinfo'
+                        type='number'
+                      />
+                    </div>
+                    <button
+                      type='submit'
+                      className={`button mt-8 ${
+                        buttonDisabled ? 'disabled' : ''
+                      }`}
+                      disabled={buttonDisabled}>
+                      Update
+                    </button>
+                  </form>
+                </div>
+              ) : null}
+              {tab === 'favorite' ? (
+                <div>
+                  <h2 className='text-xl mt-8 font-bold'>
+                    {' '}
+                    {userPageContent[language].favorite}
+                  </h2>
+                  <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
+                    <FavoriteItems />
+                  </div>
+                </div>
+              ) : null}
+              {tab === 'order' ? (
+                <div>
+                  <h2 className='text-xl mt-8 font-bold'>
+                    {' '}
+                    {userPageContent[language].myOrder}
+                  </h2>
+                  <OrderHistory />
+                </div>
+              ) : null}
+            </div>
+          )}
+        </Authenticator>
+      </div>
     </div>
   )
 }

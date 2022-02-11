@@ -7,6 +7,7 @@ import { mainPageContent } from '@src/lib/locale/shop'
 import { getAllBrands, getBrandDetail } from '@src/lib/queries/brand'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -40,40 +41,45 @@ const BrandDetail = () => {
     )
   } else {
     return (
-      <div className='container'>
-        <Breadcrumbs />
-        <h1 className='no-underline my-8'>{data.title}</h1>
-        <BlockContent
-          blocks={data.body[language]}
-          imageOptions={{ w: 640, fit: 'max' }}
-          projectId={process.env.NEXT_PUBLIC_PROJECT_ID}
-          dataset={process.env.NEXT_PUBLIC_DATASET}
-          serializers={serializers}
-        />
-        {data.products.length > 0 ? (
-          <div>
-            <h2 className='font-bold text-xl mt-8'>
-              Products from {data.title}
-            </h2>
-            <div className='grid grid-cols-4 gap-4 mt-8'>
-              {data.products.map((product, index) =>
-                index < 4 ? (
-                  <ProductItem product={product} key={product.id} />
-                ) : (
-                  ''
-                ),
-              )}
+      <div>
+        <Head>
+          <title>{data.title}</title>
+        </Head>
+        <div className='container'>
+          <Breadcrumbs />
+          <h1 className='no-underline my-8'>{data.title}</h1>
+          <BlockContent
+            blocks={data.body[language]}
+            imageOptions={{ w: 640, fit: 'max' }}
+            projectId={process.env.NEXT_PUBLIC_PROJECT_ID}
+            dataset={process.env.NEXT_PUBLIC_DATASET}
+            serializers={serializers}
+          />
+          {data.products.length > 0 ? (
+            <div>
+              <h2 className='font-bold text-xl mt-8'>
+                Products from {data.title}
+              </h2>
+              <div className='grid grid-cols-4 gap-4 mt-8'>
+                {data.products.map((product, index) =>
+                  index < 4 ? (
+                    <ProductItem product={product} key={product.id} />
+                  ) : (
+                    ''
+                  ),
+                )}
+              </div>
             </div>
-          </div>
-        ) : null}
-        <div className='text-center mt-4'>
-          {data.products.length > 4 ? (
-            <Link href={`/shop/page/1?brand=${brand_slug}`}>
-              <a className='button inline-block'>
-                {mainPageContent[language].viewMore}
-              </a>
-            </Link>
           ) : null}
+          <div className='text-center mt-4'>
+            {data.products.length > 4 ? (
+              <Link href={`/shop/page/1?brand=${brand_slug}`}>
+                <a className='button inline-block'>
+                  {mainPageContent[language].viewMore}
+                </a>
+              </Link>
+            ) : null}
+          </div>
         </div>
       </div>
     )

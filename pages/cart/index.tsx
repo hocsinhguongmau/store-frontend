@@ -11,6 +11,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { mainPageContent } from '@src/lib/locale/shop'
+import Head from 'next/head'
 
 interface OnApproveData {
   billingToken?: string | null
@@ -42,76 +43,81 @@ const CartPage: NextPage = () => {
 
   if (profile?.email) {
     return (
-      <div className='container'>
-        {cartCount ? (
-          <div className='flex flex-row'>
-            <div className='w-2/3 pr-8'>
-              <h1 className='no-underline text-2xl'>
-                {mainPageContent[language].shoppingCart}
-              </h1>
-              <CartProduct />
-              <div className='flex flex-row justify-between mt-8'>
-                <div className=''>
-                  <p className='text-sm'>
-                    <span className='font-bold'>
-                      {mainPageContent[language].numberOfItems}:
-                    </span>{' '}
-                    {cartCount}
-                  </p>
-                  <p className='text-sm mt-1'>
-                    <span className='font-bold'>
-                      {mainPageContent[language].total}:
-                    </span>{' '}
-                    {totalPrice}&euro;
-                  </p>
+      <div>
+        <Head>
+          <title>Odour</title>
+        </Head>
+        <div className='container'>
+          {cartCount ? (
+            <div className='flex flex-row'>
+              <div className='w-2/3 pr-8'>
+                <h1 className='no-underline text-2xl'>
+                  {mainPageContent[language].shoppingCart}
+                </h1>
+                <CartProduct />
+                <div className='flex flex-row justify-between mt-8'>
+                  <div className=''>
+                    <p className='text-sm'>
+                      <span className='font-bold'>
+                        {mainPageContent[language].numberOfItems}:
+                      </span>{' '}
+                      {cartCount}
+                    </p>
+                    <p className='text-sm mt-1'>
+                      <span className='font-bold'>
+                        {mainPageContent[language].total}:
+                      </span>{' '}
+                      {totalPrice}&euro;
+                    </p>
+                  </div>
+                  <button className='button' onClick={clearCart}>
+                    {mainPageContent[language].deleteAll}
+                  </button>
                 </div>
-                <button className='button' onClick={clearCart}>
-                  {mainPageContent[language].deleteAll}
-                </button>
+                <SandBox />
               </div>
-              <SandBox />
-            </div>
-            <div className='w-1/3'>
-              <PayPalButtons
-                forceReRender={[totalPrice]}
-                createOrder={(_data, actions) => {
-                  return actions.order.create({
-                    purchase_units: [
-                      {
-                        amount: {
-                          value: totalPrice,
+              <div className='w-1/3'>
+                <PayPalButtons
+                  forceReRender={[totalPrice]}
+                  createOrder={(_data, actions) => {
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          amount: {
+                            value: totalPrice,
+                          },
                         },
-                      },
-                    ],
-                  })
-                }}
-                onApprove={(_data, actions: any) => {
-                  return actions.order.capture().then((details: any) => {
-                    postOrder(
-                      profile.email as string,
-                      details.status,
-                      details.purchase_units[0].amount.value + '€',
-                    )
-                      .then(() => clearCart())
-                      .then(() => router.push('/success'))
-                  })
-                }}
-              />
+                      ],
+                    })
+                  }}
+                  onApprove={(_data, actions: any) => {
+                    return actions.order.capture().then((details: any) => {
+                      postOrder(
+                        profile.email as string,
+                        details.status,
+                        details.purchase_units[0].amount.value + '€',
+                      )
+                        .then(() => clearCart())
+                        .then(() => router.push('/success'))
+                    })
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className='text-center'>
-            <Image src='/images/cart-empty.jpg' height={183} width={500} />
-            <p className='mt-8'>{mainPageContent[language].emptyCart}</p>
-            <p>
-              <Link href='/shop/page/1'>
-                <a className='button inline-block mt-4'>
-                  {mainPageContent[language].returnShop}
-                </a>
-              </Link>
-            </p>
-          </div>
-        )}
+          ) : (
+            <div className='text-center'>
+              <Image src='/images/cart-empty.jpg' height={183} width={500} />
+              <p className='mt-8'>{mainPageContent[language].emptyCart}</p>
+              <p>
+                <Link href='/shop/page/1'>
+                  <a className='button inline-block mt-4'>
+                    {mainPageContent[language].returnShop}
+                  </a>
+                </Link>
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     )
   } else {

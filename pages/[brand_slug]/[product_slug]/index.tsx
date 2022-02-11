@@ -21,6 +21,7 @@ import { Auth } from 'aws-amplify'
 import { serializers } from '@config/serializer'
 import { mainPageContent } from '@src/lib/locale/shop'
 import { productPageContent } from '@src/lib/locale/product'
+import Head from 'next/head'
 
 const BlockContent = require('@sanity/block-content-to-react')
 
@@ -154,114 +155,122 @@ const ProductDetail = () => {
     rating = total / count
 
     return (
-      <div className='container'>
-        <div className='md:hidden'>
-          <BreadcrumbsComponent />
-        </div>
-        <div className='md:hidden'>
-          <h2 className='mt-4 text-xl'>
-            <Link href={`/shop/page/1?brand=${data.vendor.slug}`}>
-              <a>{data.vendor.title}</a>
-            </Link>
-          </h2>
-          <h1 className='no-underline text-3xl mt-4 font-bold'>{data.title}</h1>
-        </div>
-        <div className='md:flex flex-row'>
-          <div className='md:w-2/5 mt-6 md:mt-0 text-center'>
-            <Image
-              {...imageProps}
-              layout='intrinsic'
-              height={400}
-              width={200}
-              alt={data.title}
-            />
+      <div>
+        <Head>
+          <title>{data.title}</title>
+        </Head>
+        <div className='container'>
+          <div className='md:hidden'>
+            <BreadcrumbsComponent />
           </div>
-          <div className='md:w-3/5'>
-            <div className='hidden md:block'>
-              <BreadcrumbsComponent />
-              <h2 className='mt-4 text-lg'>
-                <Link href={`/shop/page/1?brand=${data.vendor.slug}`}>
-                  <a>{data.vendor.title}</a>
-                </Link>
-              </h2>
-              <h1 className='no-underline text-2xl font-bold'>{data.title}</h1>
-              <h2 className=' text-lg mb-2 mt-2'>{data.blurb[language]}</h2>
-              <Star rating={rating} />
+          <div className='md:hidden'>
+            <h2 className='mt-4 text-xl'>
+              <Link href={`/shop/page/1?brand=${data.vendor.slug}`}>
+                <a>{data.vendor.title}</a>
+              </Link>
+            </h2>
+            <h1 className='no-underline text-3xl mt-4 font-bold'>
+              {data.title}
+            </h1>
+          </div>
+          <div className='md:flex flex-row'>
+            <div className='md:w-2/5 mt-6 md:mt-0 text-center'>
+              <Image
+                {...imageProps}
+                layout='intrinsic'
+                height={400}
+                width={200}
+                alt={data.title}
+              />
             </div>
-            {data.discount ? (
-              <p>
-                <span className='py-1 px-2 bg-red-500 text-white uppercase md:text-xs mt-2 inline-block'>
-                  {productPageContent[language].sales}
-                </span>
-              </p>
-            ) : null}
-            <p className='flex flex-row justify-between mt-6 pb-2'>
-              <span className='text-xl leading-10'>{price.size}ml</span>
-              <span className='text-4xl leading-8'>
-                {price.discount > 0 ? (
-                  <span>
-                    <span className='line-through text-lg text-red-500'>
-                      {price.price}&euro;
-                    </span>{' '}
-                    <span className=''>
-                      {(price.price * (100 - price.discount)) / 100}
-                    </span>
+            <div className='md:w-3/5'>
+              <div className='hidden md:block'>
+                <BreadcrumbsComponent />
+                <h2 className='mt-4 text-lg'>
+                  <Link href={`/shop/page/1?brand=${data.vendor.slug}`}>
+                    <a>{data.vendor.title}</a>
+                  </Link>
+                </h2>
+                <h1 className='no-underline text-2xl font-bold'>
+                  {data.title}
+                </h1>
+                <h2 className=' text-lg mb-2 mt-2'>{data.blurb[language]}</h2>
+                <Star rating={rating} />
+              </div>
+              {data.discount ? (
+                <p>
+                  <span className='py-1 px-2 bg-red-500 text-white uppercase md:text-xs mt-2 inline-block'>
+                    {productPageContent[language].sales}
                   </span>
-                ) : (
-                  price.price
-                )}
-                &euro;
-              </span>
-            </p>
-            <hr />
-            <p className='mt-6 flex flex-row gap-1'>
-              {items.map((item) => (
-                <button
-                  onClick={() => handleSelectedVariant(item.ml.toString())}
-                  key={item.title}
-                  className={`relative inline-block pl-3 py-1.5 md:pr-8 border border-solid w-1/3 md:w-auto ${
-                    currentSize === item.ml.toString()
-                      ? 'border-gray-400 cursor-default'
-                      : 'border-gray-100 bg-gray-100 hover:bg-gray-200'
-                  }`}>
-                  <span className='text-sm'>{item.title}</span>
-                  <br />
-                  <span className='font-bold text-sm'>
-                    {item.discount !== undefined
-                      ? (item.price * (100 - item.discount)) / 100
-                      : item.price}
-                    &euro;
-                  </span>
-                  {item.discount && item.discount > 0 ? (
-                    <span className='absolute top-0 right-0 text-sm overflow-hidden h-8 w-8'>
-                      <span className='inline-block h-11 w-11 bg-red-500 -rotate-45 transform origin-top-left'></span>
-                      <span className='absolute left-1/2 top-1/2 text-white text-xs inline-block -mt-3 ml-0.5'>
-                        %
+                </p>
+              ) : null}
+              <p className='flex flex-row justify-between mt-6 pb-2'>
+                <span className='text-xl leading-10'>{price.size}ml</span>
+                <span className='text-4xl leading-8'>
+                  {price.discount > 0 ? (
+                    <span>
+                      <span className='line-through text-lg text-red-500'>
+                        {price.price}&euro;
+                      </span>{' '}
+                      <span className=''>
+                        {(price.price * (100 - price.discount)) / 100}
                       </span>
                     </span>
-                  ) : null}
+                  ) : (
+                    price.price
+                  )}
+                  &euro;
+                </span>
+              </p>
+              <hr />
+              <p className='mt-6 flex flex-row gap-1'>
+                {items.map((item) => (
+                  <button
+                    onClick={() => handleSelectedVariant(item.ml.toString())}
+                    key={item.title}
+                    className={`relative inline-block pl-3 py-1.5 md:pr-8 border border-solid w-1/3 md:w-auto ${
+                      currentSize === item.ml.toString()
+                        ? 'border-gray-400 cursor-default'
+                        : 'border-gray-100 bg-gray-100 hover:bg-gray-200'
+                    }`}>
+                    <span className='text-sm'>{item.title}</span>
+                    <br />
+                    <span className='font-bold text-sm'>
+                      {item.discount !== undefined
+                        ? (item.price * (100 - item.discount)) / 100
+                        : item.price}
+                      &euro;
+                    </span>
+                    {item.discount && item.discount > 0 ? (
+                      <span className='absolute top-0 right-0 text-sm overflow-hidden h-8 w-8'>
+                        <span className='inline-block h-11 w-11 bg-red-500 -rotate-45 transform origin-top-left'></span>
+                        <span className='absolute left-1/2 top-1/2 text-white text-xs inline-block -mt-3 ml-0.5'>
+                          %
+                        </span>
+                      </span>
+                    ) : null}
+                  </button>
+                ))}
+              </p>
+              <p className='mt-4'>
+                {price.sku > 0 ? (
+                  <span className='text-green-600'>
+                    {productPageContent[language].inStock}
+                  </span>
+                ) : (
+                  <span className='text-red-600'>
+                    {productPageContent[language].outStock}
+                  </span>
+                )}
+              </p>
+              <p className='mt-4'>
+                <button
+                  onClick={() => handleAddToCart(data, price)}
+                  className={`button ${price.sku < 1 ? 'disabled' : null}`}>
+                  {mainPageContent[language].addToCart}
                 </button>
-              ))}
-            </p>
-            <p className='mt-4'>
-              {price.sku > 0 ? (
-                <span className='text-green-600'>
-                  {productPageContent[language].inStock}
-                </span>
-              ) : (
-                <span className='text-red-600'>
-                  {productPageContent[language].outStock}
-                </span>
-              )}
-            </p>
-            <p className='mt-4'>
-              <button
-                onClick={() => handleAddToCart(data, price)}
-                className={`button ${price.sku < 1 ? 'disabled' : null}`}>
-                {mainPageContent[language].addToCart}
-              </button>
-            </p>
-            {/* <p className='mt-4'>
+              </p>
+              {/* <p className='mt-4'>
               <button
                 className={`flex hover:text-red-500 ${
                   favorite ? 'text-red-500' : 'text-black'
@@ -275,100 +284,101 @@ const ProductDetail = () => {
                 </span>
               </button>
             </p> */}
-          </div>
-        </div>
-        <div>
-          <p className='flex flex-row gap-8 mt-6 border-b border-solid border-gray-400'>
-            <button
-              className={`text-sm py-2  border-solid border-transparent hover:border-black ${
-                swap ? 'border-b-2 border-black' : 'border-b'
-              }`}
-              onClick={() => setSwap(true)}>
-              {mainPageContent[language].description}
-            </button>
-            <button
-              className={`text-sm py-2  border-solid border-transparent hover:border-black ${
-                !swap ? 'border-b-2 border-black' : 'border-b'
-              }`}
-              onClick={() => setSwap(false)}>
-              {mainPageContent[language].review}
-            </button>
-          </p>
-          <div
-            className={`${
-              swap ? 'block md:flex' : 'hidden'
-            }  flex-row mt-4 md:mt-8 gap-8`}>
-            <div className='content md:w-3/4'>
-              <h3 className='text-lg md:text-3xl tracking-tight mb-2 md:mb-6'>
-                <span className='font-bold'>
-                  {productPageContent[language].description}
-                </span>{' '}
-                {data.title}
-              </h3>
-              <BlockContent
-                blocks={data.body[language]}
-                imageOptions={{ w: 640, fit: 'max' }}
-                projectId={process.env.NEXT_PUBLIC_PROJECT_ID}
-                dataset={process.env.NEXT_PUBLIC_DATASET}
-                serializers={serializers}
-              />
-            </div>
-            <div className='md:w-1/4 text-sm mt-6 md:mt-0'>
-              <h3 className='text-xl md:text-3xl tracking-tight mb-6'>
-                <span className='font-bold'>
-                  {productPageContent[language].ingredients}
-                </span>
-              </h3>
-              <h4 className='font-bold mt-2'>
-                {productPageContent[language].topNotes}
-              </h4>
-              <p className='mt-2'>{data.top_notes[language]}</p>
-              <h4 className='font-bold mt-2'>
-                {productPageContent[language].middleNotes}
-              </h4>
-              <p className='mt-2'>{data.middle_notes[language]}</p>
-              <h4 className='font-bold mt-2'>
-                {productPageContent[language].baseNotes}
-              </h4>
-              <p className='mt-2'>{data.base_notes[language]}</p>
             </div>
           </div>
-          <div className={`${swap ? 'hidden' : 'block'} mt-4 md:mt-8`}>
-            <Comment id={data.id} title={data.title} />
-            <div className='mt-8 pt-2 border-t border-solid border-gray-400'>
-              {data.comments.length > 0 ? (
-                data.comments.map((comment) => (
-                  <div className='mt-4' key={comment.id}>
-                    <div className='text-sm'>{comment.comment}</div>
-                    <p className='flex flex-row mt-2 text-xs leading-4'>
-                      <Star rating={comment.rating} />
-                      <span className='font-bold mr-2 ml-4'>
-                        {comment.email}
-                      </span>
-                      {comment.date}
-                    </p>
+          <div>
+            <p className='flex flex-row gap-8 mt-6 border-b border-solid border-gray-400'>
+              <button
+                className={`text-sm py-2  border-solid border-transparent hover:border-black ${
+                  swap ? 'border-b-2 border-black' : 'border-b'
+                }`}
+                onClick={() => setSwap(true)}>
+                {mainPageContent[language].description}
+              </button>
+              <button
+                className={`text-sm py-2  border-solid border-transparent hover:border-black ${
+                  !swap ? 'border-b-2 border-black' : 'border-b'
+                }`}
+                onClick={() => setSwap(false)}>
+                {mainPageContent[language].review}
+              </button>
+            </p>
+            <div
+              className={`${
+                swap ? 'block md:flex' : 'hidden'
+              }  flex-row mt-4 md:mt-8 gap-8`}>
+              <div className='content md:w-3/4'>
+                <h3 className='text-lg md:text-3xl tracking-tight mb-2 md:mb-6'>
+                  <span className='font-bold'>
+                    {productPageContent[language].description}
+                  </span>{' '}
+                  {data.title}
+                </h3>
+                <BlockContent
+                  blocks={data.body[language]}
+                  imageOptions={{ w: 640, fit: 'max' }}
+                  projectId={process.env.NEXT_PUBLIC_PROJECT_ID}
+                  dataset={process.env.NEXT_PUBLIC_DATASET}
+                  serializers={serializers}
+                />
+              </div>
+              <div className='md:w-1/4 text-sm mt-6 md:mt-0'>
+                <h3 className='text-xl md:text-3xl tracking-tight mb-6'>
+                  <span className='font-bold'>
+                    {productPageContent[language].ingredients}
+                  </span>
+                </h3>
+                <h4 className='font-bold mt-2'>
+                  {productPageContent[language].topNotes}
+                </h4>
+                <p className='mt-2'>{data.top_notes[language]}</p>
+                <h4 className='font-bold mt-2'>
+                  {productPageContent[language].middleNotes}
+                </h4>
+                <p className='mt-2'>{data.middle_notes[language]}</p>
+                <h4 className='font-bold mt-2'>
+                  {productPageContent[language].baseNotes}
+                </h4>
+                <p className='mt-2'>{data.base_notes[language]}</p>
+              </div>
+            </div>
+            <div className={`${swap ? 'hidden' : 'block'} mt-4 md:mt-8`}>
+              <Comment id={data.id} title={data.title} />
+              <div className='mt-8 pt-2 border-t border-solid border-gray-400'>
+                {data.comments.length > 0 ? (
+                  data.comments.map((comment) => (
+                    <div className='mt-4' key={comment.id}>
+                      <div className='text-sm'>{comment.comment}</div>
+                      <p className='flex flex-row mt-2 text-xs leading-4'>
+                        <Star rating={comment.rating} />
+                        <span className='font-bold mr-2 ml-4'>
+                          {comment.email}
+                        </span>
+                        {comment.date}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div className='mt-4 text-lg'>
+                    {mainPageContent[language].noReview}
                   </div>
-                ))
-              ) : (
-                <div className='mt-4 text-lg'>
-                  {mainPageContent[language].noReview}
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
+          {data.related.length > 0 ? (
+            <>
+              <h2 className='text-xl md:text-2xl font-bold mt-8'>
+                {mainPageContent[language].related}
+              </h2>
+              <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8'>
+                {data.related.map((product) => (
+                  <ProductItem product={product} key={product.id} />
+                ))}
+              </div>
+            </>
+          ) : null}
         </div>
-        {data.related.length > 0 ? (
-          <>
-            <h2 className='text-xl md:text-2xl font-bold mt-8'>
-              {mainPageContent[language].related}
-            </h2>
-            <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:mt-8'>
-              {data.related.map((product) => (
-                <ProductItem product={product} key={product.id} />
-              ))}
-            </div>
-          </>
-        ) : null}
       </div>
     )
   }

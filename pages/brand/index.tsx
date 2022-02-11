@@ -9,6 +9,7 @@ import { GetStaticProps } from 'next'
 import { useBrand } from '@src/hooks/useBrand'
 import { mainPageContent } from '@src/lib/locale/shop'
 import useLanguageStore from '@src/lib/store/languageStore'
+import Head from 'next/head'
 
 const Brand = () => {
   const language = useLanguageStore((state) => state.language)
@@ -46,28 +47,33 @@ const Brand = () => {
     const result = Object.values(brands)
 
     return (
-      <div className='container'>
-        <BreadcrumbsComponent />
-        <h1 className='no-underline mt-4 text-xl md:text-2xl'>
-          {mainPageContent[language].perfumeBrands}
-        </h1>
-        <div className='mt-8'>
-          {result.map((alphabet: any) => (
-            <div
-              className='border-t border-solid border-gray-400 pb-8'
-              key={alphabet.group}>
-              <h2 className='text-2xl mt-8 text-center'>{alphabet.group}</h2>
-              <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8'>
-                {alphabet.children.map((brand: GroupType) => (
-                  <Link href={`/${brand.slug}`} key={brand.title}>
-                    <a>
-                      <span className='text-sm'>{brand.title}</span>
-                    </a>
-                  </Link>
-                ))}
+      <div>
+        <Head>
+          <title>Odour</title>
+        </Head>
+        <div className='container'>
+          <BreadcrumbsComponent />
+          <h1 className='no-underline mt-4 text-xl md:text-2xl'>
+            {mainPageContent[language].perfumeBrands}
+          </h1>
+          <div className='mt-8'>
+            {result.map((alphabet: any) => (
+              <div
+                className='border-t border-solid border-gray-400 pb-8'
+                key={alphabet.group}>
+                <h2 className='text-2xl mt-8 text-center'>{alphabet.group}</h2>
+                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8'>
+                  {alphabet.children.map((brand: GroupType) => (
+                    <Link href={`/${brand.slug}`} key={brand.title}>
+                      <a>
+                        <span className='text-sm'>{brand.title}</span>
+                      </a>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     )
