@@ -62,13 +62,6 @@ const NavigationDesktop = () => {
               </a>
             </Link>
           </li>
-          <li className='py-2'>
-            <Link href='/'>
-              <a onClick={() => setActive(false)}>
-                {headerContent[language].contact}
-              </a>
-            </Link>
-          </li>
         </ul>
         <Profile />
       </div>

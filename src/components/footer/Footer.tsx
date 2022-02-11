@@ -28,6 +28,10 @@ export default function Footer(): ReactElement | null {
         <div className='container'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
             <div>
+              <h3 className='font-bold text-2xl text-white'>Odour</h3>
+              <p className='text-sm mt-2'>&copy; 2022</p>
+            </div>
+            <div>
               <h3 className='font-bold text-2xl text-white'>
                 {headerContent[language].fragrances}
               </h3>
@@ -80,44 +84,9 @@ export default function Footer(): ReactElement | null {
               </h3>
               <ul>
                 <li className='mt-2'>
-                  <Link href='/'>
+                  <Link href='/about'>
                     <a className='hover:text-white'>
                       {headerContent[language].company}
-                    </a>
-                  </Link>
-                </li>
-                <li className='mt-2'>
-                  <Link href='/'>
-                    <a className='hover:text-white'>
-                      {headerContent[language].location}
-                    </a>
-                  </Link>
-                </li>
-                <li className='mt-2'>
-                  <Link href='/'>
-                    <a className='hover:text-white'>
-                      {headerContent[language].contact}
-                    </a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className='font-bold text-2xl text-white'>
-                {headerContent[language].service}
-              </h3>
-              <ul>
-                <li className='mt-2'>
-                  <Link href='/'>
-                    <a className='hover:text-white'>
-                      {headerContent[language].freeShip}
-                    </a>
-                  </Link>
-                </li>
-                <li className='mt-2'>
-                  <Link href='/'>
-                    <a className='hover:text-white'>
-                      {headerContent[language].return}
                     </a>
                   </Link>
                 </li>

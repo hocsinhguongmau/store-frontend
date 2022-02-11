@@ -68,7 +68,7 @@ const Breadcrumbs = () => {
             text === 'shop' ||
             text === 'brand' ||
             text === 'about' ||
-            text === 'contact'
+            text === 'service'
           ) {
             text = headerContent[language][text]
           } else if (text === 'page' || parseInt(text) > 0) {
