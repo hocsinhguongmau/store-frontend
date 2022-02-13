@@ -208,11 +208,15 @@ type FavoriteItem = {
 }
 
 type SearchItemType = {
-  title: string
+  name: string
   slug: string
 }
 type SearchDataType = {
-  title: string
+  title: {
+    en: string
+    fi: string
+    se: string
+  }
   items: SearchItemType[]
 }
 type PartType = {
@@ -220,7 +224,7 @@ type PartType = {
   highlight: boolean
 }
 type SearchProductType = {
-  title: string
+  name: string
   slug: string
   vendor: string
 }

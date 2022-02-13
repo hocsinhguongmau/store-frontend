@@ -24,6 +24,8 @@
     "aws-amplify": "^4.3.12",
     "axios": "^0.25.0",
     "groq": "^2.15.0",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "mapbox-gl": "^2.7.0",
     "next": "^12.0.7",
     "next-sanity-image": "^3.2.1",
@@ -49,6 +51,7 @@
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.2.0",
     "@types/googlemaps": "^3.43.3",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "17.0.7",
     "@types/react": "17.0.38",
     "@types/react-autosuggest": "^10.1.5",

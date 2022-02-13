@@ -6,8 +6,11 @@ import Link from 'next/link'
 import { useQuery, UseQueryResult } from 'react-query'
 import { getAllBrands } from '@src/lib/queries/brand'
 import { getSearchProducts } from '@src/lib/queries/product'
+import useLanguageStore from '@src/lib/store/languageStore'
+import { headerContent } from '@src/lib/locale/header'
 
 const Search = () => {
+  const language = useLanguageStore((state) => state.language)
   const brandQuery: UseQueryResult<BrandType[] | undefined, Error> = useQuery<
     BrandType[] | undefined,
     Error
@@ -24,26 +27,25 @@ const Search = () => {
       let brandData: SearchItemType[] = []
       if (brandQuery.data) {
         brandQuery.data.map((brand: BrandType) =>
-          brandData.push({ title: brand.title, slug: brand.slug }),
+          brandData.push({ name: brand.title, slug: brand.slug }),
         )
       }
       let productData: SearchItemType[] = []
       if (productQuery.data) {
         productQuery.data.map((product: SearchProductType) =>
           productData.push({
-            title: product.title,
+            name: product.name,
             slug: `${product.vendor}/${product.slug}`,
           }),
         )
       }
-      console.log(productData)
       setData([
         {
-          title: 'Brands',
+          title: { en: 'Brand', fi: 'Brändi', se: 'Varumärke' },
           items: brandData,
         },
         {
-          title: 'Products',
+          title: { en: 'Fragrances', fi: 'Tuoksut', se: 'Dofter' },
           items: productData,
         },
       ])
@@ -67,20 +69,20 @@ const Search = () => {
     return data
       .map((section) => {
         return {
-          title: section.title,
-          items: section.items.filter((item) => regex.test(item.title)),
+          title: section.title[language],
+          items: section.items.filter((item) => regex.test(item.name)),
         }
       })
       .filter((section) => section.items.length > 0)
   }
 
   const getSuggestionValue = (suggestion: SearchItemType) => {
-    return suggestion.title
+    return suggestion.name
   }
 
   const renderSuggestion = (suggestion: SearchItemType, { query }: any) => {
-    const matches = AutosuggestHighlightMatch(suggestion.title, query)
-    const parts = AutosuggestHighlightParse(suggestion.title, matches)
+    const matches = AutosuggestHighlightMatch(suggestion.name, query)
+    const parts = AutosuggestHighlightParse(suggestion.name, matches)
 
     return (
       <Link href={`/${suggestion.slug}`}>
