@@ -6,6 +6,7 @@ import Profile from '@components/header/Profile'
 import NavigationDesktop from '@components/header/NavigationDesktop'
 import NavigationMobile from '@components/header/NavigationMobile'
 import { useRouter } from 'next/router'
+import Search from './Search'
 
 export default function Header(): ReactElement {
   const router = useRouter()
@@ -31,6 +32,7 @@ export default function Header(): ReactElement {
           <Profile />
         </div>
       </div>
+      <Search />
     </header>
   )
 }

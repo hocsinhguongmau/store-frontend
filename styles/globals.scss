@@ -168,3 +168,46 @@ h1 {
 .map-container {
   height: 400px;
 }
+
+.react-autosuggest {
+  &__container {
+    @apply w-full relative;
+  }
+  &__input {
+    @apply w-full border border-gray-500 px-2 py-2 text-sm;
+    &--focused {
+      outline: none;
+    }
+  }
+  &__suggestions {
+    @apply cursor-pointer;
+    &-container {
+      @apply hidden w-full;
+      &--open {
+        @apply block absolute top-full left-0 border border-gray-500 bg-white;
+      }
+      &-list {
+        @apply m-0 p-0 list-none;
+      }
+    }
+    &--highlighted {
+      @apply bg-gray-500;
+      &-match {
+        @apply font-bold;
+      }
+    }
+  }
+  &__section {
+    &-title {
+      @apply font-bold p-2;
+    }
+  }
+  &__suggestion {
+    &--highlighted {
+      @apply bg-gray-300;
+    }
+    &-match {
+      @apply font-bold;
+    }
+  }
+}

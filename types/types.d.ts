@@ -206,3 +206,21 @@ type FavoriteItem = {
     products: string[]
   }
 }
+
+type SearchItemType = {
+  title: string
+  slug: string
+}
+type SearchDataType = {
+  title: string
+  items: SearchItemType[]
+}
+type PartType = {
+  text: string
+  highlight: boolean
+}
+type SearchProductType = {
+  title: string
+  slug: string
+  vendor: string
+}

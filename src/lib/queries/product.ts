@@ -20,6 +20,12 @@ export const merchQuery = groq`
     "image":images[0].asset._ref
   }`
 
+export const getSearchProducts = async (): Promise<SearchProductType[]> => {
+  const searchProducts =
+    '*[_type=="product"]{title,"slug":slug.current,"vendor":vendor->slug.current}[0...100]'
+  return await client.fetch(searchProducts)
+}
+
 export const getAllProducts = async (
   sort: string,
   gender: string,
