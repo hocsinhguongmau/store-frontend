@@ -116,7 +116,7 @@ const Search = () => {
 
   const [suggestions, setSuggestions] = useState<any>([])
 
-  const handleChange = (event: any, { newValue }: any) => {
+  const handleChange = (_event: any, { newValue }: any) => {
     setValue(newValue)
   }
 
@@ -128,7 +128,7 @@ const Search = () => {
   }
 
   const inputProps = {
-    placeholder: 'Type a programming language',
+    placeholder: headerContent[language].search,
     value,
     onChange: handleChange,
   }

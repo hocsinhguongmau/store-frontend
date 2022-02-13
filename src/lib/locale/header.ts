@@ -15,6 +15,7 @@ export const headerContent = {
     womenFragrance: "Women's Perfume",
     menFragrance: "Men's Cologne",
     unisexFragrance: 'Unisex Fragrances',
+    search: 'Search...',
   },
   fi: {
     home: 'Koti',
@@ -32,6 +33,7 @@ export const headerContent = {
     womenFragrance: 'Naisten hajuvesi',
     menFragrance: 'Miesten Köln',
     unisexFragrance: 'Unisex tuoksut',
+    search: 'Hae...',
   },
   se: {
     home: 'Hem',
@@ -49,5 +51,6 @@ export const headerContent = {
     womenFragrance: 'Damparfym',
     menFragrance: 'Köln för herrar',
     unisexFragrance: 'Unisex dofter',
+    search: 'Sök...',
   },
 }

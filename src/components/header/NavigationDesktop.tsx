@@ -28,7 +28,7 @@ const NavigationDesktop = () => {
         </Link>
       </li>
       <li className='py-2'>
-        <Link href='/'>
+        <Link href='/about'>
           <a className='hover:text-red-500'>{headerContent[language].about}</a>
         </Link>
       </li>
