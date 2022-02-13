@@ -12,7 +12,8 @@ import { I18n } from 'aws-amplify'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { CartProvider } from 'use-shopping-cart/react'
+import { CartProvider, useCart } from 'react-use-cart'
+
 import 'react-toastify/dist/ReactToastify.css'
 
 import '@styles/globals.scss'
@@ -76,15 +77,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
             currency: CURRENCY,
           }}>
-          <CartProvider
-            mode='payment'
-            cartMode='client-only'
-            successUrl=''
-            cancelUrl=''
-            allowedCountries={['US', 'GB', 'CA']}
-            billingAddressCollection={true}
-            stripe={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string}
-            currency={CURRENCY}>
+          <CartProvider>
             <Layout>
               <NextNProgress
                 color='#29D'

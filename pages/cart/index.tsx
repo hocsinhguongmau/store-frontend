@@ -3,7 +3,6 @@ import { Auth } from 'aws-amplify'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useShoppingCart } from 'use-shopping-cart/react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import SandBox from '@components/main/SandBox'
 import { postOrder } from '@src/lib/queries/order'
@@ -12,6 +11,7 @@ import Image from 'next/image'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { mainPageContent } from '@src/lib/locale/shop'
 import Head from 'next/head'
+import { useCart } from 'react-use-cart'
 
 interface OnApproveData {
   billingToken?: string | null
@@ -27,7 +27,7 @@ const CartPage: NextPage = () => {
   const language = useLanguageStore((state) => state.language)
   const [profile, setProfile] = useState<IProfile>()
   const router = useRouter()
-  const { totalPrice, cartCount, clearCart } = useShoppingCart()
+  const { emptyCart, cartTotal, totalItems } = useCart()
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -48,7 +48,7 @@ const CartPage: NextPage = () => {
           <title>Odour</title>
         </Head>
         <div className='container'>
-          {cartCount ? (
+          {totalItems ? (
             <div className='flex flex-row'>
               <div className='w-2/3 pr-8'>
                 <h1 className='no-underline text-2xl'>
@@ -61,16 +61,16 @@ const CartPage: NextPage = () => {
                       <span className='font-bold'>
                         {mainPageContent[language].numberOfItems}:
                       </span>{' '}
-                      {cartCount}
+                      {totalItems}
                     </p>
                     <p className='text-sm mt-1'>
                       <span className='font-bold'>
                         {mainPageContent[language].total}:
                       </span>{' '}
-                      {totalPrice}&euro;
+                      {cartTotal}&euro;
                     </p>
                   </div>
-                  <button className='button' onClick={clearCart}>
+                  <button className='button' onClick={emptyCart}>
                     {mainPageContent[language].deleteAll}
                   </button>
                 </div>
@@ -78,26 +78,27 @@ const CartPage: NextPage = () => {
               </div>
               <div className='w-1/3'>
                 <PayPalButtons
-                  forceReRender={[totalPrice]}
+                  forceReRender={[cartTotal]}
                   createOrder={(_data, actions) => {
                     return actions.order.create({
                       purchase_units: [
                         {
                           amount: {
-                            value: totalPrice,
+                            value: cartTotal.toString(),
                           },
                         },
                       ],
                     })
                   }}
-                  onApprove={(_data, actions: any) => {
+                  onApprove={(data, actions: any) => {
+                    console.log(data)
                     return actions.order.capture().then((details: any) => {
                       postOrder(
                         profile.email as string,
                         details.status,
                         details.purchase_units[0].amount.value + '€',
                       )
-                        .then(() => clearCart())
+                        .then(() => emptyCart())
                         .then(() => router.push('/success'))
                     })
                   }}

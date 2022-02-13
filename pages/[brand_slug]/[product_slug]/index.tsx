@@ -15,7 +15,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 import { client } from '@src/lib/client'
 import useLanguageStore from '@src/lib/store/languageStore'
 import Comment from '@components/main/Comment'
-import { useShoppingCart } from 'use-shopping-cart/react'
+import { useCart } from 'react-use-cart'
 import { CURRENCY } from '@src/config/cart'
 import { Auth } from 'aws-amplify'
 import { serializers } from '@config/serializer'
@@ -28,7 +28,7 @@ const BlockContent = require('@sanity/block-content-to-react')
 const ProductDetail = () => {
   const language = useLanguageStore((state) => state.language)
   const router = useRouter()
-  const { addItem } = useShoppingCart()
+  const { addItem } = useCart()
   const slug = router.query.product_slug as string
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useProductDetail(brand_slug, slug)
