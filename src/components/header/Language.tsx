@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import useLanguageStore from '@src/lib/store/languageStore'
 
 type LanguageType = {
@@ -32,7 +31,7 @@ const Language = () => {
   }
   return (
     <select
-      className='outline-none mr-4 align-top mt-0.5 text-3xl bg-transparent none shadow-none appearance-none'
+      className='outline-none align-top mt-0.5 text-3xl bg-transparent none shadow-none appearance-none'
       onChange={handleChangeLanguage}
       defaultValue={locale}>
       {languages?.map((language) => (
