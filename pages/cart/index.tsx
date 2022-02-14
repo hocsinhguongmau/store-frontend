@@ -12,22 +12,17 @@ import useLanguageStore from '@src/lib/store/languageStore'
 import { mainPageContent } from '@src/lib/locale/shop'
 import Head from 'next/head'
 import { useCart } from 'react-use-cart'
-
-interface OnApproveData {
-  billingToken?: string | null
-  facilitatorAccessToken: string
-  orderID: string
-  payerID?: string | null
-  paymentID?: string | null
-  subscriptionID?: string | null
-  authCode?: string | null
-}
+import { v4 as uuidv4 } from 'uuid'
 
 const CartPage: NextPage = () => {
   const language = useLanguageStore((state) => state.language)
   const [profile, setProfile] = useState<IProfile>()
   const router = useRouter()
-  const { emptyCart, cartTotal, totalItems } = useCart()
+  const { emptyCart, cartTotal, totalItems, items } = useCart()
+  let cartItems: any[] = []
+  items.map((item) => {
+    cartItems.push({ _key: uuidv4(), ...item })
+  })
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -67,7 +62,7 @@ const CartPage: NextPage = () => {
                       <span className='font-bold'>
                         {mainPageContent[language].total}:
                       </span>{' '}
-                      {cartTotal}&euro;
+                      {cartTotal.toFixed(2)}&euro;
                     </p>
                   </div>
                   <button className='button' onClick={emptyCart}>
@@ -84,19 +79,28 @@ const CartPage: NextPage = () => {
                       purchase_units: [
                         {
                           amount: {
-                            value: cartTotal.toString(),
+                            value: cartTotal.toFixed(2).toString(),
                           },
                         },
                       ],
                     })
                   }}
-                  onApprove={(data, actions: any) => {
-                    console.log(data)
+                  onApprove={(_data, actions: any) => {
                     return actions.order.capture().then((details: any) => {
                       postOrder(
                         profile.email as string,
                         details.status,
                         details.purchase_units[0].amount.value + '€',
+                        [...cartItems],
+                        [
+                          {
+                            _key: uuidv4(),
+                            _type: 'userInfo',
+                            name: details.payer.name.given_name,
+                            email: profile.email as string,
+                            address: `${details.purchase_units[0].shipping.address.address_line_1}, ${details.purchase_units[0].shipping.address.admin_area_2}, ${details.purchase_units[0].shipping.address.postal_code}`,
+                          },
+                        ],
                       )
                         .then(() => emptyCart())
                         .then(() => router.push('/success'))

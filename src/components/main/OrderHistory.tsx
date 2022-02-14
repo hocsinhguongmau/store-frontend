@@ -1,8 +1,10 @@
 import Loading from '@components/Loading'
 import { useOrderHistory } from '@src/hooks/useOrderHistory'
+import { client } from '@src/lib/client'
 import { mainPageContent } from '@src/lib/locale/shop'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { Auth } from 'aws-amplify'
+import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -11,15 +13,76 @@ type OrderProps = {
   order: OrderHistoryType
 }
 
+const Img = ({ imgUrl }: any) => {
+  const imageProps = useNextSanityImage(client, imgUrl)
+  return <Image {...imageProps} width={50} height={80} />
+}
+
 const Order = ({ order }: OrderProps) => {
+  console.log(order)
+  const info = order.userInfo[0]
+  const orderedItems = order.carts
+  const [show, setShow] = useState(false)
   return (
-    <tr>
-      <td className='p-2 border border-gray-400'>{order._id}</td>
-      <td className='p-2 border border-gray-400'>{order._createdAt}</td>
-      <td className='p-2 border border-gray-400'>{order.email}</td>
-      <td className='p-2 border border-gray-400 capitalize'>{order.status}</td>
-      <td className='p-2 border border-gray-400'>{order.total}</td>
-    </tr>
+    <>
+      <tr className='text-sm'>
+        <td className='p-2 border border-gray-400'>{order._id}</td>
+        <td className='p-2 border border-gray-400'>{order._createdAt}</td>
+        <td className='p-2 border border-gray-400'>{order.email}</td>
+        <td className='p-2 border border-gray-400 capitalize'>
+          {order.status}
+        </td>
+        <td className='p-2 border border-gray-400'>{order.total}</td>
+        <td className='p-2 border border-gray-400 text-center'>
+          <button className='hover:text-red-500' onClick={() => setShow(!show)}>
+            {show ? 'Hide' : 'View'} order
+          </button>
+        </td>
+      </tr>
+      <tr className={`${show ? '' : 'hidden'}`}>
+        <td colSpan={6} className='text-sm p-4 leading-6'>
+          <div className='flex flex-row w-full gap-12'>
+            <div className='w-3/5'>
+              <p className='font-bold'>Items purchased</p>
+              {orderedItems.map((item) => (
+                <div
+                  key={item._key}
+                  className='mt-2 flex flex-row gap-4 w-full justify-between'>
+                  <Link href={`${item.href}?size=${item.size}`}>
+                    <a>
+                      <Img imgUrl={item.image} />
+                    </a>
+                  </Link>
+                  <p className='font-bold self-center'>
+                    <Link href={`${item.href}?size=${item.size}`}>
+                      <a>
+                        {item.name} {item.size}ml
+                      </a>
+                    </Link>
+                  </p>
+                  <p className='self-center'>x{item.quantity}</p>
+                  <p className='self-center'>
+                    {item.price} {item.currency}
+                  </p>
+                  <p className='self-center'>
+                    {item.itemTotal} {item.currency}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className='w-2/5'>
+              <p className='font-bold'>Billing information</p>
+              <p>
+                <span className='font-bold'>Name:</span> {info.name}
+              </p>
+              <p>
+                <span className='font-bold'>Address:</span> {info.address}
+              </p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </>
   )
 }
 
@@ -77,6 +140,7 @@ function OrderHistory() {
                   <th className='p-2 border border-gray-400'>
                     {mainPageContent[language].total}
                   </th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>

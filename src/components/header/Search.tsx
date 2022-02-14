@@ -34,7 +34,7 @@ const Search = () => {
       if (productQuery.data) {
         productQuery.data.map((product: SearchProductType) =>
           productData.push({
-            name: product.name,
+            name: product.title,
             slug: `${product.vendor}/${product.slug}`,
           }),
         )

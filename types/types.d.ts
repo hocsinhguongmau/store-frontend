@@ -170,11 +170,33 @@ type PriceType = {
   sku: number
 }
 
+type UserInfo = {
+  _key: string
+  _type: string
+  name: string
+  email: string
+  address: string
+}
+
+type CartItemType = {
+  currency: string
+  href: string
+  _key: string
+  image: string
+  itemTotal: number
+  name: string
+  quantity: number
+  size: number
+  price: number
+}
+
 type PostOrderType = {
   _type: string
   status: string
   email: string
   total: string
+  carts: CartItemType[]
+  userInfo: UserInfo[]
 }
 
 type OrderHistoryType = {
@@ -186,6 +208,8 @@ type OrderHistoryType = {
   email: string
   status: string
   total: string
+  carts: CartItemType[]
+  userInfo: UserInfo[]
 }
 
 type PostFavoriteType = {
@@ -224,7 +248,7 @@ type PartType = {
   highlight: boolean
 }
 type SearchProductType = {
-  name: string
+  title: string
   slug: string
   vendor: string
 }
