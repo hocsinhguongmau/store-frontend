@@ -8,8 +8,10 @@ import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { HiEye } from 'react-icons/hi'
 
 type OrderProps = {
+  index: number
   order: OrderHistoryType
 }
 
@@ -18,24 +20,31 @@ const Img = ({ imgUrl }: any) => {
   return <Image {...imageProps} width={50} height={80} />
 }
 
-const Order = ({ order }: OrderProps) => {
+const Order = ({ order, index }: OrderProps) => {
   console.log(order)
   const info = order.userInfo[0]
   const orderedItems = order.carts
   const [show, setShow] = useState(false)
   return (
     <>
-      <tr className='text-sm'>
-        <td className='p-2 border border-gray-400'>{order._id}</td>
-        <td className='p-2 border border-gray-400'>{order._createdAt}</td>
-        <td className='p-2 border border-gray-400'>{order.email}</td>
+      <tr className='text-sm bg-gray-200'>
+        <td className='p-2 border border-gray-400 text-center'>{index}</td>
+        <td className='p-2 border border-gray-400 whitespace-nowrap'>
+          {order._id}
+        </td>
+        <td className='p-2 border border-gray-400 whitespace-nowrap'>
+          {order._createdAt.slice(0, 10)}
+        </td>
         <td className='p-2 border border-gray-400 capitalize'>
           {order.status}
         </td>
         <td className='p-2 border border-gray-400'>{order.total}</td>
         <td className='p-2 border border-gray-400 text-center'>
-          <button className='hover:text-red-500' onClick={() => setShow(!show)}>
-            {show ? 'Hide' : 'View'} order
+          <button
+            className='flex flex-row whitespace-nowrap'
+            onClick={() => setShow(!show)}>
+            {show ? 'Hide' : 'View'} order{' '}
+            <HiEye className='ml-1 self-center' />
           </button>
         </td>
       </tr>
@@ -61,12 +70,8 @@ const Order = ({ order }: OrderProps) => {
                     </Link>
                   </p>
                   <p className='self-center'>x{item.quantity}</p>
-                  <p className='self-center'>
-                    {item.price} {item.currency}
-                  </p>
-                  <p className='self-center'>
-                    {item.itemTotal} {item.currency}
-                  </p>
+                  <p className='self-center'>{item.price}&euro;</p>
+                  <p className='self-center'>{item.itemTotal}&euro;</p>
                 </div>
               ))}
             </div>
@@ -125,14 +130,12 @@ function OrderHistory() {
             <table className='mt-6 border border-gray-400 w-full'>
               <thead>
                 <tr className='text-left'>
+                  <th className='p-4 border border-gray-400'></th>
                   <th className='p-2 border border-gray-400'>
                     {mainPageContent[language].orderId}
                   </th>
                   <th className='p-2 border border-gray-400'>
                     {mainPageContent[language].date}
-                  </th>
-                  <th className='p-2 border border-gray-400'>
-                    {mainPageContent[language].email}
                   </th>
                   <th className='p-2 border border-gray-400'>
                     {mainPageContent[language].status}
@@ -144,42 +147,11 @@ function OrderHistory() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((order) => (
-                  <Order key={order._id} order={order} />
+                {data.map((order, index) => (
+                  <Order key={order._id} index={index} order={order} />
                 ))}
               </tbody>
             </table>
-            {/* <div className='mt-8'>
-              <div className='flex flex-row gap-4'>
-                <Image src='/images/item.jpeg' width={50} height={100} />
-                <div className='w-full pl-4 '>
-                  <p>Ferrari Red Power Ice 3</p>
-                  <p className='text-gray-400 text-sm'>
-                    Eau de toillet for men 125ml
-                  </p>
-                </div>
-                <div>1pc</div>
-                <div className='font-bold'>29.60&euro;</div>
-              </div>
-              <div className='flex flex-row gap-4'>
-                <Image src='/images/item.jpeg' width={50} height={100} />
-                <div className='w-full pl-4 '>
-                  <p>Ferrari Red Power Ice 3</p>
-                  <p className='text-gray-400 text-sm'>
-                    Eau de toillet for men 125ml
-                  </p>
-                </div>
-                <div>1pc</div>
-                <div className='font-bold'>29.60&euro;</div>
-              </div>
-            </div>
-            <div className='mt-4 text-sm leading-6'>
-              <p className='font-bold text-lg'>Information</p>
-              <p>thangnguyen24111990@gmail.com</p>
-              <p>Address: Pursimiehenkatu 12</p>
-              <p>Country: Helsinki</p>
-              <p>Postal code: 00150</p>
-            </div> */}
           </>
         ) : (
           <div className='mt-8 text-center'>

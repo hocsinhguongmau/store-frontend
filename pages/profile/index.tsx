@@ -211,7 +211,7 @@ function Profile() {
                 </div>
               ) : null}
               {tab === 'order' ? (
-                <div>
+                <div className='order-history overflow-y-auto'>
                   <h2 className='text-xl mt-8 font-bold'>
                     {' '}
                     {userPageContent[language].myOrder}
