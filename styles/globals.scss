@@ -184,7 +184,7 @@ h1 {
     &-container {
       @apply hidden w-full;
       &--open {
-        @apply block absolute top-full left-0 border border-gray-500 bg-white;
+        @apply block absolute top-full left-0 border border-t-0 border-gray-500 bg-white;
       }
       &-list {
         @apply m-0 p-0 list-none;

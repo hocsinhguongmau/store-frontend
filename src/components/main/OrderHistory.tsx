@@ -1,6 +1,7 @@
 import Loading from '@components/Loading'
 import { useOrderHistory } from '@src/hooks/useOrderHistory'
 import { client } from '@src/lib/client'
+import { productPageContent } from '@src/lib/locale/product'
 import { mainPageContent } from '@src/lib/locale/shop'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { Auth } from 'aws-amplify'
@@ -8,7 +9,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { HiEye } from 'react-icons/hi'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 
 type OrderProps = {
   index: number
@@ -21,7 +22,7 @@ const Img = ({ imgUrl }: any) => {
 }
 
 const Order = ({ order, index }: OrderProps) => {
-  console.log(order)
+  const language = useLanguageStore((state) => state.language)
   const info = order.userInfo[0]
   const orderedItems = order.carts
   const [show, setShow] = useState(false)
@@ -35,16 +36,20 @@ const Order = ({ order, index }: OrderProps) => {
         <td className='p-2 border border-gray-400 whitespace-nowrap'>
           {order._createdAt.slice(0, 10)}
         </td>
-        <td className='p-2 border border-gray-400 capitalize'>
-          {order.status}
-        </td>
+        <td className='p-2 border border-gray-400 uppercase'>{order.status}</td>
         <td className='p-2 border border-gray-400'>{order.total}</td>
         <td className='p-2 border border-gray-400 text-center'>
           <button
             className='flex flex-row whitespace-nowrap'
             onClick={() => setShow(!show)}>
-            {show ? 'Hide' : 'View'} order{' '}
-            <HiEye className='ml-1 self-center' />
+            {show
+              ? mainPageContent[language].hideOrder
+              : mainPageContent[language].viewOrder}{' '}
+            {show ? (
+              <HiEyeOff className='ml-1 self-center' />
+            ) : (
+              <HiEye className='ml-1 self-center' />
+            )}
           </button>
         </td>
       </tr>
@@ -52,7 +57,9 @@ const Order = ({ order, index }: OrderProps) => {
         <td colSpan={6} className='text-sm p-4 leading-6'>
           <div className='flex flex-row w-full gap-12'>
             <div className='w-3/5'>
-              <p className='font-bold'>Items purchased</p>
+              <p className='font-bold'>
+                {mainPageContent[language].itemPurchased}
+              </p>
               {orderedItems.map((item) => (
                 <div
                   key={item._key}
@@ -76,12 +83,20 @@ const Order = ({ order, index }: OrderProps) => {
               ))}
             </div>
             <div className='w-2/5'>
-              <p className='font-bold'>Billing information</p>
-              <p>
-                <span className='font-bold'>Name:</span> {info.name}
+              <p className='font-bold'>
+                {mainPageContent[language].billingInfo}
               </p>
               <p>
-                <span className='font-bold'>Address:</span> {info.address}
+                <span className='font-bold'>
+                  {mainPageContent[language].name}:
+                </span>{' '}
+                {info.name}
+              </p>
+              <p>
+                <span className='font-bold'>
+                  {mainPageContent[language].address}:
+                </span>{' '}
+                {info.address}
               </p>
             </div>
           </div>
@@ -100,7 +115,7 @@ function OrderHistory() {
         const user = await Auth.currentAuthenticatedUser()
         setProfile(user.attributes)
       } catch (error) {
-        console.log(error)
+        // console.log(error)
       }
     }
 
