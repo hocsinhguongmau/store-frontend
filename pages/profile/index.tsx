@@ -130,7 +130,7 @@ function Profile() {
                   className={`text-sm py-2  border-solid border-transparent hover:border-black ${
                     tab === 'favorite' ? 'border-b border-black' : ''
                   }`}>
-                  Favorite items
+                  {userPageContent[language].favItems}
                 </button>
                 <button
                   onClick={() => setTab('order')}
