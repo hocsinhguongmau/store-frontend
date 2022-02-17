@@ -10,7 +10,12 @@ import { useProductDetail } from '@src/hooks/useProductDetail'
 import Loading from '@components/Loading'
 import { GetServerSideProps } from 'next'
 import { getProductDetail } from '@src/lib/queries/product'
-import { dehydrate, QueryClient } from 'react-query'
+import {
+  dehydrate,
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from 'react-query'
 import { useNextSanityImage } from 'next-sanity-image'
 import { client } from '@src/lib/client'
 import useLanguageStore from '@src/lib/store/languageStore'
@@ -22,6 +27,8 @@ import { serializers } from '@config/serializer'
 import { mainPageContent } from '@src/lib/locale/shop'
 import { productPageContent } from '@src/lib/locale/product'
 import Head from 'next/head'
+import { useFavoriteList } from '@src/hooks/useFavoriteList'
+import { postFavorite } from '@src/lib/queries/favorite'
 
 const BlockContent = require('@sanity/block-content-to-react')
 
@@ -120,8 +127,77 @@ const ProductDetail = () => {
       }
     }, 100)
   }
+  const [userId, setUserId] = useState('')
+  const [profile, setProfile] = useState<IProfile>()
+  const queryClient = useQueryClient()
 
-  const [favorite, setFavorite] = useState(false)
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser()
+        setProfile(user.attributes)
+        setUserId(user.username)
+      } catch (error) {}
+    }
+    checkAuth()
+  }, [])
+  const favoriteList = useFavoriteList(profile?.email as string)
+  const mutation = useMutation(
+    (newFav: string[]) =>
+      postFavorite(userId, profile?.email as string, newFav),
+    {
+      onMutate: async () => {
+        let favArray: string[] = []
+        if (favoriteList.data?.products !== undefined) {
+          favArray = favoriteList.data?.products
+        }
+        const hmm: ProductType[] | undefined = queryClient.getQueryData([
+          'favorite_items',
+        ])
+        if (favorite) {
+          queryClient.setQueriesData(
+            ['favorite_list', profile?.email as string],
+            {
+              products: favArray.filter(
+                (item) => item !== (data?.id as string),
+              ),
+            },
+          )
+
+          if (hmm !== undefined) {
+            queryClient.setQueriesData(
+              ['favorite_items'],
+              hmm.filter(
+                (item: ProductType) => item.id !== (data?.id as string),
+              ),
+            )
+          }
+        } else {
+          queryClient.setQueriesData(
+            ['favorite_list', profile?.email as string],
+            { products: favArray.concat(data?.id as string) },
+          )
+        }
+      },
+    },
+  )
+
+  const handleFavoriteToggle = () => {
+    let favArray: string[] = []
+    if (favoriteList.data?.products) {
+      favArray = favoriteList.data?.products
+    }
+    if (favorite) {
+      mutation.mutate(favArray.filter((item) => item !== (data?.id as string)))
+    } else {
+      mutation.mutate(favArray.concat(data?.id as string))
+    }
+  }
+
+  let favorite = false
+  if (favoriteList.data) {
+    favorite = favoriteList.data.products.includes(data?.id as string)
+  }
 
   if (isLoading) {
     return <Loading />
@@ -270,20 +346,18 @@ const ProductDetail = () => {
                   {mainPageContent[language].addToCart}
                 </button>
               </p>
-              {/* <p className='mt-4'>
-              <button
-                className={`flex hover:text-red-500 ${
-                  favorite ? 'text-red-500' : 'text-black'
-                }`}
-                onClick={() => {
-                  setFavorite(!favorite)
-                }}>
-                <AiFillHeart className='text-xl mr-2' />
-                <span className='text-sm'>
-                  {favorite ? 'Added to favorite' : 'Add to favorite'}
-                </span>
-              </button>
-            </p> */}
+              <p className='mt-4'>
+                <button
+                  className={`flex hover:text-red-500 ${
+                    favorite ? 'text-red-500' : 'text-black'
+                  }`}
+                  onClick={handleFavoriteToggle}>
+                  <AiFillHeart className='text-xl mr-2' />
+                  <span className='text-sm'>
+                    {favorite ? 'Added to favorite' : 'Add to favorite'}
+                  </span>
+                </button>
+              </p>
             </div>
           </div>
           <div>

@@ -1,11 +1,12 @@
 import { client } from '../client'
+import { queryResult } from './product'
+import groq from 'groq'
 
 export const postFavorite = async (
   id: string,
   email: string,
   products: string[],
 ) => {
-  console.log(products)
   const newFavorite: PostFavoriteType = {
     _type: 'favorite',
     email: email,
@@ -33,10 +34,18 @@ export const postFavorite = async (
     .catch((error) => console.error(error))
 }
 
-export const getFavorite = async (
-  email: string,
-): Promise<OrderHistoryType[]> => {
-  return await client.fetch(
-    `*[_type=="favorite" && email=="${email}"]|order(_createdAt desc)`,
-  )
+export const getFavoriteList = async (email: string): Promise<FavoriteList> => {
+  const query = `*[_type=='favorite' && email=="${email}"][0]{products}`
+  return await client.fetch(query)
+}
+export const getFavoriteItems = async (
+  favorites: string[],
+): Promise<ProductType[]> => {
+  let newArray = null
+  if (favorites !== null) {
+    newArray = "'" + favorites.join("','") + "'"
+  }
+
+  const query = `*[_type=='product' && _id in [${newArray}]]${queryResult}`
+  return await client.fetch(query)
 }

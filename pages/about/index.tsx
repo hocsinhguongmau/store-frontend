@@ -12,9 +12,10 @@ const About = () => {
       <Head>
         <title>Odour</title>
       </Head>
-      <div className='container'>
+      <div className='container mt-8'>
         <Breadcrumbs />
-        <h2 className='no-underline mt-8 text-2xl font-bold' id='about'>
+
+        <h2 className='no-underline mt-4 text-2xl font-bold' id='about'>
           {userPageContent[language].about}
         </h2>
         <p className='mt-4'>{userPageContent[language].description}</p>

@@ -224,11 +224,8 @@ type FavoriteType = {
   products: string[]
 }
 
-type FavoriteItem = {
-  products: ProductType[]
-  favorite: {
-    products: string[]
-  }
+type FavoriteList = {
+  products: string[]
 }
 
 type SearchItemType = {

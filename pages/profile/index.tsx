@@ -87,7 +87,7 @@ function Profile() {
 
   type TabType = 'contact' | 'favorite' | 'order'
 
-  const [tab, setTab] = useState<TabType>('order')
+  const [tab, setTab] = useState<TabType>('favorite')
 
   interface MyCognitoUserAmplify extends CognitoUserAmplify {
     attributes?: IProfile
@@ -125,13 +125,13 @@ function Profile() {
                 }`}>
                 Contact information
               </button> */}
-                {/* <button
-                onClick={() => setTab('favorite')}
-                className={`text-sm py-2  border-solid border-transparent hover:border-black ${
-                  tab === 'favorite' ? 'border-b border-black' : ''
-                }`}>
-                Favorite items
-              </button> */}
+                <button
+                  onClick={() => setTab('favorite')}
+                  className={`text-sm py-2  border-solid border-transparent hover:border-black ${
+                    tab === 'favorite' ? 'border-b border-black' : ''
+                  }`}>
+                  Favorite items
+                </button>
                 <button
                   onClick={() => setTab('order')}
                   className={`text-sm py-2  border-solid border-transparent hover:border-black ${

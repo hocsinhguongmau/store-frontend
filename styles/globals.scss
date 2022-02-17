@@ -160,6 +160,13 @@ h1 {
       @apply block;
     }
   }
+  button {
+    &:disabled {
+      .heart {
+        @apply text-gray-500;
+      }
+    }
+  }
   .heart {
     @apply hidden;
   }

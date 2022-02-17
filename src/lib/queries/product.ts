@@ -152,10 +152,8 @@ export const getProductPrice = async (
   return await client.fetch(query)
 }
 
-export const getFavoriteItems = async (
-  email: string,
-): Promise<FavoriteItem> => {
-  const query = `{"products":*[_type=='product' && _id in  *[_type=="favorite" && email=="${email}"][0].products]${queryResult}, "favorite": *[_type=="favorite" && email=="${email}"][0]{products[]}}
-  `
+export const getProductItem = async (id: string): Promise<ProductType> => {
+  const query = `*[_type=="product" && _id == "${id}"][0]${queryResult}`
+  console.log(query)
   return await client.fetch(query)
 }

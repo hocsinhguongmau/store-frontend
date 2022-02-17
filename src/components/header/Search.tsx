@@ -134,7 +134,7 @@ const Search = () => {
   }
 
   return (
-    <div className='container w-1/2 mt-4 relative'>
+    <div className='container w-full lg:w-1/2 mt-4 relative'>
       <Autosuggest
         multiSection={true}
         suggestions={suggestions}
