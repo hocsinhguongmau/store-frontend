@@ -184,9 +184,8 @@ function OrderHistory() {
         )}
       </>
     )
-  } else {
-    return <div>{mainPageContent[language].noPayment}</div>
   }
+  return <Loading />
 }
 
 export default OrderHistory

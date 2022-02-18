@@ -66,16 +66,22 @@ const FavoriteItems = () => {
       </div>
     )
   }
-  if (data !== undefined && data.length > 0) {
-    return (
-      <>
-        {data.map((product) => (
-          <ProductItem product={product} key={product.id} />
-        ))}
-      </>
-    )
+  console.log(data)
+
+  if (data !== undefined) {
+    if (data.length > 0) {
+      return (
+        <>
+          {data.map((product) => (
+            <ProductItem product={product} key={product.id} />
+          ))}
+        </>
+      )
+    } else {
+      return <div>{mainPageContent[language].noFav}</div>
+    }
   } else {
-    return <div>{mainPageContent[language].noFav}</div>
+    return <Loading />
   }
 }
 

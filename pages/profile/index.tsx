@@ -99,11 +99,11 @@ function Profile() {
   }
 
   return (
-    <div>
+    <div className='flex-1'>
       <Head>
         <title>Odour</title>
       </Head>
-      <div className='flex-grow py-10 flex flex-row justify-center'>
+      <div className='flex-grow py-10 flex flex-row justify-center '>
         <Authenticator variation='default'>
           {({ signOut, user }: AmplifyType) => (
             <div className='container'>
