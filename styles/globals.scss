@@ -218,3 +218,39 @@ h1 {
     }
   }
 }
+.brand-content {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+}
+
+.navigation {
+  li {
+    a {
+      @apply relative pb-1;
+      &:hover {
+        &:before,
+        &:after {
+          @apply w-1/2;
+        }
+      }
+      &:before,
+      &:after {
+        content: '';
+        @apply absolute top-full w-0 h-0.5 bg-red-500 z-10 transition-all duration-300;
+      }
+      &:before {
+        @apply right-1/2;
+      }
+      &:after {
+        @apply left-1/2;
+      }
+      &.active {
+        &:before,
+        &:after {
+          @apply w-1/2;
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { IoCloseSharp } from 'react-icons/io5'
 import Profile from './Profile'
 import { headerContent } from '@src/lib/locale/header'
 import useLanguageStore from '@src/lib/store/languageStore'
+import { SiHotjar } from 'react-icons/si'
 
 const NavigationDesktop = () => {
   const language = useLanguageStore((state) => state.language)
@@ -43,8 +44,11 @@ const NavigationDesktop = () => {
           </li>
           <li className='py-2'>
             <Link href='/shop/page/1?discount=true'>
-              <a onClick={() => setActive(false)}>
+              <a
+                onClick={() => setActive(false)}
+                className='flex flex-row gap-1 text-red-500'>
                 {headerContent[language].sales}
+                <SiHotjar />
               </a>
             </Link>
           </li>

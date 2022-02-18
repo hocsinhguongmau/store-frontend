@@ -10,7 +10,8 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri'
 import { dehydrate, QueryClient } from 'react-query'
 
 const BlockContent = require('@sanity/block-content-to-react')
@@ -21,6 +22,8 @@ const BrandDetail = () => {
   const brand_slug = router.query.brand_slug as string
   const { isLoading, isError, error, data } = useBrandDetail(brand_slug)
 
+  const [showContent, setShowContent] = useState<boolean>(true)
+  const [showViewButton, setShowViewButton] = useState<boolean>(false)
   if (isLoading) {
     return <Loading />
   }
@@ -32,6 +35,13 @@ const BrandDetail = () => {
       </div>
     )
   }
+  useEffect(() => {
+    const hmm = document.getElementById('brand-content')
+    if (hmm?.offsetHeight !== undefined && hmm?.offsetHeight >= 145) {
+      setShowViewButton(true)
+      setShowContent(false)
+    }
+  }, [])
 
   if (!data) {
     return (
@@ -48,13 +58,39 @@ const BrandDetail = () => {
         <div className='container'>
           <Breadcrumbs />
           <h1 className='no-underline my-8'>{data.title}</h1>
-          <BlockContent
-            blocks={data.body[language]}
-            imageOptions={{ w: 640, fit: 'max' }}
-            projectId={process.env.NEXT_PUBLIC_PROJECT_ID}
-            dataset={process.env.NEXT_PUBLIC_DATASET}
-            serializers={serializers}
-          />
+          <div
+            id='brand-content'
+            className={`overflow-hidden overflow-ellipsis text-justify ${
+              showContent ? '' : 'brand-content max-h-36'
+            }`}>
+            <BlockContent
+              blocks={data.body[language]}
+              imageOptions={{ w: 640, fit: 'max' }}
+              projectId={process.env.NEXT_PUBLIC_PROJECT_ID}
+              dataset={process.env.NEXT_PUBLIC_DATASET}
+              serializers={serializers}
+            />
+          </div>
+          {showViewButton ? (
+            <button
+              className='flex flex-row gap-1 mt-2'
+              onClick={() => setShowContent(!showContent)}>
+              {!showContent ? (
+                <>
+                  {mainPageContent[language].viewMore}
+                  <RiArrowDownSFill className='text-2xl self-center' />
+                </>
+              ) : (
+                <>
+                  {mainPageContent[language].viewLess}
+                  <RiArrowUpSFill className='text-2xl self-center' />
+                </>
+              )}
+            </button>
+          ) : (
+            ''
+          )}
+
           {data.products.length > 0 ? (
             <div>
               <h2 className='font-bold text-xl mt-8'>

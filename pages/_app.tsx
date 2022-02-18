@@ -72,31 +72,25 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Hydrate state={pageProps.dehydratedState}>
-        <PayPalScriptProvider
-          options={{
-            'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
-            currency: CURRENCY,
-          }}>
-          <CartProvider>
-            <Layout>
-              <NextNProgress
-                color='#29D'
-                startPosition={0.3}
-                height={5}
-                showOnShallow={false}
-              />
+        <CartProvider>
+          <Layout>
+            <NextNProgress
+              color='#29D'
+              startPosition={0.3}
+              height={5}
+              showOnShallow={false}
+            />
 
-              <Component {...pageProps} />
+            <Component {...pageProps} />
 
-              <ToastContainer
-                position='bottom-right'
-                hideProgressBar={true}
-                autoClose={3000}
-                closeOnClick
-              />
-            </Layout>
-          </CartProvider>
-        </PayPalScriptProvider>
+            <ToastContainer
+              position='bottom-right'
+              hideProgressBar={true}
+              autoClose={3000}
+              closeOnClick
+            />
+          </Layout>
+        </CartProvider>
       </Hydrate>
     </QueryClientProvider>
   )

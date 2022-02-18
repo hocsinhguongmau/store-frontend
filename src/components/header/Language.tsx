@@ -10,10 +10,10 @@ type LanguageType = {
 const languages: LanguageType[] = [
   {
     value: 'en',
-    label: '🇬🇧',
+    label: 'en',
   },
-  { value: 'fi', label: '🇫🇮' },
-  { value: 'se', label: '🇸🇪' },
+  { value: 'fi', label: 'fi' },
+  { value: 'se', label: 'se' },
 ]
 
 const Language = () => {
@@ -31,7 +31,7 @@ const Language = () => {
   }
   return (
     <select
-      className='outline-none align-top mt-0.5 text-3xl bg-transparent none shadow-none appearance-none'
+      className='outline-none align-top bg-transparent none shadow-none appearance-none uppercase text-sm mt-1'
       onChange={handleChangeLanguage}
       defaultValue={locale}>
       {languages?.map((language) => (

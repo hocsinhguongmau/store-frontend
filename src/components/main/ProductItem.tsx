@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import Star from './Star'
 import { client } from '@src/lib/client'
-import { a, Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 import { postFavorite } from '@src/lib/queries/favorite'
 import Loading from '@components/Loading'
 import { mainPageContent } from '@src/lib/locale/shop'
@@ -15,7 +15,6 @@ import useLanguageStore from '@src/lib/store/languageStore'
 import { productPageContent } from '@src/lib/locale/product'
 import { useMutation, useQueryClient } from 'react-query'
 import { useFavoriteList } from '@src/hooks/useFavoriteList'
-import { getProductItem } from '@src/lib/queries/product'
 
 type ProductItemType = {
   button?: boolean
