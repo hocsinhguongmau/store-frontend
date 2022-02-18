@@ -7,7 +7,8 @@ import { SiHotjar } from 'react-icons/si'
 
 const NavigationDesktop = () => {
   const language = useLanguageStore((state) => state.language)
-  const { pathname } = useRouter()
+  const { pathname, query } = useRouter()
+  console.log(query.discount)
   return (
     <ul className='flex-row gap-5 items-center hidden lg:flex navigation'>
       <li className='py-2'>
@@ -21,7 +22,9 @@ const NavigationDesktop = () => {
         <Link href='/shop/page/1'>
           <a
             className={`${
-              pathname === '/shop/page/[page_slug]' ? 'active' : ''
+              pathname === '/shop/page/[page_slug]' && query.discount !== 'true'
+                ? 'active'
+                : ''
             }`}>
             {headerContent[language].shop}
           </a>
@@ -29,9 +32,13 @@ const NavigationDesktop = () => {
       </li>
       <li className='py-2'>
         <Link href='/shop/page/1?discount=true'>
-          <a className='text-red-500 relative z-10 pr-4'>
+          <a
+            className={`text-red-500 relative z-10 ${
+              pathname === '/shop/page/[page_slug]' && query.discount === 'true'
+                ? 'active'
+                : ''
+            }`}>
             {headerContent[language].sales}
-            <SiHotjar className='text-sm absolute top-0 right-0' />
           </a>
         </Link>
       </li>
