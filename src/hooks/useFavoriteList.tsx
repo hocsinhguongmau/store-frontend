@@ -11,8 +11,8 @@ export const useFavoriteList = (email: string) => {
     FavoriteList | undefined,
     Error
   >(['favorite_list', email], () => getFavoriteList(email), {
-    staleTime: 0,
-    refetchOnWindowFocus: true,
+    // staleTime: 0,
+    // refetchOnWindowFocus: true,
   })
 
   return { isLoading, isError, error, data }

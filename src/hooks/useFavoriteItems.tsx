@@ -11,15 +11,15 @@ export const useFavoriteItems = (list: string[] | undefined) => {
     ProductType[] | undefined,
     Error
   >(
-    ['favorite_items'],
+    ['favorite_items', list],
     () => {
       if (list !== undefined) {
         return getFavoriteItems(list)
       }
     },
     {
-      staleTime: 0,
-      refetchOnWindowFocus: true,
+      // staleTime: 0,
+      // refetchOnWindowFocus: true,
     },
   )
 

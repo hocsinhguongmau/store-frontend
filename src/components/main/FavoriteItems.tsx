@@ -44,17 +44,18 @@ const FavoriteItems = () => {
   const { isLoading, isError, error, data } = useFavoriteItems(
     favoriteList.data?.products,
   )
-  useEffect(() => {
-    window.addEventListener('focus', onFocus)
-    window.addEventListener('blur', onBlur)
-    // Calls onFocus when the window first loads
-    onFocus()
-    // Specify how to clean up after this effect:
-    return () => {
-      window.removeEventListener('focus', onFocus)
-      window.removeEventListener('blur', onBlur)
-    }
-  }, [])
+
+  // useEffect(() => {
+  //   window.addEventListener('focus', onFocus)
+  //   window.addEventListener('blur', onBlur)
+  //   // Calls onFocus when the window first loads
+  //   onFocus()
+  //   // Specify how to clean up after this effect:
+  //   return () => {
+  //     window.removeEventListener('focus', onFocus)
+  //     window.removeEventListener('blur', onBlur)
+  //   }
+  // }, [])
 
   if (isLoading) {
     return <Loading />
@@ -81,7 +82,7 @@ const FavoriteItems = () => {
       return <div>{mainPageContent[language].noFav}</div>
     }
   } else {
-    return <Loading />
+    return <div></div>
   }
 }
 

@@ -1,7 +1,6 @@
 import Loading from '@components/Loading'
 import { useOrderHistory } from '@src/hooks/useOrderHistory'
 import { client } from '@src/lib/client'
-import { productPageContent } from '@src/lib/locale/product'
 import { mainPageContent } from '@src/lib/locale/shop'
 import useLanguageStore from '@src/lib/store/languageStore'
 import { Auth } from 'aws-amplify'
@@ -163,7 +162,7 @@ function OrderHistory() {
               </thead>
               <tbody>
                 {data.map((order, index) => (
-                  <Order key={order._id} index={index} order={order} />
+                  <Order key={order._id} index={index + 1} order={order} />
                 ))}
               </tbody>
             </table>
