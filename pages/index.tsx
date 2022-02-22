@@ -31,7 +31,7 @@ const Home = () => {
 
       <ListProducts
         title={productPageContent[language].best}
-        href='/shop/page/1?order=sale'
+        href='/shop/page/1?order=sell'
         products='best_selling'
       />
       <Services />
