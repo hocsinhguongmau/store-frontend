@@ -11,7 +11,7 @@ const NavigationDesktop = () => {
   const language = useLanguageStore((state) => state.language)
   const [active, setActive] = useState<boolean>(false)
   return (
-    <div className='lg:hidden relative z-50'>
+    <div className='lg:hidden relative z-50' data-testid='navigation-mobile'>
       <button
         className='p-1 space-y-2 border-2 border-solid rounded-md border-red-500 mt-3'
         onClick={() => setActive(true)}>

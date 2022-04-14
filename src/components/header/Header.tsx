@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
 
 import Profile from '@components/header/Profile'
 import NavigationDesktop from '@components/header/NavigationDesktop'
 import NavigationMobile from '@components/header/NavigationMobile'
 import { useRouter } from 'next/router'
 import Search from './Search'
+import Logo from './Logo'
 
 export default function Header(): ReactElement {
   const router = useRouter()
@@ -20,13 +19,7 @@ export default function Header(): ReactElement {
       }`}>
       <div className='container flex flex-row justify-between'>
         <NavigationMobile />
-        <div className='w-32'>
-          <Link href='/'>
-            <a className=''>
-              <Image src='/images/logo.png' width={162} height={50} />
-            </a>
-          </Link>
-        </div>
+        <Logo />
         <NavigationDesktop />
         <div className='hidden md:block'>
           <Profile />

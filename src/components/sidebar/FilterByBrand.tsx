@@ -66,9 +66,10 @@ const FilterByBrand = () => {
               placeholder={productPageContent[language].filterBrand}
               onChange={handleFilterBrands}
               value={filterText}
+              data-testid='filter-by-brand'
             />
             <div className='max-h-72 overflow-auto mt-4'>
-              <ul>
+              <ul className='brand-list'>
                 {filteredBrands.map((brand) =>
                   brand.count > 0 ? (
                     <li
@@ -76,7 +77,7 @@ const FilterByBrand = () => {
                       className='text-xs mb-4 cursor-pointer capitalize'
                       onClick={() => handleBrandRouter(brand.slug)}>
                       {brand.title}{' '}
-                      <span className='text-gray-400 ml-2'>{brand.count}</span>
+                      <span className='text-gray-400 ml-2 '>{brand.count}</span>
                     </li>
                   ) : null,
                 )}
@@ -88,7 +89,7 @@ const FilterByBrand = () => {
             className='cursor-pointer text-sm text-gray-500 inline-block mb-2'
             onClick={() => handleBrandRouter('')}>
             {router.query.brand}{' '}
-            <span className='text-xl text-red-500 inline-block align-middle -mt-1'>
+            <span className='text-xl text-red-500 inline-block align-middle -mt-1 remove-filter'>
               x
             </span>
           </p>

@@ -32,7 +32,7 @@ const FavoriteItems = () => {
         const user = await Auth.currentAuthenticatedUser()
         setProfile(user.attributes)
       } catch (error) {
-        console.log(error)
+        // console.log(error)
       }
     }
 
@@ -67,7 +67,6 @@ const FavoriteItems = () => {
       </div>
     )
   }
-  console.log(data)
 
   if (data !== undefined) {
     if (data.length > 0) {

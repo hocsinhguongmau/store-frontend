@@ -22,7 +22,7 @@ const SortBy = () => {
   }
   return (
     <select
-      className='outline-none mt-4 lg:mt-0 text-sm'
+      className='outline-none mt-4 lg:mt-0 text-sm sort-items'
       onChange={handleOrderProducts}
       defaultValue={router.query.order}>
       <option value=''>{productPageContent[language].sortDate}</option>

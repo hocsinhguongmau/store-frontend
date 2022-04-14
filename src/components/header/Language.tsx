@@ -31,7 +31,7 @@ const Language = () => {
   }
   return (
     <select
-      className='outline-none align-top bg-transparent none shadow-none appearance-none uppercase text-sm mt-1'
+      className='outline-none align-top bg-transparent none shadow-none appearance-none uppercase text-sm mt-1 select-language'
       onChange={handleChangeLanguage}
       defaultValue={locale}>
       {languages?.map((language) => (

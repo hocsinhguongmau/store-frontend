@@ -26,7 +26,9 @@ const Profile = () => {
   const { totalItems } = useCart()
 
   return (
-    <div className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'>
+    <div
+      className='flex flex-row items-center text-xl gap-4 mt-2 lg:mt-0'
+      data-testid='profile'>
       <div className='relative z-10 mt-1'>
         <Language />
       </div>

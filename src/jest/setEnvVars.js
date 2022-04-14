@@ -1,0 +1,17 @@
+process.env.NEXT_PUBLIC_PROJECT_ID = 'fd22jeio'
+process.env.NEXT_PUBLIC_PROJECT_DATASET = 'production'
+process.env.NEXT_PUBLIC_API_VERSION = 'v2021-06-07'
+process.env.NEXT_PUBLIC_SANITY_TOKEN =
+  'skePlExdGBbKSkr6SxH0MjaUVnzlNxOLaEVorbbu9KX2jreQryTpLgdbDV30IrKnIHszywjbbNJErs9J8pAVCGnR7B5JtMsdvtK1jPUTOL4dNL5gCMBpKvuKhTM5iP2w1mE3pA7F5CkJkXpkDcvIA8QLkN8tVGNpU7l8FhD5VWpJW6Ifj5d1'
+
+process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID =
+  'ATvOaTfd3Iuqd6mD5u7MioaeyhOKcS3oclxJ_-gPZIII4F_9_bkpooGzvINg_NwWyi980CQcjj3f9OiH'
+process.env.PAYPAL_CLIENT_SECRET =
+  'EOOmH9qNCWXw_n32fd3WA8XqVcKMVh5GPvrQSNcaMC1iv9qAW3cKQJPOzLKkxOLHXMDTMeMRgqo7t_lV'
+
+process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY =
+  'AIzaSyBAzefUe_rYcTwbNdiUPzjqRwpy6j1MCFst2PPdSur2F8EUxepDvgmrQ'
+process.env.NEXT_PUBLIC_MAPBOX_API_KEY =
+  'pk.eyJ1IjoidGhhbmcyNDExOTAiLCJhIjoiY2t6aWUzcDQ0MWp2eTJ5bnI2MjZrNnZmbCJ9.t2PPdSur2F8EUxepDvgmrQ'
+
+process.env.NODE_ENV = 'development'

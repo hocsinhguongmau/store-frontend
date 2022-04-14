@@ -11,7 +11,7 @@ const LeftNav = () => {
   const [show, setShow] = useState(false)
   const language = useLanguageStore((state) => state.language)
   return (
-    <div>
+    <div className='left-nav'>
       <button className='flex mb-6 lg:hidden' onClick={() => setShow(!show)}>
         {productPageContent[language].filter}
         {show ? (

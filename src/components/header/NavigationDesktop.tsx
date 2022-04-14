@@ -3,12 +3,10 @@ import useLanguageStore from '@src/lib/store/languageStore'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { SiHotjar } from 'react-icons/si'
 
 const NavigationDesktop = () => {
   const language = useLanguageStore((state) => state.language)
   const { pathname, query } = useRouter()
-  console.log(query.discount)
   return (
     <ul className='flex-row gap-5 items-center hidden lg:flex navigation'>
       <li className='py-2'>

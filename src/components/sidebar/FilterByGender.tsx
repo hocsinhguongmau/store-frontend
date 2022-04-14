@@ -42,7 +42,7 @@ const FilterByGender = () => {
         {productPageContent[language].gender}
       </h3>
       {!showGender ? (
-        <ul>
+        <ul className='gender'>
           <li
             className='mt-1 cursor-pointer hover:text-gray-500'
             onClick={() => handleGenderRouter('women')}>
@@ -64,7 +64,7 @@ const FilterByGender = () => {
           className='cursor-pointer text-sm text-gray-500 inline-block'
           onClick={() => handleGenderRouter('')}>
           {productPageContent[language][gender]}{' '}
-          <span className='text-xl text-red-500 inline-block align-middle -mt-1'>
+          <span className='text-xl text-red-500 inline-block align-middle -mt-1 remove-filter'>
             <AiOutlineClose />
           </span>
         </p>
