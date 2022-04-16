@@ -36,7 +36,7 @@ const CartProduct = () => {
         items.map((item) => (
           <div
             key={item.id}
-            className='flex flex-row w-full justify-between border-b border-solid border-gray-300 py-8'>
+            className='flex flex-row w-full justify-between border-b border-solid border-gray-300 py-8 cart-item'>
             <div className='flex flex-row'>
               <Link href={item.href}>
                 <a>

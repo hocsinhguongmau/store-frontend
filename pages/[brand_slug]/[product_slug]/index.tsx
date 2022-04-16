@@ -281,7 +281,9 @@ const ProductDetail = () => {
                 </p>
               ) : null}
               <p className='flex flex-row justify-between mt-6 pb-2'>
-                <span className='text-xl leading-10'>{price.size}ml</span>
+                <span className='text-xl leading-10 bottle-size'>
+                  {price.size}ml
+                </span>
                 <span className='text-4xl leading-8'>
                   {price.discount > 0 ? (
                     <span>
@@ -304,7 +306,7 @@ const ProductDetail = () => {
                   <button
                     onClick={() => handleSelectedVariant(item.ml.toString())}
                     key={item.title}
-                    className={`relative inline-block pl-3 py-1.5 md:pr-8 border border-solid w-1/3 md:w-auto ${
+                    className={`choose-size relative inline-block pl-3 py-1.5 md:pr-8 border border-solid w-1/3 md:w-auto ${
                       currentSize === item.ml.toString()
                         ? 'border-gray-400 cursor-default'
                         : 'border-gray-100 bg-gray-100 hover:bg-gray-200'
@@ -342,7 +344,9 @@ const ProductDetail = () => {
               <p className='mt-4'>
                 <button
                   onClick={() => handleAddToCart(data, price)}
-                  className={`button ${price.sku < 1 ? 'disabled' : null}`}>
+                  className={`button add-to-cart ${
+                    price.sku < 1 ? 'disabled' : ''
+                  }`}>
                   {mainPageContent[language].addToCart}
                 </button>
               </p>

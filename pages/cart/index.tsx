@@ -71,7 +71,7 @@ const CartPage: NextPage = () => {
                         {cartTotal.toFixed(2)}&euro;
                       </p>
                     </div>
-                    <button className='button' onClick={emptyCart}>
+                    <button className='button delete-all' onClick={emptyCart}>
                       {mainPageContent[language].deleteAll}
                     </button>
                   </div>
