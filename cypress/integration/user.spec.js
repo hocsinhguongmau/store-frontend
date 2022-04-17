@@ -15,27 +15,27 @@ afterEach(() => {
   cy.saveLocalStorage()
 })
 
-// describe('Favorite items', () => {
-//   it('Users can manage favorite items', () => {
-//     cy.visit('/shop/page/1')
-//     cy.wait(1000)
-//     cy.get('.heart-button:nth-child(1) button').click({ force: true })
-//     cy.wait(1000)
-//     cy.get('.heart-button:nth-child(2) button').click({ force: true })
-//     cy.wait(1000)
-//     cy.get('.heart-button:nth-child(3) button').click({ force: true })
-//     cy.wait(1000)
-//     cy.visit('/profile')
-//     cy.get('.heart-button').should('have.length', 3)
-//     cy.get('.heart-button:nth-child(3) button').click()
-//     cy.wait(1000)
-//     cy.get('.heart-button:nth-child(2) button').click()
-//     cy.wait(1000)
-//     cy.get('.heart-button:nth-child(1) button').click()
-//     cy.wait(1000)
-//     cy.contains('No favorite item').should('be.visible')
-//   })
-// })
+describe('Favorite items', () => {
+  it('Users can manage favorite items', () => {
+    cy.visit('/shop/page/1')
+    cy.wait(1000)
+    cy.get('.heart-button:first-child button').click({ force: true })
+    cy.wait(1000)
+    // cy.get('.heart-button:nth-child(2) button').click({ force: true })
+    // cy.wait(1000)
+    // cy.get('.heart-button:nth-child(3) button').click({ force: true })
+    // cy.wait(1000)
+    cy.visit('/profile')
+    cy.get('.heart-button').should('have.length', 1)
+    // cy.get('.heart-button:nth-child(3) button').click()
+    // cy.wait(1000)
+    // cy.get('.heart-button:nth-child(2) button').click()
+    // cy.wait(1000)
+    cy.get('.heart-button:first-child button').click()
+    cy.wait(1000)
+    cy.contains('No favorite item').should('be.visible')
+  })
+})
 
 describe('Purchase items', () => {
   it('Users can choose size', () => {
