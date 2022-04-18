@@ -106,14 +106,20 @@ const ProductItem = ({ button = false, product }: ProductItemType) => {
     return (
       <div className='product-item mt-4 lg:px-8 heart-button'>
         <div className='text-center relative'>
-          <button
-            disabled={mutation.isLoading}
-            onClick={handleFavoriteToggle}
-            className={`absolute top-0 right-0 z-10 ${
-              favorite ? 'text-red-500' : 'text-black'
-            }`}>
-            {favorite ? <AiFillHeart /> : <AiOutlineHeart className='heart' />}
-          </button>
+          {profile ? (
+            <button
+              disabled={mutation.isLoading}
+              onClick={handleFavoriteToggle}
+              className={`absolute top-0 right-0 z-10 ${
+                favorite ? 'text-red-500' : 'text-black'
+              }`}>
+              {favorite ? (
+                <AiFillHeart />
+              ) : (
+                <AiOutlineHeart className='heart' />
+              )}
+            </button>
+          ) : null}
           {product.sales === true ? (
             <div className='text-center absolute top-0 left-0 z-10'>
               <span
