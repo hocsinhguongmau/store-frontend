@@ -52,6 +52,8 @@ export const mainPageContent = {
     address: 'Address',
     viewOrder: 'View order',
     hideOrder: 'Hide order',
+    addFav: 'Add to favorite',
+    addedFav: 'Added to favorite',
   },
   fi: {
     newYear: 'Uuden vuoden tarjoukset',
@@ -106,6 +108,8 @@ export const mainPageContent = {
     address: 'Osoite',
     viewOrder: 'Katso tilaus',
     hideOrder: 'Piilota tilaus',
+    addFav: 'Lisää suosikkeihin',
+    addedFav: 'Lisätty suosikkeihin',
   },
   se: {
     newYear: 'Nyårserbjudanden',
@@ -160,5 +164,7 @@ export const mainPageContent = {
     address: 'Adress',
     viewOrder: 'Se ordning',
     hideOrder: 'Dölja ordning',
+    addFav: 'Lägg till som favorit',
+    addedFav: 'Tillagd till favorit',
   },
 }

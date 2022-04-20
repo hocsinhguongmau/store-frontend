@@ -351,16 +351,20 @@ const ProductDetail = () => {
                 </button>
               </p>
               <p className='mt-4'>
-                <button
-                  className={`flex hover:text-red-500 ${
-                    favorite ? 'text-red-500' : 'text-black'
-                  }`}
-                  onClick={handleFavoriteToggle}>
-                  <AiFillHeart className='text-xl mr-2' />
-                  <span className='text-sm'>
-                    {favorite ? 'Added to favorite' : 'Add to favorite'}
-                  </span>
-                </button>
+                {profile ? (
+                  <button
+                    className={`flex hover:text-red-500 ${
+                      favorite ? 'text-red-500' : 'text-black'
+                    }`}
+                    onClick={handleFavoriteToggle}>
+                    <AiFillHeart className='text-xl mr-2' />
+                    <span className='text-sm'>
+                      {favorite
+                        ? mainPageContent[language].addFav
+                        : mainPageContent[language].addedFav}
+                    </span>
+                  </button>
+                ) : null}
               </p>
             </div>
           </div>
