@@ -89,13 +89,14 @@ function Profile() {
 
   const [tab, setTab] = useState<TabType>('favorite')
 
-  interface MyCognitoUserAmplify extends CognitoUserAmplify {
-    attributes?: IProfile
-  }
+  // interface MyCognitoUserAmplify extends CognitoUserAmplify {
+  //   attributes?: IProfile
+  // }
+  type MyCognitoUser = CognitoUserAmplify & { attributes?: IProfile }
 
   type AmplifyType = {
     signOut: () => void
-    user: MyCognitoUserAmplify
+    user: MyCognitoUser
   }
 
   return (
