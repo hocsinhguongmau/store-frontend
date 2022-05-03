@@ -360,8 +360,8 @@ const ProductDetail = () => {
                     <AiFillHeart className='text-xl mr-2' />
                     <span className='text-sm'>
                       {favorite
-                        ? mainPageContent[language].addFav
-                        : mainPageContent[language].addedFav}
+                        ? mainPageContent[language].addedFav
+                        : mainPageContent[language].addFav}
                     </span>
                   </button>
                 ) : null}
