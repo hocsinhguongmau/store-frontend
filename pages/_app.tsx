@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import '@styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -12,16 +13,13 @@ import { I18n } from 'aws-amplify'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { CartProvider, useCart } from 'react-use-cart'
+import { CartProvider } from 'react-use-cart'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-import '@styles/globals.scss'
 import Layout from '@components/Layout'
 import { useRouter } from 'next/router'
 import useLanguageStore from '@src/lib/store/languageStore'
-import { CURRENCY } from '@src/config/cart'
-import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const state = useLanguageStore()
