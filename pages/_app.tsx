@@ -3,9 +3,10 @@ import '@styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import Amplify from 'aws-amplify'
+import Amplify, { Auth } from 'aws-amplify'
+
 import config from '@src/aws-exports'
-Amplify.configure({ ...config, ssr: true })
+Auth.configure({ ...config, ssr: true })
 import NextNProgress from 'nextjs-progressbar'
 import { ToastContainer } from 'react-toastify'
 
@@ -72,21 +73,23 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <CartProvider>
           <Layout>
-            <NextNProgress
-              color='#29D'
-              startPosition={0.3}
-              height={5}
-              showOnShallow={false}
-            />
+            <>
+              <NextNProgress
+                color='#29D'
+                startPosition={0.3}
+                height={5}
+                showOnShallow={false}
+              />
 
-            <Component {...pageProps} />
+              <Component {...pageProps} />
 
-            <ToastContainer
-              position='bottom-right'
-              hideProgressBar={true}
-              autoClose={3000}
-              closeOnClick
-            />
+              <ToastContainer
+                position='bottom-right'
+                hideProgressBar={true}
+                autoClose={3000}
+                closeOnClick
+              />
+            </>
           </Layout>
         </CartProvider>
       </Hydrate>

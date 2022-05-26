@@ -8,7 +8,7 @@ const NavigationDesktop = () => {
   const language = useLanguageStore((state) => state.language)
   const { pathname, query } = useRouter()
   return (
-    <ul className='flex-row gap-5 items-center hidden lg:flex navigation'>
+    <ul className='flex-row justify-center hidden lg:flex gap-5 navigation'>
       <li className='py-2'>
         <Link href='/'>
           <a className={`${pathname === '/' ? 'active' : ''}`}>

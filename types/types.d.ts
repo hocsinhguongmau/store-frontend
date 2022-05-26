@@ -86,7 +86,7 @@ type CommentType = {
   date: string
   id: string
   approved: boolean
-  comment: CommentText[]
+  comment: CommentText
   email: string
   rating: number
 }
