@@ -25,14 +25,14 @@ const About = () => {
         <div className='mt-4 text-sm text-gray-600 leading-6'>
           <p>
             {userPageContent[language].email}:{' '}
-            <a href='mailto:thangnguyen24111990@gmail.com'>
-              thangnguyen24111990@gmail.com
+            <a href='mailto:thangnguyen.webdev@gmail.com'>
+              thangnguyen.webdev@gmail.com
             </a>
           </p>
           <p>
             Github:{' '}
-            <Link href='https://github.com/thang241190'>
-              <a target='_blank'>https://github.com/thang241190</a>
+            <Link href='https://github.com/hocsinhguongmau'>
+              <a target='_blank'>https://github.com/hocsinhguongmau</a>
             </Link>
           </p>
           <p> {userPageContent[language].phone}: +358449158001</p>

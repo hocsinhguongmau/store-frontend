@@ -11,11 +11,6 @@
     "cy:run": "npx cypress run",
     "test": "jest --watch"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
   "dependencies": {
     "@asbjorn/eslint-plugin-groq": "^2.0.0",
     "@aws-amplify/ui-react": "^2.15.0",

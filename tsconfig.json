@@ -21,7 +21,8 @@
       "@pages/*": ["pages/*"],
       "@styles/*": ["styles/*"],
       "@config/*": ["src/config/*"],
-      "@stripe/*": ["src/lib/stripe*"]
+      "@stripe/*": ["src/lib/stripe/*"],
+      "@fonts/*": ["src/fonts/*"]
     },
     "incremental": true
   },

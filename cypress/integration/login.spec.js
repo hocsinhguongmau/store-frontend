@@ -15,6 +15,6 @@ describe('Login', () => {
       '.amplify-button.amplify-field-group__control[type="submit"]',
     ).click()
     cy.wait(3000)
-    cy.contains('thangnguyen24111990@gmail.com').should('be.visible')
+    cy.contains('thangnguyen.webdev@gmail.com').should('be.visible')
   })
 })

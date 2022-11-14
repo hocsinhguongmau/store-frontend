@@ -32,7 +32,7 @@ class MyDocument extends Document {
           <meta name='theme-color' content='#ffffff' />
           <link
             rel='preload'
-            href='/fonts/Montserrat-VF.woff2'
+            href='@fonts/Montserrat-VF.woff2'
             as='font'
             crossOrigin='anonymous'
             type='font/woff2'
